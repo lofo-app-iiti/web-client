@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+    font-family: 'Varela Round', sans-serif;
+    scroll-behavior: auto !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.dropdown-toggle::before {
+    content: none !important;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Varela Round', sans-serif;
+}
+.non-outlined-btn:focus{
+    outline: none !important;
+    box-shadow: none !important;
+}
+/* .main-img{
+    height: 500px;
+    width: 500px;
+}
+.product-img{
+    height: 500px;
+    width: inherit;
+}
+
+@media only screen and (max-width: 400px) {
+    .product-img{
+        height: 200px;
+    }
+    
+} */
