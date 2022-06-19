@@ -41,7 +41,7 @@ function Sell(props) {
                 setPosting(false)
                 toast.success(`Posted Ad for ${res.data.title}`);
                 history.push('/');
-                
+
                 const newUser = {
                     ...user,
                     ads: [res.data, ...user.ads]
@@ -69,13 +69,12 @@ function Sell(props) {
                         <div className="container-fluid ">
                             <main>
 
-                                <div className='container-fluid d-flex justify-content-between mb-4 ' style={{
+                                <div className='container-fluid d-flex justify-content-evenly mb-4 ' style={{
                                     height: '25vw', backgroundColor: '#fff',
-                                    backgroundImage: 'url("https://www.transparenttextures.com/patterns/always-grey.png")'
                                 }} >
-                                    <div className="d-flex flex-column" style={{ width: '65vw', padding: '20px 10px' }}>
-                                        <h1 className="" style={{ fontSize: '4vw', fontWeight: 'bold' }} >Want to share your belongings? </h1>
-                                        <p style={{ fontSize: '2vw' }} >Post an AD now.</p>
+                                    <div className="d-flex flex-column justify-content-center" style={{ width: '65vw', padding: '20px 10px' }}>
+                                        <h1 className="" style={{ fontSize: '3vw', fontWeight: 'bold' }} >Want to sell your Spares? </h1>
+                                        <p style={{ fontSize: '1.5vw' }} >If you want to sell or giveaway something, you can add a post.</p>
                                     </div>
                                     <img src="/sell.jpg" alt="" style={{ height: 'inherit' }} />
                                 </div>

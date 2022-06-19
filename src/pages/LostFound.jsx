@@ -178,31 +178,31 @@ function LostFound(props) {
                 }} ><h2 className="text-center">Posting...</h2></div> :
                     <div className="my-4 container-lg">
                         <div className="d-flex justify-content-between" >
-                        <h4 className='text-center' >Something Lost or Found?</h4>
-                        <Form onSubmit={(e) => {
-                            e.preventDefault()
-                        }} >
-                            <InputGroup>
-                                <Form.Control placeholder='Search' className='non-outlined-btn' onChange={(e) => setSearch(e.target.value)} value={search} style={{
-                                    border: '1px solid #ced4da',
-                                    borderRight: 'none'
-                                }} />
-                                <Button onClick={() => setSearch('')} variant='transparent' className='text-secondary'
-                                    style={{
+                            <h4 className='text-center' >Something Lost or Found?</h4>
+                            <Form onSubmit={(e) => {
+                                e.preventDefault()
+                            }} >
+                                <InputGroup>
+                                    <Form.Control placeholder='Search' className='non-outlined-btn' onChange={(e) => setSearch(e.target.value)} value={search} style={{
                                         border: '1px solid #ced4da',
-                                        borderLeft: 'none'
-                                    }}
-                                ><FontAwesomeIcon icon={faTimes}
-                                    style={{
-                                        opacity: search === '' ? '0' : '1'
-                                    }}
-                                    /></Button>
-                                <Button type='submit' ><FontAwesomeIcon icon={faSearch} /></Button>
-                            </InputGroup>
+                                        borderRight: 'none'
+                                    }} />
+                                    <Button onClick={() => setSearch('')} variant='transparent' className='text-secondary'
+                                        style={{
+                                            border: '1px solid #ced4da',
+                                            borderLeft: 'none'
+                                        }}
+                                    ><FontAwesomeIcon icon={faTimes}
+                                        style={{
+                                            opacity: search === '' ? '0' : '1'
+                                        }}
+                                        /></Button>
+                                    <Button type='submit' ><FontAwesomeIcon icon={faSearch} /></Button>
+                                </InputGroup>
 
-                        </Form>
+                            </Form>
                         </div>
-                      
+
                         <Tabs
                             defaultActiveKey="lost"
                             transition={false}
@@ -235,7 +235,7 @@ function LostFound(props) {
 
                                                 <div className="col-12  d-flex justify-content-center flex-column bd-highlight mb-3">
 
-                                                    <label htmlFor='status' className="form-label">I _____ this <span className='text-danger fw-bold'>*</span></label>
+                                                    <label htmlFor='status' className="form-label">I _____ it <span className='text-danger fw-bold'>*</span></label>
 
                                                     <select className="form-select" aria-label="Default select example" name="status" id="status" required>
                                                         <option value="">...</option>

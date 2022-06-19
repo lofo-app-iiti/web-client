@@ -17,11 +17,11 @@ function LogoutButton(props) {
 
     return (
         <Nav.Link
-        eventKey='18'>
+            eventKey='18'>
             <GoogleLogout
                 clientId={clientID}
                 render={renderProps => (
-                    <button className="dropdown-item text-danger" onClick={renderProps.onClick}  disabled={renderProps.disabled}><FontAwesomeIcon icon={faPowerOff}/>{' '} Logout</button>
+                    <button className="dropdown-item text-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faPowerOff} />{' '} Logout</button>
                 )}
                 buttonText="Logout"
                 onLogoutSuccess={Logout}

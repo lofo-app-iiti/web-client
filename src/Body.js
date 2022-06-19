@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Home from './pages/Home';
 import AboutUs from './pages/AboutUs'
 import Sell from './pages/Sell';
 import ContactUs from './pages/ContactUs'
@@ -30,14 +29,14 @@ function Body(props) {
         {
             (props.Auth) || (!props.Auth && !props.loading) ?
                 <Switch>
-                    <Route path='/' exact component={Home} />
+                    <Route path='/' exact component={LostFound} />
                     <Route path='/about' exact component={AboutUs} />
                     <Route path='/contact' exact component={ContactUs} />
                     <Route path='/buy/:category' exact component={Buy} />
                     <Route path='/search/:query' exact component={Search} />
                     <Route path='/product/:id' exact component={ProductPage} />
                     <Route path='/sell' exact component={Sell} />
-                    <Route path='/lost-found' exact component={LostFound} />
+                    {/* <Route path='/lost-found' exact component={} /> */}
                     {props.Auth ?
                         restrictedRoutes.map(routes => routes)
                         : null
