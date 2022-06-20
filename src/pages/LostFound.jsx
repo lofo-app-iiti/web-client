@@ -200,8 +200,8 @@ function LostFound(props) {
                     justifyContent: 'center'
                 }} ><h2 className="text-center">Posting...</h2></div> :
                     <div className="my-4 container-fluid px-4">
-                        <div className="d-flex justify-content-between" >
-                            <h4 className='text-center' >Something Lost or Found?</h4>
+                        <div className="d-flex flex-column flex-md-row justify-content-between" >
+                            <h5 className='text-center' >Lost/Found Portal IIT Indore</h5>
 
                             <Form onSubmit={(e) => {
                                 e.preventDefault()

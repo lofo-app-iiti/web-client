@@ -38,7 +38,7 @@ function ItemList(props) {
                         </Card>
                     ))}
                 </div>
-            </div >
+            </div>
         );
     }
 }

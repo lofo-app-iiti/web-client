@@ -16,7 +16,7 @@ function NavbarComponent() {
 
 
     return (<>
-        <Navbar collapseOnSelect expand="lg" sticky='top' variant="light" className='py-1 px-0 px-md-3 bg-light' style={{
+        <Navbar collapseOnSelect expand="lg" sticky='top' variant="light" className='py-0 py-md-1 px-0 px-md-3 bg-light' style={{
             borderBottom: "1px solid #cccccc"
         }}>
             <Container fluid >
