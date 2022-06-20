@@ -1,0 +1,9 @@
+.category-btn{
+    font-size: 1.1rem;
+}
+@media screen and (max-width: 576px) {
+    
+    .category-btn{
+        font-size: 0.7rem;
+    }
+}

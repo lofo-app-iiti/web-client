@@ -123,44 +123,67 @@ function LostFound(props) {
             <>
                 {
                     loading ? <Spinner /> :
-                        <div className="container">
-                            {
+                        <div className="container-fluid" style={{ bgColor: "#555" }}>
+                            <div className="row mt-4">
+                                {
+                                    props.status.map((item) =>
+                                        <div className=" mb-4 col-12 col-md-6">
+                                            <div className='p-3 rounded' style={{ border: "1px solid #ccc" }}>
 
-                                props.status.map((item) =>
-                                    <div className="row my-2 gap-3 gap-md-0" key={item._id} >
-                                        <div className="col-12 col-md-3 px-5">
-                                            {
-                                                <img src={item.images ? item.images.url : `${item.status}.jpg`} alt="Item" style={{ height: '150px', width: '100%' }} />
-                                            }
-                                        </div>
-                                        <div className="col-12 col-md-9">
-                                            <h5>{item.title}</h5>
-                                            <p style={{
-                                                borderTop: '0.5px dotted #cccccc',
-                                                borderBottom: '0.5px dotted #cccccc',
-                                                padding: '10px 0',
-                                                fontSize: '16px'
-                                            }}  >{item.description}</p>
-                                            <p className='text-success' >{item.date.slice(0, 10)}</p>
-                                            <div className="row gap-3">
-                                                <div className="col-12 col-md-9">
-                                                    <div style={{ fontSize: '14px' }} >Added by: {item.userName}</div>
-                                                    <div style={{ fontSize: '14px' }}  >Email: {item.userEmail}</div>
+                                                <div className="d-flex flex-column flex-md-row" >
+                                                    <div className='l-f-img mb-3'>
+                                                        {
+                                                            <img src={item.images ? item.images.url : `${item.status}.jpg`} alt="Item" style={{ height: 'auto', width: '100%' }} />
+                                                        }
+                                                    </div>
+
+                                                    <div className="px-3 mb-3 container" >
+                                                        <div className="d-flex justify-content-between">
+
+                                                            <div className="h5 fw-bold">{item.title} </div>
+                                                            <div>
+                                                                {
+                                                                    item.userEmail === user.email ?
+                                                                        <Button size='sm' onClick={() => Delete(item._id, item.status)} variant='danger' className=''>
+                                                                            <FontAwesomeIcon icon={faTrash} className='me-1' />
+                                                                            Delete
+                                                                        </Button>
+                                                                        : item.claimed ?
+                                                                            <Button size='sm' disabled >
+                                                                                <FontAwesomeIcon icon={faCheckCircle} className='me-1' />
+                                                                                {item.status === 'lost' ? 'Found' : 'Claimed'}
+                                                                            </Button>
+                                                                            :
+                                                                            <Button onClick={() => handleClaim(item._id, item.status, item.title)} >
+                                                                                {item.status === 'lost' ? 'I found' : 'Claim'}
+                                                                            </Button>
+                                                                }
+                                                            </div>
+
+                                                        </div>
+
+                                                        <p style={{ fontSize: 13 }} >{item.date.slice(0, 10)}</p>
+                                                        <div className="row">
+                                                            <div className="col-12 col-md-9">
+                                                                <div style={{ fontSize: '13px' }} >Added by: {item.userName}</div>
+                                                                <div style={{ fontSize: '13px' }}  >Email: {item.userEmail}</div>
+                                                                <div style={{ fontSize: '13px' }}  >Phone: {item.mobile}</div>
+                                                            </div>
+
+                                                            <div className='col-12 col-md-2 text-center' >
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div className='col-12 col-md-2 text-center' >
-                                                    {
-                                                        item.userEmail === user.email ? <Button onClick={() => Delete(item._id, item.status)} variant='danger' className=''><FontAwesomeIcon icon={faTrash} className='me-1' /> Delete</Button>
-                                                            : item.claimed ? <Button disabled ><FontAwesomeIcon icon={faCheckCircle} className='me-1' /> {item.status === 'lost' ? 'Found' : 'Claimed'} </Button>
-                                                                : <Button onClick={() => handleClaim(item._id, item.status, item.title)} > {item.status === 'lost' ? 'I found' : 'Claim'} </Button>
-                                                    }
-                                                </div>
+                                                <div className='pt-2 px-2' style={{ fontSize: '15px', borderTop: "1px solid #ccc" }}> {item.description}</div>
                                             </div>
-                                            <hr />
                                         </div>
-                                    </div>
-                                )
-                            }
+                                    )
+                                }
+
+                            </div>
                         </div>
                 }
             </>
@@ -176,9 +199,10 @@ function LostFound(props) {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }} ><h2 className="text-center">Posting...</h2></div> :
-                    <div className="my-4 container-lg">
+                    <div className="my-4 container-fluid px-4">
                         <div className="d-flex justify-content-between" >
                             <h4 className='text-center' >Something Lost or Found?</h4>
+
                             <Form onSubmit={(e) => {
                                 e.preventDefault()
                             }} >
@@ -202,7 +226,7 @@ function LostFound(props) {
 
                             </Form>
                         </div>
-
+                        <br />
                         <Tabs
                             defaultActiveKey="lost"
                             transition={false}
@@ -217,6 +241,7 @@ function LostFound(props) {
                             </Tab>
                             <Tab eventKey="add" title="Add" >
                                 <div className="d-flex flex-wrap justify-content-center">
+                                    <br />
                                     <form className="needs-validation" id="itemForm" noValidate="" onSubmit={handleSubmit} >
                                         <div className="row g-4">
                                             <div className="col-12">
@@ -257,14 +282,15 @@ function LostFound(props) {
                                         </div>
 
                                         <hr className="my-4" />
-                                        <div className="d-flex flex-column bd-highlight mb-3 justify-content-evenly ">
-                                            <button className="w-100 btn btn-success btn-lg" type="submit">Post</button>
+                                        <div className="d-flex gap-3 bd-highlight mb-3 justify-content-evenly ">
+                                            <button className="w-100 btn btn-danger btn-sm" style={{ textDecoration: 'none', color: 'white' }} type="reset">Cancel</button>
+                                            <button className="w-100 btn btn-success btn-sm" type="submit">Post</button>
                                         </div>
-                                        <button className="w-100 btn btn-danger btn-lg" style={{ textDecoration: 'none', color: 'white' }} type="reset">Cancel</button>
                                     </form>
                                 </div>
                             </Tab>
                         </Tabs>
+                        <br />
                     </div>
             }
 

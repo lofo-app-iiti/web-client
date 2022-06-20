@@ -1,16 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Navbar.css'
 import { Link } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
-import { Container, Navbar, Form, Button, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
+import { Container, Navbar, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-function NavbarComponent(props) {
-    const [search, setSearch] = useState('')
-
+function NavbarComponent() {
     const textColor = {
         color: '#212529',
         textDecoration: 'none',
@@ -18,18 +14,9 @@ function NavbarComponent(props) {
         padding: '5px 10px'
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        props.history.push(`/search/${search}`);
-    };
-
-    const handleChange = (e) => {
-        setSearch(e.target.value)
-    };
 
     return (<>
-        <Navbar collapseOnSelect expand="lg" sticky='top' variant="light" className='py-1 px-3 bg-light' style={{
+        <Navbar collapseOnSelect expand="lg" sticky='top' variant="light" className='py-1 px-0 px-md-3 bg-light' style={{
             borderBottom: "1px solid #cccccc"
         }}>
             <Container fluid >
@@ -57,10 +44,7 @@ function NavbarComponent(props) {
 
 
                     <Nav className='ms-auto' >
-                        <Form className="d-flex search-bar m-auto" onSubmit={handleSubmit} >
-                            <Form.Control autoCapitalize="sentences" onChange={handleChange} className="form-control me-2" type="search" placeholder="Search buying items..." aria-label="Search" />
-                            <Nav.Link eventKey='17' as={Button} variant='transparent' className='' size='sm' type="submit"><FontAwesomeIcon icon={faSearch} /></Nav.Link>
-                        </Form><hr className='m-1 ' />
+
                         <ProfileButton />
                     </Nav>
                 </Navbar.Collapse>

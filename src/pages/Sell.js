@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './Combined.css';
+import './SellStyle.css';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-// import { Redirect } from 'react-router';
 import Spinner from '../components/Spinner';
 
 
@@ -56,8 +55,8 @@ function Sell(props) {
 
     }
     return (
-        loading ? <Spinner />
-            : <>
+        loading ? <Spinner /> :
+            <>
                 {
                     posting === true ? <div style={{
                         width: '100vw',
@@ -69,25 +68,23 @@ function Sell(props) {
                         <div className="container-fluid ">
                             <main>
 
-                                <div className='container-fluid d-flex justify-content-evenly mb-4 ' style={{
-                                    height: '25vw', backgroundColor: '#fff',
+                                <div className='container d-flex justify-content-evenly my-3 px-1 hero' style={{
+                                    backgroundColor: '#fff',
                                 }} >
-                                    <div className="d-flex flex-column justify-content-center" style={{ width: '65vw', padding: '20px 10px' }}>
-                                        <h1 className="" style={{ fontSize: '3vw', fontWeight: 'bold' }} >Want to sell your Spares? </h1>
-                                        <p style={{ fontSize: '1.5vw' }} >If you want to sell or giveaway something, you can add a post.</p>
+                                    <div className="d-flex flex-column justify-content-center">
+                                        <h1 className="fw-bold" >Want to sell your Spares? </h1>
+                                        <p className='m-0'>If you want to sell or giveaway something, you can add a post.</p>
                                     </div>
                                     <img src="/sell.jpg" alt="" style={{ height: 'inherit' }} />
                                 </div>
 
                                 <div className="container px-1 ">
-                                    <hr />
-                                    <h2 className=" text-center "><u>Product Details</u></h2><br />
 
                                     {/* FORM */}
                                     <div className="d-flex flex-wrap justify-content-center">
                                         <form className="needs-validation" id="itemForm" noValidate="" onSubmit={handleSubmit} >
                                             <div className="row g-4">
-                                                <div className="col-12">
+                                                <div className="col-12 col-md-8">
                                                     <label htmlFor="productTitle" className="form-label">Product Title<span className='text-danger fw-bold'>*</span></label>
                                                     <input autoCapitalize="sentences" required type="text" className="form-control custom-form" id="productTitle" placeholder="Enter the product title here" name="title" />
                                                     <div className="invalid-feedback">
@@ -95,7 +92,7 @@ function Sell(props) {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12">
+                                                <div className="col-12 col-md-8">
                                                     <label htmlFor="description" className="form-label">Product Description<span className='text-danger fw-bold'>*</span> </label>
                                                     <div className="input-group has-validation">
                                                         <textarea autoCapitalize="sentences" required className="form-control custom-form" id="description" placeholder="Enter Product Description" name="description" />
@@ -105,77 +102,78 @@ function Sell(props) {
                                                     </div>
                                                 </div>
 
-                                                <div className="d-flex justify-content-center flex-column bd-highlight mb-3">
-
-                                                    <div className="col-12 d-flex justify-content-center flex-column bd-highlight mb-3">
-                                                        <label className="form-label">Categories<span className='text-danger fw-bold'>*</span></label>
-                                                        <div className="row ms-3">
-                                                            <div className="me-3 form-check col-12 col-md-2">
-                                                                <input type="checkbox" className="form-check-input" id="Sports" name="Sports" />
-                                                                <label className="form-check-label" htmlFor="Sports">Sports</label>
-                                                            </div>
-                                                            <div className="me-3 form-check col-12 col-md-2">
-                                                                <input type="checkbox" className="form-check-input" id="Books" name="Books" />
-                                                                <label className="form-check-label" htmlFor="Books">Books</label>
-                                                            </div>
-                                                            <div className="me-3 form-check col-12 col-md-2">
-                                                                <input type="checkbox" className="form-check-input" id="Games" name="Games" />
-                                                                <label className="form-check-label" htmlFor="Games">Games</label>
-                                                            </div>
-                                                            <div className="me-3 form-check col-12 col-md-2">
-                                                                <input type="checkbox" className="form-check-input" id="Utilities" name="Utilities" />
-                                                                <label className="form-check-label" htmlFor="Utilities">Utilities</label>
-                                                            </div>
-                                                            <div className="me-3 form-check col-12 col-md-2">
-                                                                <input type="checkbox" className="form-check-input" id="Other" name="Other" />
-                                                                <label className="form-check-label" htmlFor="Other">Other</label>
-                                                            </div>
+                                                <div className="col-12 col-md-8 d-flex justify-content-center flex-column bd-highlight mb-3">
+                                                    <label className="form-label">Categories<span className='text-danger fw-bold'>*</span></label>
+                                                    <div className="row ms-3">
+                                                        <div className="me-3 form-check col-12 col-md-2">
+                                                            <input type="checkbox" className="form-check-input" id="Sports" name="Sports" />
+                                                            <label className="form-check-label" htmlFor="Sports">Sports</label>
                                                         </div>
+                                                        <div className="me-3 form-check col-12 col-md-2">
+                                                            <input type="checkbox" className="form-check-input" id="Books" name="Books" />
+                                                            <label className="form-check-label" htmlFor="Books">Books</label>
+                                                        </div>
+                                                        <div className="me-3 form-check col-12 col-md-2">
+                                                            <input type="checkbox" className="form-check-input" id="Games" name="Games" />
+                                                            <label className="form-check-label" htmlFor="Games">Games</label>
+                                                        </div>
+                                                        <div className="me-3 form-check col-12 col-md-2">
+                                                            <input type="checkbox" className="form-check-input" id="Utilities" name="Utilities" />
+                                                            <label className="form-check-label" htmlFor="Utilities">Utilities</label>
+                                                        </div>
+                                                        <div className="me-3 form-check col-12 col-md-2">
+                                                            <input type="checkbox" className="form-check-input" id="Other" name="Other" />
+                                                            <label className="form-check-label" htmlFor="Other">Other</label>
+                                                        </div>
+                                                    </div>
 
-
+                                                    <div className="d-flex justify-content-center bd-highlight mb-3">
                                                         <div className="invalid-feedback">
                                                             Please enter product category.
                                                         </div>
                                                     </div>
 
                                                     <div className="col-6 d-flex justify-content-center flex-column bd-highlight mb-4">
-                                                        <label htmlFor="price" className="form-label" required>Price</label>
-                                                        <input required min='0' type="number" className="form-control" id="price" placeholder="Set a Price" name="price" />
 
-                                                        <div className="invalid-feedback">
-                                                            Please enter product price.
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-12 col-md-6 d-flex justify-content-center flex-column bd-highlight mb-3">
+                                                            <label htmlFor="price" className="form-label" required>Price</label>
+                                                            <input required min='0' type="number" className="form-control" id="price" placeholder="Set a Price" name="price" />
+                                                            <br />
+                                                            <div className="invalid-feedback">
+                                                                Please enter product price.
+                                                            </div>
+                                                            <label htmlFor="image1" className="form-label">Upload Images<span className='text-danger fw-bold'>*</span>  <i className='text-danger' > (atleast first image required!)</i></label>
+                                                            <input required type="file" className="form-control" id="image1" placeholder="Required" name="file1" />
+                                                            <input type="file" className="form-control" id="image2" name="file2" />
+                                                            <input type="file" className="form-control" id="image3" name="file3" />
+                                                            <input type="file" className="form-control" id="image4" name="file4" />
+                                                            <div className="invalid-feedback">
+                                                                Please upload an image.
+                                                            </div>
+                                                        </div>
+                                                        <div className='d-none d-lg-block col-md-4'>
+                                                            <img className='mt-4' style={{ width: '100%' }} src='/selltag.png' alt='' />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-12 col-md-6 d-flex justify-content-center flex-column bd-highlight mb-3">
-                                                        <label htmlFor="image1" className="form-label">Upload Images<span className='text-danger fw-bold'>*</span>  <i className='text-danger' > (atleast first image required!)</i></label>
-                                                        <input required type="file" className="form-control" id="image1" placeholder="Required" name="file1" />
-                                                        <input type="file" className="form-control" id="image2" name="file2" />
-                                                        <input type="file" className="form-control" id="image3" name="file3" />
-                                                        <input type="file" className="form-control" id="image4" name="file4" />
-                                                        <div className="invalid-feedback">
-                                                            Please upload an image.
-                                                        </div>
+                                                    <hr className="my-4" />
+                                                    <div className="d-flex w-50 ms-auto gap-2 bd-highlight mb-3 justify-content-evenly ">
+                                                        <button className="w-100 btn btn-danger btn-md-sm" style={{ textDecoration: 'none', color: 'white' }} type="reset">Cancel</button>
+                                                        <button className="w-100 btn btn-success btn-md-sm" type="submit">Post</button>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <hr className="my-4" />
-                                            <div className="d-flex flex-column bd-highlight mb-3 justify-content-evenly ">
-                                                <button className="w-100 btn btn-success btn-lg" type="submit">Post Ad</button>
-                                            </div>
-                                            <button className="w-100 btn btn-danger btn-lg" style={{ textDecoration: 'none', color: 'white' }} type="reset">Cancel</button>
                                         </form>
 
 
-                                        <div style={{ width: '20%', overflow: 'hidden' }} className='d-none d-lg-block mt-3'>
-                                            <img style={{ width: '100%' }} src='/selltag.png' alt='' />
-                                        </div>
+
 
                                     </div>
                                 </div>
                             </main>
-                            <br />
                             <br />
                         </div>
                 }
