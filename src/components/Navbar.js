@@ -16,8 +16,9 @@ function NavbarComponent() {
 
 
     return (<>
-        <Navbar collapseOnSelect expand="lg" sticky='top' variant="light" className='py-0 py-md-1 px-0 px-md-3 bg-light' style={{
-            borderBottom: "1px solid #cccccc"
+        <Navbar collapseOnSelect expand="lg" sticky='top' className='py-0 py-md-1 px-0 px-md-3' style={{
+            borderBottom: "1px solid #cccccc",
+            backgroundColor: "white"
         }}>
             <Container fluid >
                 <Link to="/" className="navbar-brand logo" >LoFo</Link>
@@ -39,12 +40,11 @@ function NavbarComponent() {
 
                         </Dropdown><hr className='m-1 ' />
                         <Nav.Link eventKey='3' as={Link} style={textColor} to="/about">About Us</Nav.Link><hr className='m-1 ' />
-                        <Nav.Link eventKey='4' as={Link} style={textColor} to="/contact">Contact Us</Nav.Link><hr className='m-1 ' />
+                        <Nav.Link eventKey='4' as={Link} style={textColor} to="/contact">Contact Us</Nav.Link><br />
                     </Nav>
 
 
                     <Nav className='ms-auto' >
-
                         <ProfileButton />
                     </Nav>
                 </Navbar.Collapse>

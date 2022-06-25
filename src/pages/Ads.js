@@ -20,7 +20,7 @@ function Buy(props) {
         loading ? <Spinner /> :
             <>
                 <div className="results">
-                    <h2 className='text-center py-3'  >Your Ad</h2>
+                    <h2 className='text-center py-3'  >Your Ads</h2>
                 </div>
                 <div className='pb-5'>
                     <ItemList items={items} removeSold={false} />

@@ -51,14 +51,14 @@ function Deck(props) {
                                     </Card.Text>
                                     <Button variant="warning" as={Link} to={`/product/${item._id}`} type="button" id="customViewButton " ><FontAwesomeIcon icon={faCartPlus} /> View </Button>
                                     {
-                                        user ? user.ads.filter(item1 => item1._id === item._id ).length > 0 ? <DeleteBtn update={props.update} removeSold={props.removeSold} id={item._id} /> :
-                                            <WishBtn item={item} update={props.update}/> : null
+                                        user ? user.ads.filter(item1 => item1._id === item._id).length > 0 ? <DeleteBtn update={props.update} removeSold={props.removeSold} id={item._id} /> :
+                                            <WishBtn item={item} update={props.update} /> : null
                                     }
 
                                 </Card.Body>
                             </Card>
                         )}
-                    </Carousel> : <h4 className='text-center text-secondary mt-5' >Nothing on sale!</h4>
+                    </Carousel> : <h6 className='text-center text-secondary mt-5' >No similar items!</h6>
             }
 
         </>)

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
 
-function Favourites(props) {
+function WishList(props) {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = props;
@@ -21,7 +21,7 @@ function Favourites(props) {
         loading ? <Spinner /> :
             <>
                 <div className="results">
-                    <h2 className='text-center py-3' >Favourites</h2>
+                    <h2 className='text-center py-3' >WishList</h2>
                 </div>
                 <div className='pb-5'>
                     <ItemList items={items} removeSold={false} />
@@ -45,5 +45,5 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 };
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Favourites));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WishList));
 

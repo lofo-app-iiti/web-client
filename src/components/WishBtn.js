@@ -47,9 +47,9 @@ const WishBtn = (props) => {
 
         //Main Function
         if (Contains(props.item._id)) {
-            return <Button onClick={() => removeFavourite(props.item)} variant='transparent' className="non-outlined-btn text-success" ><FontAwesomeIcon size='lg' icon={faHeart} /></Button>
+            return <Button size='sm' onClick={() => removeFavourite(props.item)} variant='transparent' className="non-outlined-btn text-success" ><FontAwesomeIcon size='lg' icon={faHeart} /></Button>
         } else {
-            return <Button onClick={() => favourite(props.item)} variant='transparent' className="non-outlined-btn text-success" ><FontAwesomeIcon size='lg' icon={farHeart} /></Button>
+            return <Button size='sm' onClick={() => favourite(props.item)} variant='transparent' className="non-outlined-btn text-success" ><FontAwesomeIcon size='lg' icon={farHeart} /></Button>
         }
     } else {
         return null;

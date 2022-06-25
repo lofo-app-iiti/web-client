@@ -199,9 +199,9 @@ function LostFound(props) {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }} ><h2 className="text-center">Posting...</h2></div> :
-                    <div className="my-4 container-fluid px-4">
+                    <div className="my-4 container px-2 px-md-4">
                         <div className="d-flex flex-column flex-md-row justify-content-between" >
-                            <h5 className='text-center' >Lost/Found Portal IIT Indore</h5>
+                            <h3 className='text-center mb-2' >Lost/Found Portal IIT Indore</h3>
 
                             <Form onSubmit={(e) => {
                                 e.preventDefault()

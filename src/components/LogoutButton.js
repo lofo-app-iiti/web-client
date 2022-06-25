@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { GoogleLogout } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
-import { Nav } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import clientID from '../googleClient';
 
@@ -16,17 +16,19 @@ function LogoutButton(props) {
 
 
     return (
-        <Nav.Link
+        <span className='text-center'
             eventKey='18'>
             <GoogleLogout
                 clientId={clientID}
                 render={renderProps => (
-                    <button className="dropdown-item text-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faPowerOff} />{' '} Logout</button>
+                    <Button size='sm' className="btn-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                        <FontAwesomeIcon icon={faPowerOff} />{' '} Logout
+                    </Button>
                 )}
                 buttonText="Logout"
                 onLogoutSuccess={Logout}
             />
-        </Nav.Link>
+        </span>
     )
 };
 

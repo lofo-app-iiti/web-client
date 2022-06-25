@@ -125,38 +125,35 @@ function ProductPage(props) {
                             </div>
                         </div>
                         <div className="bg-light p-3 col-md-6 bordered" >
-                            <h3>{productDetails.title}</h3>
-                            <p className="mb-2 text-muted text-uppercase small">{productDetails.categories.map((cat, i) => <span key={i} className='me-3' >{cat}</span>)}</p>
-                            <p><span className="mr-1 text-success"><FontAwesomeIcon icon={faRupeeSign} /><strong> {productDetails.price}</strong></span></p>
-                            <hr />
-                            <p className="pt-1">{productDetails.description}</p>
-                            <hr />
+                            <div className="d-flex justify-content-between">
+                                <h5 className='fw-bold'>{productDetails.title}</h5>
+                                <p className="mb-2 text-muted text-uppercase small">
+                                    {productDetails.categories.map((cat, i) => <span key={i} className='me-3' >{cat}</span>)}
+                                </p>
+                            </div>
+                            <div className="my-1">
+                                {productDetails.description}
+                            </div>
+                            <div className="my-1 fw-bold">
+                                &#8377; {productDetails.price}
+                            </div>
                             <div className="table-responsive">
-                                <table className="table table-sm table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <th className="pl-0 w-25" scope="row"><strong>Seller:</strong></th>
-                                            <td>{productDetails.userName}</td>
-                                        </tr>
-                                        <tr>
-                                            <th className="pl-0 w-25" scope="row"><strong>Email:</strong></th>
-                                            <td><a href={`mailto:${productDetails.userEmail}`}>{productDetails.userEmail}</a></td>
-                                        </tr>
-                                        {/* <tr>
-                                            <th className="pl-0 w-25" scope="row"><strong>Room No:</strong></th>
-                                            <td>512</td>
-                                        </tr> */}
-                                        <tr>
-                                            <th className="pl-0 w-25" scope="row"><strong>Date:</strong></th>
-                                            <td><div> {
-                                                date.toString().split(' ')[0] + ', ' +
-                                                date.toString().split(' ')[2] + ' ' +
-                                                date.toString().split(' ')[1] + ' ' +
-                                                date.toString().split(' ')[3]
-                                            } </div></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div className='my-1'>
+                                    Seller: {productDetails.userName}
+                                </div>
+                                <div className='my-1'>
+                                    Email: {productDetails.userEmail}
+                                </div>
+                                <div className='my-1'>
+                                    Date:
+                                    <span> {
+                                        date.toString().split(' ')[0] + ', ' +
+                                        date.toString().split(' ')[2] + ' ' +
+                                        date.toString().split(' ')[1] + ' ' +
+                                        date.toString().split(' ')[3]
+                                    } </span>
+                                </div>
+
                             </div>
                             <hr />{
                                 props.auth ? user.ads.filter(item1 => { return item1._id === productDetails._id }).length > 0 ? <DeleteBtn toHome={true} id={id} /> :
@@ -179,8 +176,10 @@ function ProductPage(props) {
 
                         </div>
                     </div>
-                    <div className="h3 px-5">Similar Items</div>
-                    <Deck items={similarItems} removeSold={true} removeFav={false} />
+                    <div className="container">
+                        <h3 className="">Similar Items</h3>
+                        <Deck items={similarItems} removeSold={true} removeFav={false} />
+                    </div>
                 </section>
 
             </>

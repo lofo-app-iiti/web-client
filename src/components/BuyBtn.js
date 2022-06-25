@@ -39,7 +39,7 @@ function BuyBtn(props) {
         }
     };
     return (
-        <Button onClick={handleBuy} type="button" className="btn-warning non-outlined-btn btn-md mr-1 mb-2">Buy now</Button>
+        <Button onClick={handleBuy} size='sm' type="button" className="btn-warning non-outlined-btn btn-md mr-1 mb-2">Buy now</Button>
     )
 }
 

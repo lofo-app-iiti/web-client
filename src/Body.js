@@ -9,7 +9,7 @@ import Buy from './pages/Buy';
 import NOT_FOUND from './pages/Not_Found';
 import { Route, Switch } from 'react-router-dom';
 import Search from './pages/Search';
-import Favourites from './pages/Favourites';
+import Favourites from './pages/WishList';
 import Ads from './pages/Ads';
 import Notifications from './pages/Notifications';
 import Orders from './pages/Orders';
@@ -21,7 +21,7 @@ function Body(props) {
     const restrictedRoutes = [
         <Route key={0} path='/notifications' exact component={Notifications} />,
         <Route key={1} path='/profile' exact component={Profile} />,
-        <Route key={2} path='/favourites' exact component={Favourites} />,
+        <Route key={2} path='/wishlist' exact component={Favourites} />,
         <Route key={3} path='/your-ads' exact component={Ads} />,
         <Route key={4} path='/orders' exact component={Orders} />
     ]

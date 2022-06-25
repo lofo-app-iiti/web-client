@@ -29,21 +29,7 @@ function ItemCard(props) {
                 }
             </Card.Footer>
         </Card>
-        {/* <div className='card-wrapper' style={{
-            width: 320
-        }}>
-            <div className="d-flex">
-                <div className="left">
-                    <h6>{item.title}</h6>
-                    <p>   &#8377; {item.price}</p>
-                </div>
-                <div className="right">
-                    <Link to={`/product/${item._id}`}>
-                        <Card.Img src={item.images[0].url} alt="item-img" style={{ cursor: "pointer", width: 150 }} />
-                    </Link>
-                </div>
-            </div>
-        </div> */}
+
     </>
 
     )

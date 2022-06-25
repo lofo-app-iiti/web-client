@@ -151,10 +151,10 @@ function Buy(props) {
 
                                 <div className="row">
 
-                                    <div className="col-12 pt-3 pb-4" style={{ height: '75vh', overflowY: 'scroll' }} >
+                                    <div className="col-12 py-3" style={{ height: '85vh', overflowY: 'scroll' }} >
                                         {
                                             loading ? <Spinner /> :
-                                                <div className="row">
+                                                <div className="row px-md-3">
                                                     {items.length === 0 ?
                                                         <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} ><EmptySvg />
                                                         </div>  <h3 className='text-center' >No Items!</h3></> :
