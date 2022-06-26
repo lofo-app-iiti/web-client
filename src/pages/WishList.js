@@ -21,7 +21,7 @@ function WishList(props) {
         loading ? <Spinner /> :
             <>
                 <div className="results">
-                    <h2 className='text-center py-3' >WishList</h2>
+                    <h2 className='text-center py-3' >Wishlist</h2>
                 </div>
                 <div className='pb-5'>
                     <ItemList items={items} removeSold={false} />

@@ -38,11 +38,11 @@ function LoginButton(props) {
         console.log(res);
     }
     return (
-        <div className='m-auto' >
+        <div className='m-auto mb-3 mb-md-0' >
             <GoogleLogin
                 id="navLoginButton"
                 clientId={clientID}
-                buttonText="Login"
+                buttonText="Login with Institute Id"
                 hostedDomain={"iiti.ac.in"}
                 onSuccess={LoginSuccess}
                 isSignedIn={true}

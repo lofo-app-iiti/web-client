@@ -145,7 +145,7 @@ function EditProfile(props) {
                                     {/* images of orders */}
                                     {
                                         props.loading ? <div>Loading...</div> : props.user.favourites.length > 0 ? props.user.favourites.map(f =>
-                                            <img key={f.images[0].url} alt='' src={f.images[0].url}
+                                            <img key={f.images[0].url} className='pe-1' alt='' src={f.images[0].url}
                                                 width={80}
                                             />
                                         ) :
@@ -171,7 +171,7 @@ function EditProfile(props) {
                                     {/* images of orders */}
                                     {
                                         loadin ? <div>Loading...</div> : orders.length > 0 ? orders.map(f =>
-                                            <img key={f.images[0].url} alt='' src={f.images[0].url}
+                                            <img key={f.images[0].url} className='pe-1' alt='' src={f.images[0].url}
                                                 width={80}
                                             />
                                         ) :
@@ -197,7 +197,7 @@ function EditProfile(props) {
                                     {/* images of orders */}
                                     {
                                         props.loading ? <div>Loading...</div> : props.user.ads.length > 0 ? props.user.ads.map(f =>
-                                            <img key={f.images[0].url} alt='' src={f.images[0].url}
+                                            <img key={f.images[0].url} className='pe-1' alt='' src={f.images[0].url}
                                                 width={80}
                                             />
                                         ) :

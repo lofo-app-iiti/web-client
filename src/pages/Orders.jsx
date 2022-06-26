@@ -35,7 +35,7 @@ function Orders(props) {
                             {
                                 err ? null :
                                     <>  <div className="results">
-                                        <h2 className='text-center py-3' >Your Orders</h2>
+                                        <h2 className='text-center py-3' >Orders</h2>
                                     </div>
                                         <div className='pb-5'>
                                             <ItemList items={orders} removeSold={false} />

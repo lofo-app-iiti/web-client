@@ -154,7 +154,7 @@ function LostFound(props) {
                                                                                 {item.status === 'lost' ? 'Found' : 'Claimed'}
                                                                             </Button>
                                                                             :
-                                                                            <Button onClick={() => handleClaim(item._id, item.status, item.title)} >
+                                                                            <Button size='sm' onClick={() => handleClaim(item._id, item.status, item.title)} >
                                                                                 {item.status === 'lost' ? 'I found' : 'Claim'}
                                                                             </Button>
                                                                 }
@@ -201,7 +201,7 @@ function LostFound(props) {
                 }} ><h2 className="text-center">Posting...</h2></div> :
                     <div className="my-4 container px-2 px-md-4">
                         <div className="d-flex flex-column flex-md-row justify-content-between" >
-                            <h3 className='text-center mb-2' >Lost/Found Portal IIT Indore</h3>
+                            <h3 className='text-center mb-2' >Lost/Found Portal - IIT Indore</h3>
 
                             <Form onSubmit={(e) => {
                                 e.preventDefault()

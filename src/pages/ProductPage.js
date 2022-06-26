@@ -161,12 +161,12 @@ function ProductPage(props) {
                                         {
                                             orderStatus !== null ?
                                                 orderStatus.success ?
-                                                    <Button className="btn-success non-outlined-btn btn-md mr-1 mb-2" disabled  >Approved</Button>
+                                                    <Button size='sm' className="btn-success non-outlined-btn btn-md mr-1 mb-2" disabled  >Approved</Button>
                                                     : productDetails.sold ?
-                                                        <Button className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
-                                                        : <Button className="btn-warning non-outlined-btn btn-md mr-1 mb-2" disabled  >Notified</Button>
+                                                        <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
+                                                        : <Button size='sm' className="btn-warning non-outlined-btn btn-md mr-1 mb-2" disabled  >Notified</Button>
                                                 : productDetails.sold ?
-                                                    <Button className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
+                                                    <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
                                                     : <BuyBtn id={id} title={productDetails.title} />
 
                                         }
@@ -177,7 +177,7 @@ function ProductPage(props) {
                         </div>
                     </div>
                     <div className="container">
-                        <h3 className="">Similar Items</h3>
+                        <h3 className="mb-3">Similar Items</h3>
                         <Deck items={similarItems} removeSold={true} removeFav={false} />
                     </div>
                 </section>

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DeleteBtn from './DeleteBtn';
 import WishBtn from './WishBtn';
+import ItemCard from './ItemCard';
 
 function Deck(props) {
     const { user } = props
@@ -42,21 +43,7 @@ function Deck(props) {
 
                     >
                         {props.items.map((item) =>
-                            <Card style={{ width: '16rem', height: '320px', boxShadow: '0 2px 2px 0px rgba(0,0,0,0.5)', margin: '20px auto' }} key={item._id} >
-                                <Link to={`/product/${item._id}`}><Card.Img src={item.images[0].url} alt="item-img" style={{ cursor: "pointer", height: '150px' }} /></Link>
-                                <Card.Body>
-                                    <Card.Title >{item.title}</Card.Title>
-                                    <Card.Text>
-                                        &#8377;    {item.price}
-                                    </Card.Text>
-                                    <Button variant="warning" as={Link} to={`/product/${item._id}`} type="button" id="customViewButton " ><FontAwesomeIcon icon={faCartPlus} /> View </Button>
-                                    {
-                                        user ? user.ads.filter(item1 => item1._id === item._id).length > 0 ? <DeleteBtn update={props.update} removeSold={props.removeSold} id={item._id} /> :
-                                            <WishBtn item={item} update={props.update} /> : null
-                                    }
-
-                                </Card.Body>
-                            </Card>
+                            <ItemCard item={item} />
                         )}
                     </Carousel> : <h6 className='text-center text-secondary mt-5' >No similar items!</h6>
             }

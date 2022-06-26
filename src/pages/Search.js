@@ -39,7 +39,7 @@ function Search() {
         return (
             <>
                 <div className="results py-4">
-                    <h1 className='text-center' >Results for {query}: </h1>
+                    <h2 className='text-center' >Results for {query}: </h2>
                 </div>
                 <div>
                     <ItemList items={items} update={update} removeSold={true} />
