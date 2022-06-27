@@ -39,7 +39,7 @@ function ItemCard(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised
+        auth: state.authorised
     }
 }
 

@@ -54,12 +54,11 @@ function LoginButton(props) {
 
     const LoginFail = (res) => {
         console.log(res);
-        toast.error("Login failed: ", res.data)
+        toast.error("Login failed")
     }
     return (
         <div className='m-auto mb-3 mb-md-0' >
             <GoogleLogin
-
                 id="navLoginButton"
                 clientId={clientID}
                 buttonText={"Login"}
@@ -67,7 +66,6 @@ function LoginButton(props) {
                 onSuccess={LoginSuccess}
                 isSignedIn={true}
                 onFailure={LoginFail}
-                onRequest={() => props.loading(true)}
                 cookiePolicy={'single_host_origin'}
             />
         </div>
@@ -76,7 +74,7 @@ function LoginButton(props) {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.Authorised,
+        auth: state.authorised,
         loading: state.loading,
     }
 };

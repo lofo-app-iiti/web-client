@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import WishBtn from '../components/WishBtn';
 import { connect } from 'react-redux';
 import NOT_FOUND from './Not_Found';
@@ -13,6 +12,7 @@ import DeleteBtn from '../components/DeleteBtn';
 import Deck from '../components/Deck';
 import { toast } from 'react-toastify';
 import { Button } from 'react-bootstrap';
+import { fetchItemById } from '../apis';
 
 //MAIN FUNCTION
 function ProductPage(props) {
@@ -36,7 +36,7 @@ function ProductPage(props) {
     }, [id, user.orders])
 
     useEffect(() => {
-        axios.get('/api/items/' + id)
+        fetchItemById(id)
             .then(res => {
                 setProductDetails(res.data)
                 setLoading(false)
@@ -55,6 +55,8 @@ function ProductPage(props) {
             })
     }, [id])
 
+    console.log(productDetails)
+
     useEffect(() => {
         if (!productDetails.title) return
         setSimilarItems(props.items.filter(i => i.categories.includes(productDetails.categories[0])))
@@ -64,109 +66,97 @@ function ProductPage(props) {
         return (
             <Spinner />
         )
-    } else if (err === true) {
+    }
+    else if (err) return <h2 className='text-center mt-5 text-secondary'>There is an error while loading product details.</h2>
+    else {
         return (
-            <NOT_FOUND />
-        )
-    } else {
-        return (
-            <>
-                <section className=" py-3 container-fluid">
-                    <div className="my-3 row ">
-                        <div className="col-md-6 mb-4 mb-md-0">
-                            <div id="mdb-lightbox-ui" />
-                            <div className="mdb-lightbox">
-                                <div className="row product-gallery mx-1">
-                                    <div className="col-1 d-flex m-auto" onClick={() => setNum(prevNum => prevNum > 0 ? prevNum - 1 : prevNum)} >
-                                        <FontAwesomeIcon size='lg' icon={faAngleLeft} />
-                                    </div>
-
-                                    <div className="col-10 mb-0">
-                                        <figure className="text-center view overlay rounded z-depth-1 main-img">
-                                            <a href={images[num].url} data-size="710x823"  >
-                                                <img alt='' src={images[num].url} className="img-fluid z-depth-1" />
-                                            </a>
-                                        </figure>
-                                    </div>
-                                    <div className="col-1 d-flex m-auto" onClick={() => setNum(prevNum => prevNum < images.length - 1 ? prevNum + 1 : prevNum)} >
-                                        <FontAwesomeIcon size='lg' icon={faAngleRight} />
-                                    </div>
-                                    <div className="col-12 text-center">{num + 1} / {images.length}</div>
-                                    {/* <div className="col-12">
-                                        <div className="row p-3">
-                                            {
-                                                images.length>0 ? handleImages().map((img, i) =>
-                                                    <div onClick={() => setNum(i)} key={i} className="col-3" style={{
-                                                        cursor: 'pointer',
-                                                        border: '0.5px solid #bbbbbb',
-                                                    }}>
-                                                        <img alt='' src={img} className='img-fluid' />
-                                                    </div>
-                                                ) : null
-                                            }
+            <> {
+                !productDetails.title ? <NOT_FOUND /> :
+                    <section className=" py-3 container-fluid">
+                        <div className="my-3 row ">
+                            <div className="col-md-6 mb-4 mb-md-0">
+                                <div id="mdb-lightbox-ui" />
+                                <div className="mdb-lightbox">
+                                    <div className="row product-gallery mx-1">
+                                        <div className="col-1 d-flex m-auto" onClick={() => setNum(prevNum => prevNum > 0 ? prevNum - 1 : prevNum)} >
+                                            <FontAwesomeIcon size='lg' icon={faAngleLeft} />
                                         </div>
-                                    </div> */}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-light p-3 col-md-6 bordered" >
-                            <div className="d-flex justify-content-between">
-                                <h5 className='fw-bold'>{productDetails.title}</h5>
-                                <p className="mb-2 text-muted text-uppercase small">
-                                    {productDetails.categories.map((cat, i) => <span key={i} className='me-3' >{cat}</span>)}
-                                </p>
-                            </div>
-                            <div className="my-1">
-                                {productDetails.description}
-                            </div>
-                            <div className="my-1 fw-bold">
-                                &#8377; {productDetails.price}
-                            </div>
-                            <div className="table-responsive">
-                                <div className='my-1'>
-                                    Seller: {productDetails.userName}
-                                </div>
-                                <div className='my-1'>
-                                    Email: {productDetails.userEmail}
-                                </div>
-                                <div className='my-1'>
-                                    Date:
-                                    <span> {
-                                        date.toString().split(' ')[0] + ', ' +
-                                        date.toString().split(' ')[2] + ' ' +
-                                        date.toString().split(' ')[1] + ' ' +
-                                        date.toString().split(' ')[3]
-                                    } </span>
-                                </div>
 
+                                        <div className="col-10 mb-0">
+                                            <figure className="text-center view overlay rounded z-depth-1 main-img">
+                                                <a href={images[num].url} data-size="710x823"  >
+                                                    <img alt='' src={images[num].url} className="img-fluid z-depth-1" />
+                                                </a>
+                                            </figure>
+                                        </div>
+                                        <div className="col-1 d-flex m-auto" onClick={() => setNum(prevNum => prevNum < images.length - 1 ? prevNum + 1 : prevNum)} >
+                                            <FontAwesomeIcon size='lg' icon={faAngleRight} />
+                                        </div>
+                                        <div className="col-12 text-center">{num + 1} / {images.length}</div>
+
+                                    </div>
+                                </div>
                             </div>
-                            <hr />{
-                                props.auth ? user.ads.filter(item1 => { return item1._id === productDetails._id }).length > 0 ? <DeleteBtn toHome={true} id={id} /> :
-                                    <>
-                                        {
-                                            orderStatus !== null ?
-                                                orderStatus.success ?
-                                                    <Button size='sm' className="btn-success non-outlined-btn btn-md mr-1 mb-2" disabled  >Approved</Button>
+                            <div className="bg-light p-3 col-md-6 bordered" >
+                                <div className="d-flex justify-content-between">
+                                    <h5 className='fw-bold'>{productDetails.title}</h5>
+                                    <p className="mb-2 text-muted text-uppercase small">
+                                        {productDetails.categories.map((cat, i) => <span key={i} className='me-3' >{cat}</span>)}
+                                    </p>
+                                </div>
+                                <div className="my-1">
+                                    {productDetails.description}
+                                </div>
+                                <div className="my-1 fw-bold">
+                                    &#8377; {productDetails.price}
+                                </div>
+                                <div className="table-responsive">
+                                    <div className='my-1'>
+                                        Seller: {productDetails.userName}
+                                    </div>
+                                    <div className='my-1'>
+                                        Email: {productDetails.userEmail}
+                                    </div>
+                                    <div className='my-1'>
+                                        Date:
+                                        <span> {
+                                            date.toString().split(' ')[0] + ', ' +
+                                            date.toString().split(' ')[2] + ' ' +
+                                            date.toString().split(' ')[1] + ' ' +
+                                            date.toString().split(' ')[3]
+                                        } </span>
+                                    </div>
+
+                                </div>
+                                <hr />{
+                                    props.auth ? user.ads.filter(item1 => { return item1._id === productDetails._id }).length > 0 ? <DeleteBtn toHome={true} id={id} /> :
+                                        <>
+                                            {
+                                                orderStatus !== null ?
+                                                    orderStatus.success ?
+                                                        <Button size='sm' className="btn-success non-outlined-btn btn-md mr-1 mb-2" disabled  >Approved</Button>
+                                                        : productDetails.sold ?
+                                                            <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
+                                                            : <Button size='sm' className="btn-warning non-outlined-btn btn-md mr-1 mb-2" disabled  >Notified</Button>
                                                     : productDetails.sold ?
                                                         <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
-                                                        : <Button size='sm' className="btn-warning non-outlined-btn btn-md mr-1 mb-2" disabled  >Notified</Button>
-                                                : productDetails.sold ?
-                                                    <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
-                                                    : <BuyBtn id={id} title={productDetails.title} />
+                                                        : <BuyBtn id={id} title={productDetails.title} />
 
-                                        }
-                                        <span className='ms-2' > <WishBtn item={productDetails} />Add to Favourites </span>
-                                    </> : <BuyBtn />
-                            }
+                                            }
+                                            <span className='ms-2' > <WishBtn item={productDetails} />Add to Favourites </span>
+                                        </> : <BuyBtn />
+                                }
 
+                            </div>
                         </div>
-                    </div>
-                    <div className="container">
-                        <h3 className="mb-3">Similar Items</h3>
-                        <Deck items={similarItems} removeSold={true} removeFav={false} />
-                    </div>
-                    <br />
-                </section>
+                        <div className="container">
+                            <h3 className="mb-3">Similar Items</h3>
+                            <Deck items={similarItems} removeSold={true} removeFav={false} />
+                        </div>
+                        <br />
+                    </section>
+            }
+
 
             </>
         );
@@ -177,7 +167,7 @@ function ProductPage(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised,
+        auth: state.authorised,
         items: state.items
     }
 }

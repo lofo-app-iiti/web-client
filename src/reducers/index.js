@@ -28,7 +28,7 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload.user,
-                Authorised: true,
+                authorised: true,
                 loading: action.payload.loading,
                 accessToken: action.payload.accessToken
             };
@@ -37,7 +37,7 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 user: initialState.user,
-                Authorised: false,
+                authorised: false,
                 loading: false,
                 accessToken: null
             };
@@ -46,7 +46,7 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload,
-                Authorised: true,
+                authorised: true,
                 loading: false
             };
 
@@ -80,7 +80,7 @@ const Reducers = (state = initialState, action) => {
         case 'CREATE_ITEM':
             return {
                 ...state,
-                items: state.items.push(action.payload),
+                items: [...state.items, action.payload],
                 loading: action.payload.loading
             };
 

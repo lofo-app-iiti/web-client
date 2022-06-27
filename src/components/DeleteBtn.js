@@ -1,21 +1,25 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
-import { Button } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
+import { deleteItem } from '../apis';
 
 function DeleteBtn(props) {
     const { id, toHome } = props;
     const { user } = props;
+    const [load, setLoad] = useState(false)
     const Delete = () => {
-        axios.delete(`/api/items/${id}`)
+        setLoad(true)
+        deleteItem(id)
             .then(res => {
                 toast.success("Ad deleted successfully")
+                setLoad(false)
+                props.removeItem(id);
+
                 if (toHome) {
-                    props.history.push('/');
+                    props.history.push('/buy/All');
                 }
 
                 if (props.removeSold) {
@@ -30,21 +34,25 @@ function DeleteBtn(props) {
                 props.Update(newUser);
             })
             .catch(err => {
+                setLoad(false)
                 console.log(err.message);
                 toast.error("Couldn't delete Ad!")
             })
     };
     return (
-        <Button onClick={Delete} variant='light' className='text-danger' >
-            <FontAwesomeIcon icon={faTrash} />
-        </Button>
+        <span onClick={Delete} className='text-danger ms-3' role={'button'} >
+            {
+                load ? <i>deleting...</i> :
+                    <FontAwesomeIcon icon={faTrash} />
+            }
+        </span>
 
     )
 };
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        Auth: state.Authorised
+        auth: state.authorised
     }
 };
 
@@ -52,6 +60,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         Update: (user) => {
             dispatch({ type: 'UPDATE_USER', payload: user })
+        },
+        removeItem: (id) => {
+            dispatch({ type: 'DELETE_ITEM', payload: id })
         }
     }
 };

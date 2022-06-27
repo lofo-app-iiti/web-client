@@ -3,10 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './SellStyle.css';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
-
+import { createItem } from '../apis';
 
 
 function Sell(props) {
@@ -35,11 +34,14 @@ function Sell(props) {
         const newItem = new FormData(formData);
         newItem.append('userName', user.name);
 
-        axios.post('/api/items', newItem)
+        createItem(newItem)
             .then(res => {
                 setPosting(false)
+
+                props.addItem(res.data);
+
                 toast.success(`Posted Ad for ${res.data.title}`);
-                history.push('/');
+                history.push('/your-ads');
 
                 const newUser = {
                     ...user,
@@ -189,7 +191,7 @@ function Sell(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        authorised: state.Authorised,
+        authorised: state.authorised,
         loading: state.loading
     }
 };
@@ -197,6 +199,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         Update: (user) => {
             dispatch({ type: 'UPDATE_USER', payload: user })
+        },
+        addItem: (doc) => {
+            dispatch({ type: 'CREATE_ITEM', payload: doc })
         }
     }
 };

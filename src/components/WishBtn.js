@@ -60,7 +60,7 @@ const WishBtn = (props) => {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        Auth: state.Authorised
+        Auth: state.authorised
     }
 };
 

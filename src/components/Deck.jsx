@@ -1,17 +1,11 @@
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
-import { Button, Card } from 'react-bootstrap';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import DeleteBtn from './DeleteBtn';
-import WishBtn from './WishBtn';
 import ItemCard from './ItemCard';
 
 function Deck(props) {
-    const { user } = props
+
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -53,7 +47,7 @@ function Deck(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised
+        auth: state.authorised
     }
 }
 

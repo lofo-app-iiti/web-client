@@ -5,8 +5,10 @@ import Spinner from '../components/Spinner'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import { faCheckCircle, faSearch, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { createLofoItem } from '../apis'
+import LoFoCard from '../components/LoFoCard'
 
 function LostFound(props) {
 
@@ -76,7 +78,7 @@ function LostFound(props) {
         const formData = e.target
         const newItem = new FormData(formData)
 
-        axios.post('/api/lost-found', newItem)
+        createLofoItem(newItem)
             .then(res => {
                 toast.success(`Posted Ad for ${res.data.title}`);
                 const { status } = res.data
@@ -95,21 +97,6 @@ function LostFound(props) {
             })
     };
 
-    const Delete = (id, status) => {
-        axios.delete(`/api/lost-found/${id}`)
-            .then(res => {
-                if (status === 'lost') {
-                    setLost(prev => [...prev.filter(item => { return item._id !== id })])
-                } else {
-                    setFound(prev => [...prev.filter(item => { return item._id !== id })])
-                }
-                toast.success(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-                toast.error("Couldn't delete Ad");
-            })
-    }
 
     function Data(props) {
         return (
@@ -119,59 +106,13 @@ function LostFound(props) {
                         <div className="container-fluid" style={{ bgColor: "#555" }}>
                             <div className="row mt-4">
                                 {
-                                    props.status.map((item) =>
-                                        <div className=" mb-4 col-12 col-md-6">
-                                            <div className='p-3 rounded' style={{ border: "1px solid #ccc" }}>
-
-                                                <div className="d-flex flex-column flex-md-row" >
-                                                    <div className='l-f-img mb-3'>
-                                                        {
-                                                            <img src={item.images ? item.images.url : `${item.status}.jpg`} alt="Item" style={{ height: 'auto', width: '100%' }} />
-                                                        }
-                                                    </div>
-
-                                                    <div className="px-3 mb-3 container" >
-                                                        <div className="d-flex justify-content-between">
-
-                                                            <div className="h5 fw-bold">{item.title} </div>
-                                                            <div>
-                                                                {
-                                                                    item.userEmail === user.email ?
-                                                                        <Button size='sm' onClick={() => Delete(item._id, item.status)} variant='danger' className=''>
-                                                                            <FontAwesomeIcon icon={faTrash} className='me-1' />
-                                                                            Delete
-                                                                        </Button>
-                                                                        : item.claimed ?
-                                                                            <Button size='sm' disabled >
-                                                                                <FontAwesomeIcon icon={faCheckCircle} className='me-1' />
-                                                                                {item.status === 'lost' ? 'Found' : 'Claimed'}
-                                                                            </Button>
-                                                                            :
-                                                                            <Button size='sm' onClick={() => handleClaim(item._id, item.status, item.title)} >
-                                                                                {item.status === 'lost' ? 'I found' : 'Claim'}
-                                                                            </Button>
-                                                                }
-                                                            </div>
-
-                                                        </div>
-
-                                                        <p style={{ fontSize: 13 }} >{item.date.slice(0, 10)}</p>
-                                                        <div className="row">
-                                                            <div className="col-12 col-md-9">
-                                                                <div style={{ fontSize: '13px' }} >Added by: {item.userName}</div>
-                                                                <div style={{ fontSize: '13px' }}  >Email: {item.userEmail}</div>
-                                                                <div style={{ fontSize: '13px' }}  >Phone: {item.mobile}</div>
-                                                            </div>
-
-                                                            <div className='col-12 col-md-2 text-center' >
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className='pt-2 px-2' style={{ fontSize: '15px', borderTop: "1px solid #ccc" }}> {item.description}</div>
-                                            </div>
+                                    props.status.map((item, i) =>
+                                        <div key={i} className=" mb-4 col-12 col-md-6">
+                                            <LoFoCard
+                                                handleClaim={handleClaim}
+                                                setFound={setFound}
+                                                setLost={setLost}
+                                                item={item} />
                                         </div>
                                     )
                                 }
@@ -293,7 +234,7 @@ function LostFound(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised,
+        auth: state.authorised,
         lofoItems: state.lofoItems
     }
 };

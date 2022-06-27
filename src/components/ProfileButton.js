@@ -1,9 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
-import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import BellOn from '../svgs/BellOn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -124,7 +123,7 @@ const mapStateToProps = (state) => {
         return false;
     }
     return {
-        Auth: state.Authorised,
+        Auth: state.authorised,
         user: state.user,
         notifications: flag()
     }

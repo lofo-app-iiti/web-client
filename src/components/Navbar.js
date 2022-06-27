@@ -5,7 +5,6 @@ import ProfileButton from './ProfileButton';
 import { Container, Navbar, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import SendMail from './SendMail';
 
 function NavbarComponent() {
     const textColor = {
@@ -44,7 +43,6 @@ function NavbarComponent() {
                         </Dropdown><hr className='m-1 ' />
                         <Nav.Link eventKey='3' as={Link} style={textColor} to="/about">About Us</Nav.Link><hr className='m-1 ' />
                         <Nav.Link eventKey='4' as={Link} style={textColor} to="/contact">Contact Us</Nav.Link><br />
-                        {/* <SendMail /> */}
                     </Nav>
 
 
@@ -63,7 +61,7 @@ function NavbarComponent() {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.Authorised,
+        auth: state.authorised,
         user: state.user
     }
 };

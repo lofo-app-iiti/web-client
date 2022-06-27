@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { GoogleLogout } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
-import { Button, Nav } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import clientID from '../googleClient';
 
@@ -16,8 +16,7 @@ function LogoutButton(props) {
 
 
     return (
-        <span className='text-center'
-            eventKey='18'>
+        <span className='text-center'>
             <GoogleLogout
                 clientId={clientID}
                 render={renderProps => (

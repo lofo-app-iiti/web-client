@@ -27,7 +27,7 @@ function Body(props) {
     ]
     return (<>
         {
-            (props.Auth) || (!props.Auth && !props.loading) ?
+            (props.auth) || (!props.auth && !props.loading) ?
                 <Switch>
                     <Route path='/' exact component={LostFound} />
                     <Route path='/about' exact component={AboutUs} />
@@ -37,7 +37,7 @@ function Body(props) {
                     <Route path='/product/:id' exact component={ProductPage} />
                     <Route path='/sell' exact component={Sell} />
                     {/* <Route path='/lost-found' exact component={} /> */}
-                    {props.Auth ?
+                    {props.auth ?
                         restrictedRoutes.map(routes => routes)
                         : null
                     }
@@ -51,7 +51,7 @@ function Body(props) {
 }
 const mapStateToProps = (state) => {
     return {
-        Auth: state.Authorised,
+        auth: state.authorised,
         loading: state.loading
     }
 };

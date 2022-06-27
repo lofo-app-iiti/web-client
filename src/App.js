@@ -89,13 +89,24 @@ function App(props) {
                 />
             </>
         );
-    else return <Home />
+    else return <>
+        <Home />
+        <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            draggable
+            pauseOnHover
+        />
+    </>
 }
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised,
+        auth: state.authorised,
         loading: state.loading,
         accessToken: state.accessToken
     }

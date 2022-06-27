@@ -107,7 +107,7 @@ function Notifications(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        authorised: state.Authorised,
+        authorised: state.authorised,
         loading: state.loading
     }
 };

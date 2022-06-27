@@ -3,8 +3,8 @@ import ItemList from '../components/ItemList';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { fetchOrders } from '../apis';
 
 function Orders(props) {
 
@@ -15,7 +15,7 @@ function Orders(props) {
 
     useEffect(() => {
         if (!props.loading) {
-            axios.get(`/api/user/orders`)
+            fetchOrders
                 .then(res => {
                     setOrders(res.data)
                     setLoading(false)
@@ -35,7 +35,7 @@ function Orders(props) {
         <>
             {
                 loading ? <Spinner /> :
-                    err ? null :
+                    err ? <div className='text-secondary text-center mt-5'>Nothing to show!</div> :
                         <>
                             {
                                 err ? null :
