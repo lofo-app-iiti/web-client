@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { fetchItems, fetchLofoItems } from './apis';
+import Home from './pages/Home';
 
 function App(props) {
     const { user, Update, auth, loading, accessToken, setItems, setLofoItems } = props;
@@ -67,27 +68,30 @@ function App(props) {
         ;
     }, [auth, setItems, setLofoItems])
 
-    return (
-        <>
-            <Navbar />
-            <div style={{ minHeight: '90vh' }}>
-                <Body />
-            </div>
-            <ScrollToTop />
-            <Footer />
-            <ToastContainer
-                position="bottom-right"
-                autoClose={3000}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                draggable
-                pauseOnHover
-            />
-        </>
-    );
+    if (props.auth)
+        return (
 
+            <>
+                <Navbar />
+                <div style={{ minHeight: '90vh' }}>
+                    <Body />
+                </div>
+                <ScrollToTop />
+                <Footer />
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={3000}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    draggable
+                    pauseOnHover
+                />
+            </>
+        );
+    else return <Home />
 }
+
 const mapStateToProps = (state) => {
     return {
         user: state.user,

@@ -192,7 +192,7 @@ function LostFound(props) {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }} ><h2 className="text-center">Posting...</h2></div> :
-                    <div className="my-4 container px-2 px-md-4">
+                    <div className="my-4 container px-3 px-md-4">
                         <div className="d-flex flex-column flex-md-row justify-content-between" >
                             <h3 className='text-center mb-2' >Lost/Found Portal - IIT Indore</h3>
 
@@ -275,8 +275,8 @@ function LostFound(props) {
                                         </div>
 
                                         <hr className="my-4" />
-                                        <div className="d-flex gap-3 bd-highlight mb-3 justify-content-evenly ">
-                                            <button className="w-100 btn btn-danger btn-sm" style={{ textDecoration: 'none', color: 'white' }} type="reset">Cancel</button>
+                                        <div className="d-flex gap-3 w-50 m-auto bd-highlight mb-3 justify-content-center ">
+                                            <button className="w-100 btn btn-danger btn-sm" type="reset">Reset</button>
                                             <button className="w-100 btn btn-success btn-sm" type="submit">Post</button>
                                         </div>
                                     </form>

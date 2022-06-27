@@ -137,7 +137,7 @@ function Sell(props) {
 
                                                     </div>
                                                     <div className="row">
-                                                        <div className="col-12 col-md-6 d-flex justify-content-center flex-column bd-highlight mb-3">
+                                                        <div className="col-12 col-md-6 d-flex justify-content-center flex-column bd-highlight">
                                                             <label htmlFor="price" className="form-label" required>Price</label>
                                                             <input required min='0' type="number" className="form-control" id="price" placeholder="Set a Price" name="price" />
                                                             <br />
@@ -159,10 +159,10 @@ function Sell(props) {
                                                     </div>
 
                                                     <hr className="my-4" />
-                                                    <div className="d-flex w-50 ms-auto gap-2 bd-highlight mb-3 justify-content-evenly ">
-                                                        <button className="w-100 btn btn-danger btn-md-sm" style={{ textDecoration: 'none', color: 'white' }} type="reset">Cancel</button>
-                                                        <button className="w-100 btn btn-success btn-md-sm" type="submit">Post</button>
-                                                    </div>
+                                                </div>
+                                                <div className="d-flex w-50 m-auto gap-3 bd-highlight mb-3 justify-content-center ">
+                                                    <button className="w-100 btn btn-danger btn-sm" type="reset">Reset</button>
+                                                    <button className="w-100 btn btn-success btn-sm" type="submit">Post</button>
                                                 </div>
                                             </div>
 

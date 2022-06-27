@@ -149,7 +149,7 @@ function EditProfile(props) {
                                                 width={80}
                                             />
                                         ) :
-                                            <div className="text-center p">Nothing!</div>
+                                            <div className="text-secondary text-center p">Nothing!</div>
                                     }
                                 </div>
                                 <div className="card-footer">
@@ -175,7 +175,7 @@ function EditProfile(props) {
                                                 width={80}
                                             />
                                         ) :
-                                            <div className="text-center p">Nothing!</div>
+                                            <div className="text-secondary text-center p">Nothing!</div>
                                     }
                                 </div>
                                 <div className="card-footer">
@@ -201,7 +201,7 @@ function EditProfile(props) {
                                                 width={80}
                                             />
                                         ) :
-                                            <div className="text-center p">Nothing!</div>
+                                            <div className="text-secondary text-center p">Nothing!</div>
                                     }
 
                                 </div>

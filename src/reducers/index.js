@@ -16,7 +16,7 @@ const initialState = {
     lofoItems: [],
     items: [],
     authorised: false,
-    loading: true,
+    loading: false,
     accessToken: null
 }
 

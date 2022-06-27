@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
@@ -6,6 +6,12 @@ import clientID from '../googleClient';
 import { toast } from 'react-toastify';
 
 function LoginButton(props) {
+
+    useEffect(() => {
+        if (props.auth)
+            props.loading(false)
+    }, [props])
+
 
     const LoginSuccess = (res) => {
         var basicProfile = res.profileObj;
@@ -55,17 +61,26 @@ function LoginButton(props) {
     return (
         <div className='m-auto mb-3 mb-md-0' >
             <GoogleLogin
+
                 id="navLoginButton"
                 clientId={clientID}
-                buttonText="Login with Institute Id"
+                buttonText={"Login"}
                 hostedDomain={"iiti.ac.in"}
                 onSuccess={LoginSuccess}
                 isSignedIn={true}
                 onFailure={LoginFail}
+                onRequest={() => props.loading(true)}
                 cookiePolicy={'single_host_origin'}
             />
         </div>
     )
+};
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.Authorised,
+        loading: state.loading,
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -79,6 +94,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(LoginButton);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginButton);
 
 
