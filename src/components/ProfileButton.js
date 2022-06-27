@@ -55,7 +55,7 @@ function ProfileButton(props) {
                 </Nav.Link>
                 {props.user.name ? <div className='mt-auto mx-3' style={{ color: '#010101', margin: 'auto 0' }} >  Hi! {props.user.name.slice(0, props.user.name.indexOf(' '))}</div> : null}
                 <div className="dropdown dropstart" >
-                    <button className="btn btn-transparent p-0 mb-2 dropdown-toggle" style={{ borderRadius: '100%' }} type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-transparent p-0 my-auto dropdown-toggle" style={{ borderRadius: '100%' }} type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src={props.user.imageUrl} alt="User icon" className="d-inline-block align-text-top" id="profile-image" />
                     </button>
                     <ul className="dropdown-menu position-absolute" aria-labelledby="dropdownMenuButton2">

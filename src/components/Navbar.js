@@ -21,8 +21,10 @@ function NavbarComponent() {
             borderBottom: "1px solid #cccccc",
             backgroundColor: "white"
         }}>
-            <Container fluid >
-                <Link to="/" className="navbar-brand logo" >LoFo</Link>
+            <Container fluid className='py-1' >
+                <Link to="/" className="navbar-brand logo d-flex" >
+                    <img src='LoFo2.png' alt='' className='my-auto' width={100} />
+                </Link>
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
                     <Nav className="ms-3">

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
-import axios from 'axios';
 import clientID from '../googleClient';
 import { toast } from 'react-toastify';
+import { googleLogin } from '../apis';
 
 function LoginButton(props) {
 
@@ -23,9 +23,7 @@ function LoginButton(props) {
             notifications: [],
             orders: []
         }
-        axios.post('/api/googlelogin', {
-            googleToken: res.tokenId
-        })
+        googleLogin(res.tokenId)
             .then(res => {
                 const {
                     _id,

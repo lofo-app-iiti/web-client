@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Orders(props) {
 
@@ -21,6 +22,8 @@ function Orders(props) {
                 })
                 .catch(e => {
                     setErr(true)
+                    setLoading(false)
+                    toast.error(e.data)
                     console.log(e)
                 })
         }
