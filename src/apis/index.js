@@ -19,4 +19,4 @@ export const createLofoItem = (doc) => axios.post(baseURL + "/api/lost-found", d
 export const deleteLofoItem = (id) => axios.delete(baseURL + "/api/lost-found/" + id);
 
 // orders
-export const fetchOrders = axios.get(`/api/user/orders`)
+// export const fetchOrders = axios.get(baseURL + `/api/user/orders`)

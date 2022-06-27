@@ -136,8 +136,8 @@ function Buy(props) {
                                                 {items.length === 0 ?
                                                     <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} ><EmptySvg />
                                                     </div>  <h3 className='text-center' >No Items!</h3></> :
-                                                    items.map(item => (
-                                                        <div className='col-6 col-md-4 col-lg-3 p-2'>
+                                                    items.map((item, i) => (
+                                                        <div key={i} className='col-6 col-md-4 col-lg-3 p-2'>
                                                             <ItemCard item={item} />
                                                         </div>
                                                     ))}

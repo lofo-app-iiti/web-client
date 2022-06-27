@@ -8,10 +8,10 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import LogoutButton from '../components/LogoutButton';
 import { Button } from 'react-bootstrap';
-import { fetchOrders } from '../apis';
 
 function EditProfile(props) {
     const { name, email, imageUrl, mobile } = props.user
+    const { user, items } = props
     const [mobileInput, setMobileInput] = useState('')
     const [visibility, setVisibility] = useState(false)
     const inputRef = useRef()
@@ -45,19 +45,19 @@ function EditProfile(props) {
     }
     useEffect(() => {
         if (!props.loading) {
-            fetchOrders
-                .then(res => {
-                    setOrders(res.data)
-                    setLoading(false)
-                })
-                .catch(e => {
-                    setLoading(false)
-                    console.log(e)
-                })
+            var arr = []
+            for (let index = 0; index < user.orders.length; index++) {
+                let element = user.orders[index];
+                if (items.filter(i => i._id === element._id).length > 0) {
+                    element = { ...element, ...items.filter(i => i._id === element._id)[0] }
+                    arr.push(element)
+                }
+            }
+            setOrders(arr);
+            setLoading(false)
         }
 
-    }, [props.user._id, props.loading, props.user.orders])
-    console.log(props.user.ads)
+    }, [items, user.orders, props.loading])
 
     return (
         <div className="container my-4">
@@ -233,7 +233,8 @@ function EditProfile(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        loading: state.loading
+        loading: state.loading,
+        items: state.items
     }
 };
 const mapDispatchToProps = (dispatch) => {

@@ -3,49 +3,43 @@ import ItemList from '../components/ItemList';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';
-import { toast } from 'react-toastify';
-import { fetchOrders } from '../apis';
 
 function Orders(props) {
 
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
-    const [err, setErr] = useState(false)
-    const { user } = props
+    const { user, items } = props
 
     useEffect(() => {
         if (!props.loading) {
-            fetchOrders
-                .then(res => {
-                    setOrders(res.data)
-                    setLoading(false)
-                })
-                .catch(e => {
-                    setErr(true)
-                    setLoading(false)
-                    toast.error(e.data)
-                    console.log(e)
-                })
+            var arr = []
+            for (let index = 0; index < user.orders.length; index++) {
+                let element = user.orders[index];
+                if (items.filter(i => i._id === element._id).length > 0) {
+                    element = { ...element, ...items.filter(i => i._id === element._id)[0] }
+                    arr.push(element)
+                }
+            }
+            setOrders(arr);
+            setLoading(false)
         }
 
-    }, [user._id, props.loading, user.orders])
+    }, [items, user.orders, props.loading])
+
+    console.log(orders)
 
     return (
         <>
             {
                 loading ? <Spinner /> :
-                    err ? <div className='text-secondary text-center mt-5'>Nothing to show!</div> :
+                    orders.length === 0 ? <div className='text-secondary text-center mt-5'>Nothing to show!</div> :
                         <>
-                            {
-                                err ? null :
-                                    <>  <div className="results">
-                                        <h2 className='text-center py-3' >Orders</h2>
-                                    </div>
-                                        <div className='pb-5'>
-                                            <ItemList items={orders} removeSold={false} />
-                                        </div>
-                                    </>
-                            }
+                            <div className="results">
+                                <h2 className='text-center py-3' >Orders</h2>
+                            </div>
+                            <div className='pb-5'>
+                                <ItemList items={orders} removeSold={false} />
+                            </div>
                         </>
             }
         </>
@@ -55,7 +49,8 @@ function Orders(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        loading: state.loading
+        loading: state.loading,
+        items: state.items
     }
 };
 

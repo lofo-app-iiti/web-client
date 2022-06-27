@@ -22,7 +22,7 @@ function NavbarComponent() {
         }}>
             <Container fluid className='py-1' >
                 <Link to="/" className="navbar-brand logo d-flex" >
-                    <img src='LoFo2.png' alt='' className='my-auto' width={100} />
+                    <img src='LoFo2.webp' alt='' className='my-auto' width={100} />
                 </Link>
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
