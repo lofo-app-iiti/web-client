@@ -14,34 +14,15 @@ class Home extends Component {
     state = {
         loading: true,
         error: false,
-        allItems: [
-            // {
-            // _id: '',
-            // title: '',
-            // price: '',
-            // date: ''
-
-            // }
-        ],
-        Sports: [
-
-        ],
-        Books: [
-
-        ],
-        Games: [
-
-        ],
-        Utilities: [
-
-        ],
-        Other: [
-
-        ]
+        allItems: [],
+        Sports: [],
+        Books: [],
+        Games: [],
+        Utilities: [],
+        Other: []
     }
 
     componentDidMount() {
-
         axios.get('/api/items')
             .then(res => {
                 this.setState({
@@ -85,7 +66,7 @@ class Home extends Component {
                     backgroundImage: 'url("https://www.transparenttextures.com/patterns/always-grey.png")'
                 }} >
                     <div className="d-flex flex-column" style={{ width: '75vw', padding: '20px 10px' }}>
-                        <h2  style={{ fontSize: '3vw', fontWeight: 'bold' }} >Every Purchase will be made with pleasure.</h2>
+                        <h2 style={{ fontSize: '3vw', fontWeight: 'bold' }} >Every Purchase will be made with pleasure.</h2>
                         <p style={{ fontSize: '2vw' }} >Login with Institute Id.</p>
                     </div>
                     <HomeSvg />

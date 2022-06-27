@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ItemList from '../components/ItemList';
-// import axios from 'axios';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner';

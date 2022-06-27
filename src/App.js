@@ -8,9 +8,10 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
+import { fetchItems, fetchLofoItems } from './apis';
 
 function App(props) {
-    const { user, Update, auth, loading, accessToken } = props;
+    const { user, Update, auth, loading, accessToken, setItems, setLofoItems } = props;
     const { notifications } = props.user
 
     if (accessToken) {
@@ -57,6 +58,15 @@ function App(props) {
         }
     }, [auth, user.email, addNotif]);
 
+    useEffect(() => {
+        if (!auth) return
+        fetchItems.then(res => setItems(res.data))
+            .catch(e => console.log(e));
+        fetchLofoItems.then(res => setLofoItems(res.data))
+            .catch(e => console.log(e));
+        ;
+    }, [auth, setItems, setLofoItems])
+
     return (
         <>
             <Navbar />
@@ -91,6 +101,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         Update: (user) => {
             dispatch({ type: 'UPDATE_USER', payload: user })
+        },
+        setItems: (items) => {
+            dispatch({ type: "SET_ITEMS", payload: items })
+        },
+        setLofoItems: (lofoItems) => {
+            dispatch({ type: "SET_LOFOITEMS", payload: lofoItems })
         }
     }
 };

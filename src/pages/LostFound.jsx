@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function LostFound(props) {
 
-    const { user, auth } = props;
+    const { user, auth, lofoItems } = props;
     const [posting, setPosting] = useState(false)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([]);
@@ -19,17 +19,10 @@ function LostFound(props) {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        axios.get('/api/lost-found/')
-            .then(res => {
-                setData(res.data)
-                setLoading(false)
-            })
-            .catch(e => {
-                setLoading(false)
-                console.log(e)
-                toast.error('Could not fetch items')
-            })
-    }, [])
+        if (lofoItems.length === 0) return
+        setData(lofoItems);
+        setLoading(false)
+    }, [lofoItems])
 
     useEffect(() => {
         setLost(
@@ -300,7 +293,8 @@ function LostFound(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised
+        auth: state.Authorised,
+        lofoItems: state.lofoItems
     }
 };
 

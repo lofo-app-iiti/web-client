@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ItemList from '../components/ItemList';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, withRouter } from 'react-router-dom';
 import NOT_FOUND from './Not_Found';
 import "./BuyStyle.css"
 import Spinner from '../components/Spinner';
@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBasketballBall, faBook, faGamepad, faSearch, faShoppingCart, faSplotch, faStore, faTimes } from '@fortawesome/free-solid-svg-icons';
 import ItemCard from '../components/ItemCard';
 import EmptySvg from '../svgs/EmptySvg';
+import { connect } from 'react-redux';
 
 function Buy(props) {
     const [search, setSearch] = useState('')
@@ -20,26 +21,34 @@ function Buy(props) {
 
     useEffect(() => {
         setLoading(true)
-        category === 'All' ? axios.get('/api/items')
-            .then(res => {
-                setItems(res.data)
-                setLoading(false)
-            })
-            .catch(err => {
-                setLoading(false)
-                setErr(true)
-            })
-            :
-            axios.get(`/api/items/filter?categories=${category}`)
-                .then(res => {
-                    setItems(res.data)
-                    setLoading(false)
-                })
-                .catch(err => {
-                    setLoading(false)
-                    setErr(true)
-                })
-    }, [category])
+        if (props.items.length === 0) return
+        setItems(props.items);
+        setLoading(false);
+        // category === 'All' ? axios.get('/api/items')
+        //     .then(res => {
+        //         setItems(res.data)
+        //         setLoading(false)
+        //     })
+        //     .catch(err => {
+        //         setLoading(false)
+        //         setErr(true)
+        //     })
+        //     :
+        //     axios.get(`/api/items/filter?categories=${category}`)
+        //         .then(res => {
+        //             setItems(res.data)
+        //             setLoading(false)
+        //         })
+        //         .catch(err => {
+        //             setLoading(false)
+        //             setErr(true)
+        //         })
+    }, [props.items])
+
+    useEffect(() => {
+        category === 'All' ? setItems(props.items) :
+            setItems(prevState => prevState.filter(i => i.categories.includes(category)));
+    }, [category, props.items])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -180,5 +189,12 @@ function Buy(props) {
     }
 
 }
-export default Buy;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        auth: state.Authorised,
+        items: state.items
+    }
+};
+export default withRouter(connect(mapStateToProps)(Buy));
 

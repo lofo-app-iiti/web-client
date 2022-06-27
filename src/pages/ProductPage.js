@@ -6,7 +6,7 @@ import WishBtn from '../components/WishBtn';
 import { connect } from 'react-redux';
 import NOT_FOUND from './Not_Found';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight, faRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../components/Spinner';
 import BuyBtn from '../components/BuyBtn';
 import DeleteBtn from '../components/DeleteBtn';
@@ -35,16 +35,6 @@ function ProductPage(props) {
         }
     }, [id, user.orders])
 
-    // function handleImages(){
-    //     const newArray = [ ...images, "/no-image.png", "/no-image.png", "/no-image.png", "/no-image.png"]
-    //     newArray.reverse()
-    //     for (let i = 0; i < images.length; i++) {
-    //         newArray.shift()
-    //     }
-    //     newArray.reverse()
-    //     return newArray
-    // }
-
     useEffect(() => {
         axios.get('/api/items/' + id)
             .then(res => {
@@ -66,14 +56,9 @@ function ProductPage(props) {
     }, [id])
 
     useEffect(() => {
-        axios.get(`/api/items/filter?categories=${productDetails.categories}`)
-            .then(res => {
-                setSimilarItems(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [productDetails.categories])
+        if (!productDetails.title) return
+        setSimilarItems(props.items.filter(i => i.categories.includes(productDetails.categories[0])))
+    }, [productDetails.categories, props.items, productDetails.title])
 
     if (loading) {
         return (
@@ -180,6 +165,7 @@ function ProductPage(props) {
                         <h3 className="mb-3">Similar Items</h3>
                         <Deck items={similarItems} removeSold={true} removeFav={false} />
                     </div>
+                    <br />
                 </section>
 
             </>
@@ -191,7 +177,8 @@ function ProductPage(props) {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.Authorised
+        auth: state.Authorised,
+        items: state.items
     }
 }
 

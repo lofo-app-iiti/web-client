@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import clientID from '../googleClient';
+import { toast } from 'react-toastify';
 
 function LoginButton(props) {
 
@@ -16,26 +17,40 @@ function LoginButton(props) {
             notifications: [],
             orders: []
         }
-        props.login({ user: user, loading: true })
         axios.post('/api/googlelogin', {
             googleToken: res.tokenId
         })
             .then(res => {
-                const { favourites, ads, _id, notifications, mobile, orders } = res.data.user;
+                const {
+                    _id,
+                    mobile,
+                    program,
+                    department,
+                    graduationYear,
+                    notifications,
+                    orders,
+                    ads,
+                    favourites,  //will be changed to wishlist
+                } = res.data.user;
+
                 const { accessToken } = res.data;
 
-                user.favourites = favourites;
-                user.ads = ads;
-                user.notifications = notifications;
                 user._id = _id;
                 user.mobile = mobile
+                user.program = program
+                user.department = department
+                user.graduationYear = graduationYear
+                user.notifications = notifications;
                 user.orders = orders
+                user.ads = ads;
+                user.favourites = favourites;
                 props.login({ user: user, loading: false, accessToken: accessToken });
             })
     };
 
     const LoginFail = (res) => {
         console.log(res);
+        toast.error("Login failed: ", res.data)
     }
     return (
         <div className='m-auto mb-3 mb-md-0' >
@@ -48,7 +63,6 @@ function LoginButton(props) {
                 isSignedIn={true}
                 onFailure={LoginFail}
                 cookiePolicy={'single_host_origin'}
-                onAutoLoadFinished={() => props.loading(false)}
             />
         </div>
     )
