@@ -51,6 +51,7 @@ function EditProfile(props) {
                     setLoading(false)
                 })
                 .catch(e => {
+                    setLoading(false)
                     console.log(e)
                 })
         }

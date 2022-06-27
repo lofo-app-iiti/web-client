@@ -30,7 +30,6 @@ function Orders(props) {
 
     }, [user._id, props.loading, user.orders])
 
-    console.log(orders);
     return (
         <>
             {
