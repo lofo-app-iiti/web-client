@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import LogoutButton from '../components/LogoutButton';
 import { Button } from 'react-bootstrap';
+import { fetchOrders } from '../apis';
 
 function EditProfile(props) {
     const { name, email, imageUrl, mobile } = props.user
@@ -44,7 +45,7 @@ function EditProfile(props) {
     }
     useEffect(() => {
         if (!props.loading) {
-            axios.get(`/api/user/orders`)
+            fetchOrders
                 .then(res => {
                     setOrders(res.data)
                     setLoading(false)
