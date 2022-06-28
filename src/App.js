@@ -6,14 +6,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from './components/ScrollToTop';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { fetchItems, fetchLofoItems } from './apis';
+import Spinner from './components/Spinner';
 import Home from './pages/Home';
+import { Route, Switch } from 'react-router';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 function App(props) {
-    const { user, Update, auth, loading, accessToken, setItems, setLofoItems } = props;
+    const { user, Update, auth, authLoading, accessToken, setItems, setLofoItems } = props;
     const { notifications } = props.user
+    const [pageLoading, setPageLoading] = useState(null)
 
     if (accessToken) {
         axios.interceptors.request.use(
@@ -31,6 +36,20 @@ function App(props) {
     const addNotif = useRef(null);
 
     useEffect(() => {
+        setPageLoading(authLoading);
+        if (!auth) {
+            return
+        }
+        setPageLoading(true)
+        fetchItems.then(res => setItems(res.data))
+            .catch(e => console.log(e));
+        fetchLofoItems.then(res => setLofoItems(res.data))
+            .catch(e => console.log(e));
+        setPageLoading(false)
+
+    }, [auth, authLoading, setItems, setLofoItems])
+
+    useEffect(() => {
         const ENDPOINT = 'https://iitisoc-4sale.herokuapp.com/';
         socket.current = io(ENDPOINT, { transports: ['websocket', 'polling'] });
     }, []);
@@ -46,7 +65,7 @@ function App(props) {
 
     useEffect(() => {
         notifs.current = notifications;
-    }, [loading, notifications])
+    }, [authLoading, notifications])
 
     useEffect(() => {
         if (auth) {
@@ -59,55 +78,41 @@ function App(props) {
         }
     }, [auth, user.email, addNotif]);
 
-    useEffect(() => {
-        if (!auth) return
-        fetchItems.then(res => setItems(res.data))
-            .catch(e => console.log(e));
-        fetchLofoItems.then(res => setLofoItems(res.data))
-            .catch(e => console.log(e));
-        ;
-    }, [auth, setItems, setLofoItems])
 
-    if (props.auth)
-        return (
+    return (
 
-            <>
-                <Navbar />
+        <>
+            <Navbar />
+            <Switch>
+                <Route path='/about' exact component={AboutUs} />
+                <Route path='/contact' exact component={ContactUs} />
                 <div style={{ minHeight: '90vh' }}>
-                    <Body />
+                    {
+                        pageLoading ? <Spinner /> : auth ? <Body /> : <Home />
+                    }
                 </div>
-                <ScrollToTop />
-                <Footer />
-                <ToastContainer
-                    position="bottom-right"
-                    autoClose={3000}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    draggable
-                    pauseOnHover
-                />
-            </>
-        );
-    else return <>
-        <Home />
-        <ToastContainer
-            position="bottom-right"
-            autoClose={3000}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            draggable
-            pauseOnHover
-        />
-    </>
+            </Switch>
+            <ScrollToTop />
+            <Footer />
+            <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                draggable
+                pauseOnHover
+            />
+        </>
+    );
+
 }
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
         auth: state.authorised,
-        loading: state.loading,
+        authLoading: state.authLoading,
         accessToken: state.accessToken
     }
 };

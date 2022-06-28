@@ -30,8 +30,6 @@ function Body(props) {
             (props.auth) || (!props.auth && !props.loading) ?
                 <Switch>
                     <Route path='/' exact component={LostFound} />
-                    <Route path='/about' exact component={AboutUs} />
-                    <Route path='/contact' exact component={ContactUs} />
                     <Route path='/buy/:category' exact component={Buy} />
                     <Route path='/search/:query' exact component={Search} />
                     <Route path='/product/:id' exact component={ProductPage} />

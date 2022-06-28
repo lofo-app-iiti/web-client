@@ -9,21 +9,19 @@ import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createLofoItem } from '../apis'
 import LoFoCard from '../components/LoFoCard'
+import Home from './Home'
 
 function LostFound(props) {
 
     const { user, auth, lofoItems } = props;
     const [posting, setPosting] = useState(false)
-    const [loading, setLoading] = useState(true)
     const [data, setData] = useState([]);
     const [lost, setLost] = useState([]);
     const [found, setFound] = useState([]);
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        if (lofoItems.length === 0) return
         setData(lofoItems);
-        setLoading(false)
     }, [lofoItems])
 
     useEffect(() => {
@@ -101,25 +99,23 @@ function LostFound(props) {
     function Data(props) {
         return (
             <>
-                {
-                    loading ? <Spinner /> :
-                        <div className="container-fluid" style={{ bgColor: "#555" }}>
-                            <div className="row mt-3">
-                                {
-                                    props.status.map((item, i) =>
-                                        <div key={i} className="col-12 col-md-6 p-0 py-2 p-md-2">
-                                            <LoFoCard
-                                                handleClaim={handleClaim}
-                                                setFound={setFound}
-                                                setLost={setLost}
-                                                item={item} />
-                                        </div>
-                                    )
-                                }
+                <div className="container-fluid" style={{ bgColor: "#555" }}>
+                    <div className="row mt-3">
+                        {
+                            props.status.map((item, i) =>
+                                <div key={i} className="col-12 col-md-6 p-0 py-2 p-md-2">
+                                    <LoFoCard
+                                        handleClaim={handleClaim}
+                                        setFound={setFound}
+                                        setLost={setLost}
+                                        item={item} />
+                                </div>
+                            )
+                        }
 
-                            </div>
-                        </div>
-                }
+                    </div>
+                </div>
+
             </>
         )
     }
@@ -228,7 +224,6 @@ function LostFound(props) {
                         <br />
                     </div>
             }
-
         </>
     )
 }
@@ -236,7 +231,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         auth: state.authorised,
-        lofoItems: state.lofoItems
+        lofoItems: state.lofoItems,
+        authLoading: state.authLoading
     }
 };
 

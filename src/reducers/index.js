@@ -17,6 +17,7 @@ const initialState = {
     items: [],
     authorised: false,
     loading: false,
+    authLoading: localStorage.getItem('authLoading') === 'true' ? true : false,
     accessToken: null
 }
 
@@ -25,20 +26,22 @@ const Reducers = (state = initialState, action) => {
 
         // user Reducer ----------------------------------------------->
         case 'SET_USER':
+            localStorage.setItem('authLoading', true)
             return {
                 ...state,
                 user: action.payload.user,
                 authorised: true,
-                loading: action.payload.loading,
+                authLoading: false,
                 accessToken: action.payload.accessToken
             };
 
         case 'CLEAR_USER':
+            localStorage.setItem('authLoading', false)
             return {
                 ...state,
                 user: initialState.user,
                 authorised: false,
-                loading: false,
+                authLoading: false,
                 accessToken: null
             };
 
@@ -46,14 +49,7 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload,
-                authorised: true,
-                loading: false
-            };
-
-        case 'SET_LOADING':
-            return {
-                ...state,
-                loading: action.payload
+                authorised: true
             };
 
         // item Reducer ------------------------------------------------------->
@@ -61,27 +57,23 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 items: action.payload,
-                loading: action.payload.loading,
             };
 
         case 'DELETE_ITEM':
             return {
                 ...state,
                 items: state.items.filter(i => i._id !== action.payload),
-                loading: action.payload.loading,
             };
 
         case 'UPDATE_ITEM':
             return {
                 ...state,
                 items: state.items[state.items.findIndex((o => o._id === action.payload._id))] = action.payload,
-                loading: action.payload.loading
             };
         case 'CREATE_ITEM':
             return {
                 ...state,
                 items: [...state.items, action.payload],
-                loading: action.payload.loading
             };
 
 
@@ -90,14 +82,12 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 lofoItems: action.payload,
-                loading: action.payload.loading,
             };
 
         case 'DELETE_LOFOITEM':
             return {
                 ...state,
                 lofoItems: state.lofoItems.filter(i => i._id !== action.payload),
-                loading: action.payload.loading,
             };
 
         case 'UPDATE_LOFOITEM':
@@ -105,13 +95,11 @@ const Reducers = (state = initialState, action) => {
                 ...state,
                 lofoItems: state.lofoItems[state.lofoItems.findIndex((o => o._id === action.payload._id))]
                     = action.payload,
-                loading: action.payload.loading
             };
         case 'CREATE_LOFOITEM':
             return {
                 ...state,
                 lofoItems: state.lofoItems.push(action.payload),
-                loading: action.payload.loading
             };
 
         default: return state;

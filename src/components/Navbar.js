@@ -5,8 +5,11 @@ import ProfileButton from './ProfileButton';
 import { Container, Navbar, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import LoginButton from './LoginButton';
 
-function NavbarComponent() {
+function NavbarComponent(props) {
+
+    const { auth } = props
     const textColor = {
         color: '#212529',
         textDecoration: 'none',
@@ -27,9 +30,10 @@ function NavbarComponent() {
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
                     <Nav className="ms-3">
-                        <Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link><hr className='m-1 ' />
+                        {auth && <><Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link>  <hr className='m-1 ' /></>}
+
                         <Dropdown id="collasible-nav-dropdown">
-                            <Dropdown.Toggle className='non-outlined-btn btn-warning w-100' >Buy</Dropdown.Toggle>
+                            {auth && <Dropdown.Toggle className='non-outlined-btn btn-warning w-100' >Buy</Dropdown.Toggle>}
                             <Dropdown.Menu >
                                 <Dropdown.Item eventKey='6' as={Link} to="/buy/All">All</Dropdown.Item>
                                 <Dropdown.Item eventKey='7' as={Link} to="/buy/Sports">Sports</Dropdown.Item>
@@ -47,7 +51,10 @@ function NavbarComponent() {
 
 
                     <Nav className='ms-auto' >
-                        <ProfileButton />
+                        {
+                            auth ? <ProfileButton /> : <LoginButton />
+                        }
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

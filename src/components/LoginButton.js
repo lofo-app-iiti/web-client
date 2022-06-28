@@ -7,13 +7,8 @@ import { googleLogin } from '../apis';
 
 function LoginButton(props) {
 
-    useEffect(() => {
-        if (props.auth)
-            props.loading(false)
-    }, [props])
-
-
     const LoginSuccess = (res) => {
+        console.log(res)
         var basicProfile = res.profileObj;
         let user = {
             ...basicProfile,
@@ -48,7 +43,7 @@ function LoginButton(props) {
                 user.orders = orders
                 user.ads = ads;
                 user.favourites = favourites;
-                props.login({ user: user, loading: false, accessToken: accessToken });
+                props.login({ user: user, accessToken: accessToken });
             })
     };
 
@@ -61,7 +56,7 @@ function LoginButton(props) {
             <GoogleLogin
                 id="navLoginButton"
                 clientId={clientID}
-                buttonText={"Login"}
+                buttonText={"Login with Institude Id (@iiti.ac.in)"}
                 hostedDomain={"iiti.ac.in"}
                 onSuccess={LoginSuccess}
                 isSignedIn={true}
@@ -74,8 +69,7 @@ function LoginButton(props) {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.authorised,
-        loading: state.loading,
+        auth: state.authorised
     }
 };
 
@@ -83,9 +77,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         login: (data) => {
             dispatch({ type: 'SET_USER', payload: data })
-        },
-        loading: (value) => {
-            dispatch({ type: 'SET_LOADING', payload: value })
         }
     }
 };
