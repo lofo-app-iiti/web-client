@@ -34,14 +34,14 @@ function LoFoCard(props) {
     return (
         <div className='p-3 rounded' style={{ border: "1px solid #ccc" }}>
 
-            <div className="d-flex flex-column flex-md-row" >
-                <div className='l-f-img mb-3'>
+            <div className="d-flex" >
+                <div className='mb-3'>
                     {
-                        <img src={item.images ? item.images.url : `${item.status}.jpg`} alt="Item" style={{ height: 'auto', width: '100%' }} />
+                        <img src={item.images ? item.images.url : `${item.status}.jpg`} alt="Item" className='l-f-img rounded' />
                     }
                 </div>
 
-                <div className="px-3 mb-3 container" >
+                <div className="ms-3 mb-3 w-75" >
                     <div className="d-flex justify-content-between">
 
                         <div className="h5 fw-bold">{item.title} </div>
@@ -71,12 +71,12 @@ function LoFoCard(props) {
 
                     </div>
 
-                    <p style={{ fontSize: 13 }} >{item.date.slice(0, 10)}</p>
+                    <div style={{ fontSize: 13 }} >{item.date.slice(0, 10)}</div>
                     <div className="row">
                         <div className="col-12 col-md-9">
-                            <div style={{ fontSize: '13px' }} >Added by: {item.userName}</div>
-                            <div style={{ fontSize: '13px' }}  >Email: {item.userEmail}</div>
-                            <div style={{ fontSize: '13px' }}  >Phone: {item.mobile}</div>
+                            <div style={{ fontSize: '13px' }} > {item.userName}</div>
+                            <div style={{ fontSize: '13px' }}  >{item.userEmail}</div>
+                            <div style={{ fontSize: '13px' }}  >{item.mobile}</div>
                         </div>
 
                         <div className='col-12 col-md-2 text-center' >
@@ -86,7 +86,7 @@ function LoFoCard(props) {
                 </div>
             </div>
 
-            <div className='pt-2 px-2' style={{ fontSize: '15px', borderTop: "1px solid #ccc" }}> {item.description}</div>
+            <div className='pt-2' style={{ fontSize: '15px' }}> {item.description}</div>
         </div>
     )
 }

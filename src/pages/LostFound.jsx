@@ -104,10 +104,10 @@ function LostFound(props) {
                 {
                     loading ? <Spinner /> :
                         <div className="container-fluid" style={{ bgColor: "#555" }}>
-                            <div className="row mt-4">
+                            <div className="row mt-3">
                                 {
                                     props.status.map((item, i) =>
-                                        <div key={i} className=" mb-4 col-12 col-md-6">
+                                        <div key={i} className="col-12 col-md-6 p-0 py-2 p-md-2">
                                             <LoFoCard
                                                 handleClaim={handleClaim}
                                                 setFound={setFound}
@@ -133,15 +133,15 @@ function LostFound(props) {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }} ><h2 className="text-center">Posting...</h2></div> :
-                    <div className="my-4 container px-3 px-md-4">
+                    <div className="my-3 container-lg px-3 px-md-4">
                         <div className="d-flex flex-column flex-md-row justify-content-between" >
-                            <h3 className='text-center mb-2' >Lost/Found Portal - IIT Indore</h3>
+                            <h3 className='text-center mb-3' >Lost/Found Portal - IIT Indore</h3>
 
-                            <Form onSubmit={(e) => {
+                            <Form className='mb-3' onSubmit={(e) => {
                                 e.preventDefault()
                             }} >
                                 <InputGroup>
-                                    <Form.Control placeholder='Search' className='non-outlined-btn' onChange={(e) => setSearch(e.target.value)} value={search} style={{
+                                    <Form.Control placeholder='Search...' className='non-outlined-btn' onChange={(e) => setSearch(e.target.value)} value={search} style={{
                                         border: '1px solid #ced4da',
                                         borderRight: 'none'
                                     }} />
@@ -160,12 +160,13 @@ function LostFound(props) {
 
                             </Form>
                         </div>
-                        <br />
+
                         <Tabs
+
                             defaultActiveKey="lost"
                             transition={false}
                             id="noanim-tab-example"
-                            className="mb-3"
+
                         >
                             <Tab eventKey="lost" title="Lost">
                                 <Data status={lost} />
