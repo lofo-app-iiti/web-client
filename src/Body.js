@@ -29,9 +29,9 @@ function Body(props) {
         {/* <Route path='/lost-found' exact component={} /> */}
         {props.auth ?
             restrictedRoutes.map(routes => routes)
-            : null
+            : <Route path={'*'} component={NOT_FOUND} />
         }
-        <Route path={'*'} component={NOT_FOUND} />
+
     </>
 
     )
