@@ -1,32 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import BellOn from '../svgs/BellOn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCertificate, faUser, faShoppingBag, faBell } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, Nav } from 'react-bootstrap';
+import { baseURL } from '../apis';
 
-function NotifButton(props) {
-    if (props.notifications) {
-        return (<>
-            <BellOn />
-        </>
-        )
-    } else {
-        return (
-            <>
-                <FontAwesomeIcon style={{ color: "#212529" }} icon={faBell} />
-            </>
-        )
-    }
-}
 function ProfileButton(props) {
 
+    // count of unread notifications.
+    const [notifCount, setCount] = useState(0);
+
+    useEffect(() => {
+
+        let c = 0;
+        for (let i = 0; i < props.user.notifications.length; i++) {
+            if (props.user.notifications[i].read === false) {
+                c++;
+            }
+        };
+
+        setCount(c);
+    }, [props.user.notifications])
+
+
     const handleBell = () => {
-        if (props.notifications) {
+        if (notifCount > 0) {
             let newNotifs = [];
             for (let i = 0; i < props.user.notifications.length; i++) {
                 let newNotif = {
@@ -39,18 +41,33 @@ function ProfileButton(props) {
                 ...props.user,
                 notifications: newNotifs
             }
-            props.Update(newUser);
-            axios.put(`/api/user/notifbell`)
+            axios.put(baseURL + `/api/user/notifbell`)
+                .then(res => {
+                    props.Update(newUser);
+                })
                 .catch(err => {
                     console.log(err.message);
                 })
+
         }
     }
     return (
         <>
             <div className="profile d-none d-md-flex justify-content-between ">
                 <Nav.Link as={Link} onClick={handleBell} eventKey='12' to="/notifications" className='m-auto mx-2' id="notification-bell" >
-                    <NotifButton notifications={props.notifications} user={props.user} />
+                    {notifCount > 0 ?
+                        <>
+                            <FontAwesomeIcon size='lg' style={{ color: "#212529" }} icon={faBell} />
+                            <sup className='rounded-pill bg-primary px-1 text-light' style={{
+                                position: "relative",
+                                right: 7,
+                                top: -7,
+                            }}>
+                                {notifCount}
+                            </sup>
+                        </> :
+                        <FontAwesomeIcon size='lg' style={{ color: "#212529" }} icon={faBell} />
+                    }
                 </Nav.Link>
                 {props.user.name ? <div className='mt-auto mx-3' style={{ color: '#010101', margin: 'auto 0' }} >  Hi! {props.user.name.slice(0, props.user.name.indexOf(' '))}</div> : null}
                 <div className="dropdown dropstart" >
@@ -59,9 +76,9 @@ function ProfileButton(props) {
                     </button>
                     <ul className="dropdown-menu position-absolute" aria-labelledby="dropdownMenuButton2">
                         <Dropdown.Item className="m-1" eventKey='13' as={Link} to="/profile"><FontAwesomeIcon className='me-2' icon={faUser} />Profile</Dropdown.Item>
-                        <Dropdown.Item className="m-1" eventKey='14' as={Link} to="/wishlist"><FontAwesomeIcon className='me-2' icon={faHeart} />WishList</Dropdown.Item>
-                        <Dropdown.Item className="m-1" eventKey='16' as={Link} to="/orders"><FontAwesomeIcon className='me-2' icon={faShoppingBag} />Your Orders</Dropdown.Item>
-                        <Dropdown.Item className="m-1" eventKey='15' as={Link} to="/your-ads"><FontAwesomeIcon className='me-2' icon={faCertificate} />Your Ads</Dropdown.Item>
+                        <Dropdown.Item className="m-1" eventKey='14' as={Link} to="/wishlist"><FontAwesomeIcon className='me-2' icon={faHeart} />Wishlist</Dropdown.Item>
+                        <Dropdown.Item className="m-1" eventKey='16' as={Link} to="/orders"><FontAwesomeIcon className='me-2' icon={faShoppingBag} />Orders</Dropdown.Item>
+                        <Dropdown.Item className="m-1" eventKey='15' as={Link} to="/your-ads"><FontAwesomeIcon className='me-2' icon={faCertificate} />Ads</Dropdown.Item>
                         <li className='text-center'> <LogoutButton /></li>
                     </ul>
                 </div>
@@ -72,7 +89,7 @@ function ProfileButton(props) {
                     <div className='text-center'>
                         <FontAwesomeIcon icon={faHeart} />
                     </div>
-                    <p>Wishlists</p>
+                    <p>Wishlist</p>
                 </Nav.Link>
                 <Nav.Link as={Link} eventKey='13' to='/your-ads' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
@@ -80,9 +97,21 @@ function ProfileButton(props) {
                     </div>
                     <p>Ads</p>
                 </Nav.Link>
-                <Nav.Link as={Link} eventKey='14' to='/notifications' style={{ color: "#212529", textDecoration: "none" }}>
+                <Nav.Link as={Link} onClick={handleBell} eventKey='14' to='/notifications' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
-                        <NotifButton notifications={props.notifications} user={props.user} />
+                        {notifCount > 0 ?
+                            <>
+                                <FontAwesomeIcon size='lg' style={{ color: "#212529" }} icon={faBell} />
+                                <sup className='rounded-pill bg-primary px-1 text-light' style={{
+                                    position: "relative",
+                                    right: 7,
+                                    top: -7,
+                                }}>
+                                    {notifCount}
+                                </sup>
+                            </> :
+                            <FontAwesomeIcon size='lg' style={{ color: "#212529" }} icon={faBell} />
+                        }
                     </div>
                     <p>Notifications</p>
                 </Nav.Link>
@@ -114,18 +143,10 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const mapStateToProps = (state) => {
-    const flag = () => {
-        for (let i = 0; i < state.user.notifications.length; i++) {
-            if (state.user.notifications[i].read === false) {
-                return true;
-            }
-        };
-        return false;
-    }
     return {
         Auth: state.authorised,
         user: state.user,
-        notifications: flag()
+        notifications: state.user.notifications
     }
 }
 

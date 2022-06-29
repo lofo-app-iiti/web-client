@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import './Notification.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import NOT_FOUND from './Not_Found';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
-
+import { baseURL } from '../apis';
 
 function Notifications(props) {
     const { user, authorised, Update } = props
@@ -20,7 +19,7 @@ function Notifications(props) {
             setNotifs(notifications.reverse());
             setLoading(false)
         }
-    }, [notifications, props.loading])
+    }, [notifications, props.loading, notifs])
 
 
     function ApproveButton(props) {
@@ -30,28 +29,28 @@ function Notifications(props) {
             return null
         }
     };
+    console.log(notifications)
+    // const handleDelete = (_id) => {
+    //     const newUser = {
+    //         ...user,
+    //         notifications: user.notifications.filter(notif => notif._id !== _id)
+    //     }
+    //     Update(newUser);
 
-    const handleDelete = (_id) => {
-        const newUser = {
-            ...user,
-            notifications: user.notifications.filter(notif => notif._id !== _id)
-        }
-        Update(newUser);
-
-        axios.delete(`/api/user/notif/${_id}`)
-            .then(() => {
-                toast.success('Deleted Successfully')
-            })
-            .catch(() => {
-                toast.error('Something went wrong')
-            })
-    };
+    //     axios.delete(`/api/user/notif/${_id}`)
+    //         .then(() => {
+    //             toast.success('Deleted Successfully')
+    //         })
+    //         .catch(() => {
+    //             toast.error('Something went wrong')
+    //         })
+    // };
 
     const handleApprove = (buyerEmail, itemTitle, itemId, buyerName) => {
-        axios.put(`/api/user/approve/${buyerEmail}`, {
+        axios.put(baseURL + `/api/user/approve/${buyerEmail}`, {
             _id: user._id,
             notification: {
-                message: `approved buy-request for`,
+                message: `accepted your buy request for`,
                 itemTitle: itemTitle,
                 mobile: user.mobile,
                 dp: user.imageUrl,
@@ -74,29 +73,36 @@ function Notifications(props) {
         loading ? <Spinner /> :
             <>
                 <section className="section">
-                    <div className="section__container">
+                    <div className="container">
                         {authorised ? notifications.length > 0 ? notifs.map(({ itemTitle, _id, message, userName, userEmail, mobile, dp, itemId }) => (
-                            <div className="notification-list bg-light" key={_id}>
-                                <div className="notification-list__image">
-                                    <img src={dp} alt="" style={{ width: 'inherit', height: 'inherit' }} />
+                            <div className="d-flex p-3 bg-light" key={_id}
+                                style={{
+                                    borderBottom: "1px solid #ccc"
+                                }} >
+                                <div className="me-3">
+                                    <img src={dp} alt="" style={{ width: '50px', height: '50px', borderRadius: "100%" }} />
                                 </div>
                                 <div className="notification-list__info">
-                                    <h2>{userName}{' '} {message}{' '}{itemTitle}</h2>
-                                    <span className="hour">
+                                    <div>{userName}{' '} {message}{' '}{itemTitle}</div>
+                                    <span style={{ fontSize: 13 }} className="text-primary me-3">
                                         {userEmail}
                                     </span>
-                                    <span className="date">
+                                    <span style={{ fontSize: 13 }} className="mobile text-primary me-3">
                                         {mobile}
                                     </span>
-                                    <div  >
+                                    <span>
+                                        {
+                                            mobile && <a href={`tel:${mobile}`}>
+                                                <FontAwesomeIcon size='sm' icon={faPhoneAlt} />
+                                            </a>
+                                        }
+                                    </span>
+                                    <div>
                                         <ApproveButton itemTitle={itemTitle} message={message} buyerEmail={userEmail} itemId={itemId} buyerName={userName} />
-                                    </div >
-                                    <div className="delete btn" onClick={() => handleDelete(_id)}>
-                                        <FontAwesomeIcon icon={faTrash} className='text-danger' />
                                     </div>
                                 </div>
                             </div>
-                        )) : <div className="text-center">No Notifications!</div> : <NOT_FOUND />}
+                        )) : <div className="text-center mt-5">No Notifications!</div> : <NOT_FOUND />}
                     </div>
                 </section>
             </>

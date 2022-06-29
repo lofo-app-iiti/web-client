@@ -3,13 +3,14 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { baseURL } from '../apis';
 
 function BuyBtn(props) {
     const { user, auth } = props;
     const { id } = props;
     const handleBuy = () => {
         if (auth) {
-            axios.put(`/api/items/buy/${id}`, {
+            axios.put(baseURL + `/api/items/buy/${id}`, {
                 notification: {
                     message: "wants to buy",
                     itemTitle: props.title,

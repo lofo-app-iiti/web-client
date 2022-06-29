@@ -36,8 +36,8 @@ function Deck(props) {
                         infinite={true}
 
                     >
-                        {props.items.map((item) =>
-                            <ItemCard item={item} />
+                        {props.items.map((item, i) =>
+                            <ItemCard key={i} item={item} />
                         )}
                     </Carousel> : <h6 className='text-center text-secondary mt-5' >No similar items!</h6>
             }

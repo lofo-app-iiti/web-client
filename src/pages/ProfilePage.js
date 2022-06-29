@@ -71,7 +71,7 @@ function EditProfile(props) {
                                         <img src={imageUrl} alt="Admin" className="rounded-circle" width={100} />
                                         <div className="mt-3">
                                             <h4>{name}</h4>
-                                            <p className="text-secondary mb-1">IIT Indore Student</p>
+                                            <p className="text-secondary mb-1">IIT Indore</p>
                                             <p className="text-muted font-size-sm">{email}</p>
                                         </div>
                                     </div>

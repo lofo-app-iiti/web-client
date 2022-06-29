@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Form, InputGroup, Modal, Tab, Tabs, } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createLofoItem } from '../apis'
 import LoFoCard from '../components/LoFoCard'
@@ -87,8 +87,7 @@ function LostFound(props) {
                 <div className="my-3 container-lg px-3 px-md-4">
                     <div className="d-flex flex-column flex-md-row justify-content-between" >
                         <h3 className='text-center mb-3' >Lost/Found Portal - IIT Indore</h3>
-                        <div className='d-flex mb-3'>
-                            <Button size='sm' className='mx-3 btn-light' onClick={() => setOpen(true)}>Add</Button>
+                        <div className='d-flex mb-3 justify-content-center'>
                             <Form className='me-3' onSubmit={(e) => {
                                 e.preventDefault()
                             }} >
@@ -107,9 +106,11 @@ function LostFound(props) {
                                             opacity: search === '' ? '0' : '1'
                                         }}
                                         /></Button>
-                                    <Button variant='light' type='submit' ><FontAwesomeIcon icon={faSearch} /></Button>
+
                                 </InputGroup>
                             </Form>
+                            <Button size='sm' className='mx-1 px-3 btn-success' onClick={() => setOpen(true)}>Add
+                            </Button>
                         </div>
                     </div>
 
@@ -128,8 +129,8 @@ function LostFound(props) {
                         </Tab>
                     </Tabs>
 
-                    <Modal onHide={() => setOpen(false)} show={open}>
-                        <Modal.Header className='fw-bold'>Lost/Found</Modal.Header>
+                    <Modal className='p-0' onHide={() => setOpen(false)} show={open}>
+                        <Modal.Header closeButton className='fw-bold'>Lost/Found</Modal.Header>
                         <Modal.Body>
                             <div className="d-flex flex-wrap justify-content-center">
                                 <form className="needs-validation" id="itemForm" noValidate="" onSubmit={handleSubmit} >

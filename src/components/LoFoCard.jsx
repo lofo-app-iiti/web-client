@@ -23,7 +23,7 @@ function LoFoCard(props) {
                 } else {
                     setFound(prev => [...prev.filter(item => { return item._id !== id })])
                 }
-                toast.success("deleted");
+                toast.success("Deleted");
             })
             .catch(err => {
                 setLoad(false)
@@ -37,7 +37,7 @@ function LoFoCard(props) {
             let notification = {
                 itemTitle: title,
                 mobile: user.mobile,
-                dp: user.profilePic
+                dp: user.imageUrl
             }
             if (status === 'lost') {
                 notification['message'] = `found your`
@@ -47,12 +47,13 @@ function LoFoCard(props) {
             notify(id, notification)
                 .then(res => {
                     const updated = {
-                        ...res.data.item,
+                        ...item,
                         claimed: true
                     }
                     if (status === 'lost') {
                         setLost(prev => [...prev.filter(item => { return item._id !== id }), updated])
-                    } else {
+                    }
+                    else {
                         setFound(prev => [...prev.filter(item => { return item._id !== id }), updated])
                     }
                     toast.success(res.data.message);
@@ -80,14 +81,14 @@ function LoFoCard(props) {
                 <div className="ms-3 mb-3 w-75" >
                     <div className="d-flex justify-content-between">
 
-                        <div className="h5 fw-bold">{item.title} </div>
+                        <div className="h5">{item.title} </div>
                         <div>
                             {
                                 item.userEmail === user.email ?
 
                                     <span onClick={() => Delete(item._id, item.status)} className='text-danger ms-3' role={'button'} >
                                         {
-                                            load ? <i>deleting...</i> :
+                                            load ? <i>Deleting...</i> :
                                                 <FontAwesomeIcon icon={faTrash} />
                                         }
                                     </span>
@@ -100,7 +101,7 @@ function LoFoCard(props) {
                                         </Button>
                                         :
                                         <Button size='sm' onClick={() => setOpen(true)} >
-                                            {item.status === 'lost' ? 'I found' : "it's mine"}
+                                            {item.status === 'lost' ? 'I found' : "It's mine"}
                                         </Button>
                             }
                         </div>
