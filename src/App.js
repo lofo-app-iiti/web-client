@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { fetchItems, fetchLofoItems } from './apis';
+import { baseURL, fetchItems, fetchLofoItems } from './apis';
 import Spinner from './components/Spinner';
 import Home from './pages/Home';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 
@@ -36,6 +36,27 @@ function App(props) {
     const addNotif = useRef(null);
 
     useEffect(() => {
+        const ENDPOINT = baseURL;
+        socket.current = io(ENDPOINT, { transports: ['websocket', 'polling'] });
+        console.log(socket.current)
+    }, [auth]);
+
+    useEffect(() => {
+        if (auth) {
+            socket.current.emit('join', user.email);
+
+            socket.current.on('notification', (notif) => {
+                addNotif.current(notif)
+                toast.success(notif.userName + ' ' + notif.message + ' ' + notif.itemTitle)
+            });
+        }
+    }, [auth, user.email, addNotif]);
+
+    useEffect(() => {
+        notifs.current = notifications;
+    }, [authLoading, notifications])
+
+    useEffect(() => {
         setPageLoading(authLoading);
         if (!auth) {
             return
@@ -50,11 +71,6 @@ function App(props) {
     }, [auth, authLoading, setItems, setLofoItems])
 
     useEffect(() => {
-        const ENDPOINT = 'https://iitisoc-4sale.herokuapp.com/';
-        socket.current = io(ENDPOINT, { transports: ['websocket', 'polling'] });
-    }, []);
-
-    useEffect(() => {
         addNotif.current = notif => {
             Update({
                 ...user,
@@ -63,22 +79,6 @@ function App(props) {
         }
     }, [user, Update])
 
-    useEffect(() => {
-        notifs.current = notifications;
-    }, [authLoading, notifications])
-
-    useEffect(() => {
-        if (auth) {
-            socket.current.emit('join', user.email);
-
-            socket.current.on('notification', (notif) => {
-                addNotif.current(notif)
-                toast.success(notif.userName + ' ' + notif.message + ' ' + notif.itemTitle)
-            });
-        }
-    }, [auth, user.email, addNotif]);
-
-
     return (
 
         <>
@@ -86,7 +86,7 @@ function App(props) {
             <Switch>
                 <Route path='/about' exact component={AboutUs} />
                 <Route path='/contact' exact component={ContactUs} />
-                <div style={{ minHeight: '90vh' }}>
+                <div style={{ minHeight: '83vh' }}>
                     {
                         pageLoading ? <Spinner /> : auth ? <Body /> : <Home />
                     }

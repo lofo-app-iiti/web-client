@@ -52,7 +52,7 @@ function NavbarComponent(props) {
 
                     <Nav className='ms-auto' >
                         {
-                            auth ? <ProfileButton /> : <LoginButton />
+                            auth ? <ProfileButton /> : <LoginButton text={''} />
                         }
 
                     </Nav>

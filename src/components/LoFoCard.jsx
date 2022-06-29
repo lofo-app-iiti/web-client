@@ -1,16 +1,17 @@
 import { faCheckCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify'
-import { deleteLofoItem } from '../apis'
+import { deleteLofoItem, notify } from '../apis'
 
 function LoFoCard(props) {
 
-    const { user, item, setFound, setLost, handleClaim } = props
+    const { user, item, setFound, setLost, auth } = props
     const [load, setLoad] = useState(false)
+    const [open, setOpen] = useState(false)
 
     const Delete = (id, status) => {
         setLoad(true)
@@ -29,6 +30,41 @@ function LoFoCard(props) {
                 console.log(err);
                 toast.error("Couldn't delete");
             })
+    }
+
+    const handleClaim = (id, status, title) => {
+        if (auth) {
+            let notification = {
+                itemTitle: title,
+                mobile: user.mobile,
+                dp: user.profilePic
+            }
+            if (status === 'lost') {
+                notification['message'] = `found your`
+            } else {
+                notification['message'] = `wants to claim`
+            }
+            notify(id, notification)
+                .then(res => {
+                    const updated = {
+                        ...res.data.item,
+                        claimed: true
+                    }
+                    if (status === 'lost') {
+                        setLost(prev => [...prev.filter(item => { return item._id !== id }), updated])
+                    } else {
+                        setFound(prev => [...prev.filter(item => { return item._id !== id }), updated])
+                    }
+                    toast.success(res.data.message);
+                })
+                .catch(err => {
+                    console.log(err);
+                    toast.error("Failed to notify");
+                })
+        }
+        else {
+            toast.error("Please Login first");
+        }
     }
 
     return (
@@ -60,11 +96,11 @@ function LoFoCard(props) {
                                     : item.claimed ?
                                         <Button size='sm' disabled >
                                             <FontAwesomeIcon icon={faCheckCircle} className='me-1' />
-                                            {item.status === 'lost' ? 'Found' : 'Claimed'}
+                                            Claimed
                                         </Button>
                                         :
-                                        <Button size='sm' onClick={() => handleClaim(item._id, item.status, item.title)} >
-                                            {item.status === 'lost' ? 'I found' : 'Claim'}
+                                        <Button size='sm' onClick={() => setOpen(true)} >
+                                            {item.status === 'lost' ? 'I found' : "it's mine"}
                                         </Button>
                             }
                         </div>
@@ -87,6 +123,20 @@ function LoFoCard(props) {
             </div>
 
             <div className='pt-2' style={{ fontSize: '15px' }}> {item.description}</div>
+            <Modal show={open} onHide={() => setOpen(false)}>
+                <Modal.Header>Do you want to claim it?</Modal.Header>
+                <Modal.Body>
+                    Note: An official mail will be sent to the founder of this items that you own it.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button size='sm' variant='danger' onClick={() => setOpen(false)} >
+                        Cancel
+                    </Button>
+                    <Button size='sm' onClick={() => handleClaim(item._id, item.status, item.title)} >
+                        Proceed
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

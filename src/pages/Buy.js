@@ -4,7 +4,7 @@ import "./BuyStyle.css"
 import Spinner from '../components/Spinner';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBasketballBall, faBook, faGamepad, faSearch, faShoppingCart, faSplotch, faStore } from '@fortawesome/free-solid-svg-icons';
+import { faBasketballBall, faBook, faGamepad, faShoppingCart, faSplotch, faStore } from '@fortawesome/free-solid-svg-icons';
 import ItemCard from '../components/ItemCard';
 import EmptySvg from '../svgs/EmptySvg';
 import { connect } from 'react-redux';
@@ -23,18 +23,19 @@ function Buy(props) {
     }, [props.items])
 
     useEffect(() => {
-        category === 'All' ? setItems(props.items) :
-            setItems(prevState => prevState.filter(i => i.categories.includes(category)));
-    }, [category, props.items])
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        props.history.push(`/search/${search}`);
-    };
+        category === 'All' ? setItems(props.items.filter(i => i.title.includes(search))) :
+            setItems(prevState => prevState.filter(i => i.categories.includes(category) && i.title.includes(search)));
+    }, [category, props.items, search])
 
     const handleChange = (e) => {
         setSearch(e.target.value)
     };
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        setSearch(e.target.value)
+    };
+
+    console.log(search)
 
     return (
         <>
@@ -45,8 +46,8 @@ function Buy(props) {
 
                             <Form onSubmit={handleSubmit} className='my-3' >
                                 <InputGroup>
-                                    <Form.Control placeholder="Search buying items..." className='non-outlined-btn' onChange={handleChange} />
-                                    <Button type='submit' ><FontAwesomeIcon icon={faSearch} /></Button>
+                                    <Form.Control placeholder="Search items..." className='non-outlined-btn' onChange={handleChange} />
+                                    {/* <Button type='submit' ><FontAwesomeIcon icon={faSearch} /></Button> */}
                                 </InputGroup>
 
                             </Form>
@@ -129,7 +130,7 @@ function Buy(props) {
 
                             <div className="row">
 
-                                <div className="col-12 py-3" style={{ height: '85vh', overflowY: 'scroll' }} >
+                                <div className="col-12 py-3" style={{ height: '83vh', overflowY: 'scroll' }} >
                                     {
                                         loading ? <Spinner /> :
                                             <div className="row px-md-3">

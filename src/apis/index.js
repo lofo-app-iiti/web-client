@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://lofo-server.herokuapp.com";
-// const baseURL = "http://localhost:5000";
+export const baseURL = "https://lofo-server.herokuapp.com";
+// export const baseURL = "http://localhost:5000";
 
 
 // auth
@@ -20,3 +20,6 @@ export const deleteLofoItem = (id) => axios.delete(baseURL + "/api/lost-found/" 
 
 // orders
 // export const fetchOrders = axios.get(baseURL + `/api/user/orders`)
+
+// notifications
+export const notify = (id, notification) => axios.put(baseURL + `/api/lost-found/notify/${id}`, { notification })

@@ -1,20 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AboutUs from './pages/AboutUs'
 import Sell from './pages/Sell';
-import ContactUs from './pages/ContactUs'
 import ProductPage from './pages/ProductPage';
 import Profile from './pages/ProfilePage';
 import Buy from './pages/Buy';
 import NOT_FOUND from './pages/Not_Found';
-import { Route, Switch } from 'react-router-dom';
-import Search from './pages/Search';
+import { Route } from 'react-router-dom';
 import Favourites from './pages/WishList';
 import Ads from './pages/Ads';
 import Notifications from './pages/Notifications';
 import Orders from './pages/Orders';
 import LostFound from './pages/LostFound';
-import Spinner from './components/Spinner';
 
 
 function Body(props) {
@@ -26,23 +22,16 @@ function Body(props) {
         <Route key={4} path='/orders' exact component={Orders} />
     ]
     return (<>
-        {
-            (props.auth) || (!props.auth && !props.loading) ?
-                <Switch>
-                    <Route path='/' exact component={LostFound} />
-                    <Route path='/buy/:category' exact component={Buy} />
-                    <Route path='/search/:query' exact component={Search} />
-                    <Route path='/product/:id' exact component={ProductPage} />
-                    <Route path='/sell' exact component={Sell} />
-                    {/* <Route path='/lost-found' exact component={} /> */}
-                    {props.auth ?
-                        restrictedRoutes.map(routes => routes)
-                        : null
-                    }
-                    <Route path={'*'} component={NOT_FOUND} />
-                </Switch>
-                : <Spinner />
+        <Route path='/' exact component={LostFound} />
+        <Route path='/buy/:category' exact component={Buy} />
+        <Route path='/product/:id' exact component={ProductPage} />
+        <Route path='/sell' exact component={Sell} />
+        {/* <Route path='/lost-found' exact component={} /> */}
+        {props.auth ?
+            restrictedRoutes.map(routes => routes)
+            : null
         }
+        <Route path={'*'} component={NOT_FOUND} />
     </>
 
     )
