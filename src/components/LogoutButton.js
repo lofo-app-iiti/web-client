@@ -12,6 +12,7 @@ function LogoutButton(props) {
     const Logout = () => {
         props.Logout();
         history.push('/')
+        window.location.reload()
     };
 
 

@@ -20,7 +20,6 @@ export default function Home() {
                             marginBottom: 100,
 
                         }}>
-                        <img src="/LoFo2.webp" className='mb-3' alt="" width={100} />
                         <div className='h4 text-center'>Welcome to Lost/Found Portal</div>
                         <p>IIT Indore</p>
                         <div className="login">

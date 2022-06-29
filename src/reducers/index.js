@@ -16,7 +16,6 @@ const initialState = {
     lofoItems: [],
     items: [],
     authorised: false,
-    loading: false,
     authLoading: localStorage.getItem('authLoading') === 'true' ? true : false,
     accessToken: null
 }
@@ -39,9 +38,8 @@ const Reducers = (state = initialState, action) => {
             localStorage.setItem('authLoading', false)
             return {
                 ...state,
-                user: initialState.user,
+                user: { ...initialState.user },
                 authorised: false,
-                authLoading: false,
                 accessToken: null
             };
 
@@ -57,6 +55,11 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 items: action.payload,
+            };
+        case 'CLEAR_ITEMS':
+            return {
+                ...state,
+                items: [],
             };
 
         case 'DELETE_ITEM':
@@ -82,6 +85,11 @@ const Reducers = (state = initialState, action) => {
             return {
                 ...state,
                 lofoItems: action.payload,
+            };
+        case 'CLEAR_LOFOITEMS':
+            return {
+                ...state,
+                lofoItems: [],
             };
 
         case 'DELETE_LOFOITEM':

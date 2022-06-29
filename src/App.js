@@ -54,7 +54,7 @@ function App(props) {
 
     useEffect(() => {
         notifs.current = notifications;
-    }, [authLoading, notifications])
+    }, [authLoading, notifications, auth])
 
     useEffect(() => {
         setPageLoading(authLoading);

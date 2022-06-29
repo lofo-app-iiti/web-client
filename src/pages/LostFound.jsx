@@ -13,25 +13,21 @@ function LostFound(props) {
     const { lofoItems } = props;
     const [posting, setPosting] = useState(false)
     const [open, setOpen] = useState(false)
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const [lost, setLost] = useState([]);
     const [found, setFound] = useState([]);
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        setData(lofoItems);
-    }, [lofoItems])
-
-    useEffect(() => {
         setLost(
-            data.filter(item => item.status === 'lost' && item.title.toLowerCase().includes(search.toLowerCase()))
+            lofoItems.filter(item => item.status === 'lost' && item.title.toLowerCase().includes(search.toLowerCase()))
         );
 
         setFound(
-            data.filter(item => item.status === 'found' && item.title.toLowerCase().includes(search.toLowerCase()))
+            lofoItems.filter(item => item.status === 'found' && item.title.toLowerCase().includes(search.toLowerCase()))
         );
 
-    }, [search, data])
+    }, [search, lofoItems])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -41,7 +37,7 @@ function LostFound(props) {
 
         createLofoItem(newItem)
             .then(res => {
-                toast.success(`Posted: ${res.data.title}`);
+                toast.success(`Posted: ${res.lofoItems.title}`);
                 const { status } = res.data
                 if (status === 'lost') {
                     setLost(prev => [res.data, ...prev])
@@ -52,7 +48,6 @@ function LostFound(props) {
                 setOpen(false)
             })
             .catch(err => {
-                console.log(err);
                 setPosting(false)
                 toast.error("Failed to post");
 
