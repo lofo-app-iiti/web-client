@@ -5,7 +5,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify'
-import { deleteLofoItem, notify } from '../apis'
+import { admin, deleteLofoItem, notify } from '../apis'
 
 function LoFoCard(props) {
 
@@ -93,7 +93,7 @@ function LoFoCard(props) {
                         <div className="p fw-bold">{item.title} </div>
                         <div>
                             {
-                                item.userEmail === user.email ?
+                                item.userEmail === user.email || admin.includes(user.email) ?
                                     <div>
                                         <span className="me-2">
                                             {item.claimed &&

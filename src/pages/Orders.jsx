@@ -32,20 +32,25 @@ function Orders(props) {
         <>
             {
                 loading ? <Spinner /> :
-                    orders.length === 0 ? <div className='text-secondary text-center mt-5'>Nothing to show!</div> :
-                        <>
-                            <div className="results">
-                                <h4 className='text-center py-3' >Orders</h4>
-                            </div>
-                            <div className='pb-5 container'>
-                                <h6>Pending Orders {'>>'}</h6>
-                                <ItemList items={orders.filter(o => o.sold === false)} removeSold={false} />
-                            </div>
-                            <div className='pb-5 container'>
-                                <h6>Approved Orders {'>>'}</h6>
-                                <ItemList items={orders.filter(o => o.sold === true)} removeSold={false} />
-                            </div>
-                        </>
+                    <>
+                        <div className="results">
+                            <h4 className='text-center py-3' >Orders</h4>
+                        </div>
+                        {
+                            orders.length > 0 ?
+                                <>
+                                    <div className='pb-5 container'>
+                                        <h6>Pending Orders {'>>'}</h6>
+                                        <ItemList items={orders.filter(o => o.sold === false)} removeSold={false} />
+                                    </div>
+                                    <div className='pb-5 container'>
+                                        <h6>Approved Orders {'>>'}</h6>
+                                        <ItemList items={orders.filter(o => o.sold === true)} removeSold={false} />
+                                    </div>
+                                </> :
+                                <div className='text-secondary text-center mt-5'>Nothing to show!</div>
+                        }
+                    </>
             }
         </>
     )

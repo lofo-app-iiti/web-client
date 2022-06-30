@@ -24,7 +24,7 @@ function Notifications(props) {
                 <section className="section">
                     <div className="container p-0">
                         {auth ? notifications.length > 0 ? notifs.map((n, i) => <NotifBlock content={n} key={i} />) :
-                            <div className="text-center mt-5">No Notifications!</div> :
+                            <div className="text-center mt-5 text-secondary">No Notifications!</div> :
                             <NOT_FOUND />}
                     </div>
                 </section>

@@ -19,14 +19,23 @@ function EditProfile(props) {
     const [orders, setOrders] = useState([])
     const [loadin, setLoading] = useState(true)
 
+    function validatePhoneNumber(input_str) {
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+        return re.test(input_str);
+    }
 
     const handleChange = (e) => {
         setMobileInput(e.target.value)
     }
 
     const handleSubmit = (e) => {
-        setVisibility(!visibility)
         e.preventDefault();
+        if (!validatePhoneNumber(mobileInput)) {
+            toast.warning('Please enter a valide mobile number!')
+            return
+        }
+        setVisibility(!visibility)
         setMobileNumber(mobileInput)
             .then(res => {
                 const newUser = {
@@ -34,7 +43,7 @@ function EditProfile(props) {
                     mobile: mobileInput
                 }
                 props.Update(newUser);
-                toast("Your phone number was updated...")
+                toast.success("Your mobile number is updated :)")
             })
             .catch(err => {
                 toast.error('Something went wrong!')
@@ -113,8 +122,8 @@ function EditProfile(props) {
                                     {
                                         visibility ?
                                             <div className="row" style={{ display: visibility ? 'block' : 'none' }} >
-                                                <form action="" >
-                                                    <label htmlFor="tel">Edit your mobile number</label>
+                                                <form >
+                                                    <label htmlFor="tel">Edit your Mobile number</label>
                                                     <input ref={inputRef} className='form-control' type="tel" maxLength='10' id='tel' placeholder={'0123456789'} onChange={handleChange} />
                                                     <hr />
                                                     <>
@@ -141,7 +150,12 @@ function EditProfile(props) {
                         <div className="card-wrapper py-2 px-md-3">
                             <div className="card">
                                 <div className="card-header">Wishlist</div>
-                                <div className="card-body">
+                                <div className="card-body"
+                                    style={{
+                                        display: "flex",
+                                        overflowX: "auto"
+                                    }}
+                                >
                                     {/* images of orders */}
                                     {
                                         props.loading ? <div>Loading...</div> : props.user.favourites.length > 0 ? props.user.favourites.map(f =>
@@ -149,7 +163,7 @@ function EditProfile(props) {
                                                 width={80}
                                             />
                                         ) :
-                                            <div className="text-secondary text-center p">Nothing!</div>
+                                            <div className="w-100 text-secondary text-center p">Nothing!</div>
                                     }
                                 </div>
                                 <div className="card-footer">
@@ -167,7 +181,12 @@ function EditProfile(props) {
                         <div className="card-wrapper py-2 px-md-3">
                             <div className="card">
                                 <div className="card-header">Orders</div>
-                                <div className="card-body">
+                                <div className="card-body"
+                                    style={{
+                                        display: "flex",
+                                        overflowX: "auto"
+                                    }}
+                                >
                                     {/* images of orders */}
                                     {
                                         loadin ? <div>Loading...</div> : orders.length > 0 ? orders.map(f =>
@@ -175,7 +194,7 @@ function EditProfile(props) {
                                                 width={80}
                                             />
                                         ) :
-                                            <div className="text-secondary text-center p">Nothing!</div>
+                                            <div className="w-100 text-secondary text-center p">Nothing!</div>
                                     }
                                 </div>
                                 <div className="card-footer">
@@ -193,7 +212,12 @@ function EditProfile(props) {
                         <div className="card-wrapper py-2 px-md-3">
                             <div className="card">
                                 <div className="card-header">Ads</div>
-                                <div className="card-body">
+                                <div className="card-body"
+                                    style={{
+                                        display: "flex",
+                                        overflowX: "auto"
+                                    }}
+                                >
                                     {/* images of orders */}
                                     {
                                         props.loading ? <div>Loading...</div> : props.user.ads.length > 0 ? props.user.ads.map(f =>
@@ -201,7 +225,7 @@ function EditProfile(props) {
                                                 width={80}
                                             />
                                         ) :
-                                            <div className="text-secondary text-center p">Nothing!</div>
+                                            <div className="w-100 text-secondary text-center p">Nothing!</div>
                                     }
 
                                 </div>

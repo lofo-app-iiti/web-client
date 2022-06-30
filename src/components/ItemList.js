@@ -12,7 +12,7 @@ function ItemList(props) {
     const { user, items, auth } = props;
 
     if (items.length === 0) {
-        return <h6 className='text-secondary text-center'>No items!</h6>;
+        return <h6 className='text-secondary text-center mt-5'>No items!</h6>;
     } else {
         return (
             <div className="container">

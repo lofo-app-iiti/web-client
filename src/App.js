@@ -37,8 +37,7 @@ function App(props) {
 
     useEffect(() => {
         const ENDPOINT = baseURL;
-        socket.current = io(ENDPOINT, { transports: ['websocket', 'polling'] });
-        console.log(socket.current)
+        socket.current = io(ENDPOINT, { transports: ['websocket', 'polling'] })
     }, [auth]);
 
     useEffect(() => {

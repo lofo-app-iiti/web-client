@@ -8,7 +8,7 @@ import { googleLogin } from '../apis';
 function LoginButton(props) {
 
     const LoginSuccess = (res) => {
-        console.log(res)
+
         var basicProfile = res.profileObj;
         let user = {
             ...basicProfile,

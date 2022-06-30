@@ -13,23 +13,41 @@ function Sell(props) {
     const { history } = props;
     const { Update } = props;
     const [posting, setPosting] = useState(null)
+    const [phone, setPhone] = useState('')
+    const [file, setFile] = useState('');
+
+    function validatePhoneNumber(input_str) {
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+        return re.test(input_str);
+    }
 
     useEffect(() => {
         if (!authorised) {
             toast.warn('You need to login first!')
-            return
+            return <Redirect to={'/'} />
         }
     }, [authorised])
 
     function handleSubmit(e) {
+        e.preventDefault();
 
-        if (!authorised) {
-            toast.warn('You need to login first!')
-            return
+        if (phone !== '') {
+            if (!validatePhoneNumber(phone)) {
+                toast.warning('Please enter a valide mobile number!')
+                return
+            }
+        }
+
+        if (file !== '') {
+            if (!file.type.includes('image')) {
+                toast.warning('Please select image files only, e.g: png, jpg, jpeg etc')
+                setPosting(false)
+                return
+            }
         }
 
         setPosting(true)
-        e.preventDefault();
         const formData = e.target;
         const newItem = new FormData(formData);
         newItem.append('userName', user.name);
@@ -48,6 +66,7 @@ function Sell(props) {
                     ads: [res.data, ...user.ads]
                 }
                 Update(newUser);
+                return <Redirect to='/your-ads' />
             })
             .catch(err => {
                 setPosting(false)
@@ -61,12 +80,11 @@ function Sell(props) {
             <>
                 {
                     posting === true ? <div style={{
-                        width: '100vw',
-                        height: '100vh',
                         display: 'flex',
+                        height: "82vh",
                         alignItems: 'center',
                         justifyContent: 'center'
-                    }} ><h2 className="text-center">Posting...</h2></div> : !authorised ? <Redirect to='/' /> :
+                    }} ><h3 className="text-center">Posting...</h3></div> :
                         <div className="container-fluid ">
                             <main>
 
@@ -140,14 +158,23 @@ function Sell(props) {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12 col-md-6 d-flex justify-content-center flex-column bd-highlight">
-                                                            <label htmlFor="price" className="form-label" required>Price</label>
-                                                            <input required min='0' type="number" className="form-control" id="price" placeholder="Set a Price" name="price" />
+                                                            <label htmlFor="tel" className="form-label">Mobile Number (optional)</label>
+                                                            <input className='form-control' type="tel" maxLength='10' id='tel' placeholder={'0123456789'} name='mobile'
+                                                                onChange={(e) => setPhone(e.target.value)}
+                                                            />
+                                                            <br />
+                                                            <label htmlFor="price" className="form-label" required>Price<span className='text-danger fw-bold'>*</span></label>
+                                                            <input required min='0' type='number' className="form-control" id="price" placeholder="Set a Price" name="price" />
                                                             <br />
                                                             <div className="invalid-feedback">
                                                                 Please enter product price.
                                                             </div>
                                                             <label htmlFor="image1" className="form-label">Upload Images<span className='text-danger fw-bold'>*</span>  <i className='text-danger' > (atleast first image required!)</i></label>
-                                                            <input required type="file" className="form-control" id="image1" placeholder="Required" name="file1" />
+                                                            <input required
+                                                                onChange={(e) => setFile(e.target.files[0])}
+                                                                type="file" accept="image/*"
+                                                                className="form-control" id="image1"
+                                                                placeholder="Required" name="file1" />
                                                             <input type="file" className="form-control" id="image2" name="file2" />
                                                             <input type="file" className="form-control" id="image3" name="file3" />
                                                             <input type="file" className="form-control" id="image4" name="file4" />

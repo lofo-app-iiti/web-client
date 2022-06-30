@@ -16,7 +16,6 @@ function Buy(props) {
 
     useEffect(() => {
         setLoading(true)
-        if (props.items.length === 0) return
         setItems(props.items);
         setLoading(false);
     }, [props.items])
@@ -34,7 +33,7 @@ function Buy(props) {
         setSearch(e.target.value)
     };
 
-    console.log(search)
+    console.log(items)
 
     return (
         <>
@@ -134,8 +133,7 @@ function Buy(props) {
                                         loading ? <Spinner /> :
                                             <div className="row px-md-3">
                                                 {items.length === 0 ?
-                                                    <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} >
-                                                    </div>  <h6 className='text-center text-secondary' >No Items!</h6></> :
+                                                    <h6 className='text-center text-secondary mt-5' >No Items!</h6> :
                                                     items.map((item, i) => (
                                                         <div key={i} className='col-6 col-md-4 col-lg-3 p-2'>
                                                             <ItemCard item={item} />

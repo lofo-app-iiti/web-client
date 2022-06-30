@@ -50,6 +50,7 @@ function NavbarComponent(props) {
                             </Dropdown.Menu>
 
                         </Dropdown><hr className='m-1 ' />
+                        <Nav.Link eventKey='3' as={Link} style={textColor} to="/">Lost/Found</Nav.Link><hr className='m-1 ' />
                         <Nav.Link eventKey='3' as={Link} style={textColor} to="/about">About Us</Nav.Link><hr className='m-1 ' />
                         <Nav.Link eventKey='4' as={Link} style={textColor} to="/contact">Contact Us</Nav.Link><br />
                     </Nav>

@@ -117,6 +117,13 @@ function ProductPage(props) {
                                     <div className='my-1'>
                                         Email: {productDetails.userEmail}
                                     </div>
+                                    {
+                                        productDetails.mobile &&
+                                        <div className='my-1'>
+                                            Mobile: {productDetails.mobile}
+                                        </div>
+                                    }
+
                                     <div className='my-1'>
                                         Date:
                                         <span> {
