@@ -9,11 +9,28 @@ function NotifBlock(props) {
     const { user, Update } = props
     const [deleting, setDeleting] = useState(false);
 
-    const { itemTitle, _id, message, userName, userEmail, mobile, dp, itemId, buyerEmail, buyerName } = props.content
+    const { itemTitle, _id, message, userName, userEmail, mobile, dp, itemId, approved } = props.content
+
+    function ApproveButton(props) {
+        if (props.message === "wants to buy") {
+            return <button
+                disabled={approved}
+                type="button"
+                style={{ fontSize: '12px' }}
+                className="btn p-0 non-outlined-btn btn-transparent"
+                onClick={() => handleApprove(props.buyerEmail, props.itemTitle, props.itemId, props.buyerName)}>
+                <FontAwesomeIcon icon={faArrowAltCircleRight} className='text-success me-2' />
+                {user.notifications.approved ? "Approved" : "Approve"}
+            </button>
+        } else {
+            return null
+        }
+    };
 
     const handleApprove = (buyerEmail, itemTitle, itemId, buyerName) => {
         approve(user, buyerEmail, itemId, itemTitle)
             .then(res => {
+                console.log(res.data.notifications)
                 Update({
                     ...user,
                     notifications: res.data.notifications
@@ -87,16 +104,13 @@ function NotifBlock(props) {
 
                 <div>
                     {
-                        props.message === "wants to buy" ?
-                            <button
-                                type="button"
-                                style={{ fontSize: '12px' }}
-                                className="btn p-0 non-outlined-btn btn-transparent"
-                                onClick={() => handleApprove(buyerEmail, itemTitle, itemId, buyerName)}>
-                                <FontAwesomeIcon icon={faArrowAltCircleRight} className='text-success me-2' />
-                                Approve
-                            </button> :
-                            null
+                        message === "wants to buy" ?
+                            <ApproveButton
+                                itemTitle={itemTitle}
+                                message={message}
+                                buyerEmail={userEmail}
+                                itemId={itemId}
+                                buyerName={userName} /> : null
                     }
                 </div>
             </div>
@@ -108,7 +122,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         auth: state.authorised,
-        loading: state.loading
+        loading: state.loading,
+        items: state.items
     }
 };
 

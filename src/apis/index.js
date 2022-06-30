@@ -1,14 +1,13 @@
 import axios from "axios";
 
-export const baseURL = "https://lofo-server.herokuapp.com";
-// export const baseURL = "http://localhost:5000";
+// export const baseURL = "https://lofo-server.herokuapp.com";
+export const baseURL = "http://localhost:5000";
 
 export const admin = ["technicals.tedx@iiti.ac.in"]
 
 
 // auth
 export const googleLogin = (googleToken) => axios.post(baseURL + '/api/googlelogin', { googleToken })
-
 
 // items
 export const fetchItems = axios.get(baseURL + "/api/items");

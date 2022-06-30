@@ -49,8 +49,13 @@ function NavbarComponent(props) {
                                 <Dropdown.Item eventKey='11' as={Link} to="/buy/Other">Others</Dropdown.Item>
                             </Dropdown.Menu>
 
-                        </Dropdown><hr className='m-1 ' />
-                        <Nav.Link eventKey='3' as={Link} style={textColor} to="/">Lost/Found</Nav.Link><hr className='m-1 ' />
+                        </Dropdown>
+                        {auth && <>
+                            <hr className='m-1 ' />
+                            <Nav.Link eventKey='3' as={Link} style={textColor} to="/">Lost/Found</Nav.Link><hr className='m-1 ' />
+                        </>
+                        }
+
                         <Nav.Link eventKey='3' as={Link} style={textColor} to="/about">About Us</Nav.Link><hr className='m-1 ' />
                         <Nav.Link eventKey='4' as={Link} style={textColor} to="/contact">Contact Us</Nav.Link><br />
                     </Nav>
