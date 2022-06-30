@@ -42,7 +42,7 @@ export const setMobileNumber = (mobile) => axios.put(baseURL + `/api/user`, { mo
 // notifications
 export const notify = (id, notification) => axios.put(baseURL + `/api/lost-found/notify/${id}`, { notification })
 export const deleteNotif = (id) => axios.delete(baseURL + `/api/user/notif/${id}`)
-export const updateNotifBell = axios.put(baseURL + `/api/user/notifbell`)
+export const updateNotifBell = () => axios.put(baseURL + `/api/user/notifbell`)
 export const approve = (user, buyerEmail, itemId, itemTitle) => axios.put(baseURL + `/api/user/approve/${buyerEmail}`,
     {
         _id: user._id,
