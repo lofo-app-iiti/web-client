@@ -80,18 +80,17 @@ function App(props) {
     }, [user, Update])
 
     return (
-
         <>
             <Navbar />
-            <Switch>
-                <Route path='/about' exact component={AboutUs} />
-                <Route path='/contact' exact component={ContactUs} />
-                <div style={{ minHeight: '83vh' }}>
+            <div style={{ minHeight: '82vh' }}>
+                <Switch>
+                    <Route path='/about' exact component={AboutUs} />
+                    <Route path='/contact' exact component={ContactUs} />
                     {
                         pageLoading ? <Spinner /> : auth ? <Body /> : <Home />
                     }
-                </div>
-            </Switch>
+                </Switch>
+            </div>
             <ScrollToTop />
             <Footer />
             <ToastContainer
@@ -129,5 +128,5 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({ type: "SET_LOFOITEMS", payload: lofoItems })
         }
     }
-};
+}
 export default connect(mapStateToProps, mapDispatchToProps)(App);

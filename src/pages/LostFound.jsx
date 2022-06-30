@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Form, InputGroup, Modal, Tab, Tabs, } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify';
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createLofoItem } from '../apis'
 import LoFoCard from '../components/LoFoCard'
@@ -104,8 +104,9 @@ function LostFound(props) {
 
                                 </InputGroup>
                             </Form>
-                            <Button size='sm' className='mx-1 px-3 btn-success' onClick={() => setOpen(true)}>Add
-                            </Button>
+                            <span size='sm' className='my-auto' role={'button'} onClick={() => setOpen(true)}>
+                                Add <FontAwesomeIcon icon={faPlusCircle} />
+                            </span>
                         </div>
                     </div>
 
@@ -125,7 +126,10 @@ function LostFound(props) {
                     </Tabs>
 
                     <Modal className='p-0' onHide={() => setOpen(false)} show={open}>
-                        <Modal.Header closeButton className='fw-bold'>Lost/Found</Modal.Header>
+                        <Modal.Header className='fw-bold d-flex justify-content-between'>
+                            <span>LOST / FOUND</span>
+                            <span><FontAwesomeIcon size='lg' icon={faTimes} onClick={() => setOpen(false)} role='button' /></span>
+                        </Modal.Header>
                         <Modal.Body>
                             <div className="d-flex flex-wrap justify-content-center">
                                 <form className="needs-validation" id="itemForm" noValidate="" onSubmit={handleSubmit} >

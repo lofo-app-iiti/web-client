@@ -1,25 +1,25 @@
 {
-    "short_name": "LoFo",
+    "short_name": "LoFo - IIT Indore",
     "name": "Lost/Found Portal of IIT Indore",
     "icons": [
         {
-            "src": "LoFo.webp",
+            "src": "logo2.png",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/x-icon"
         },
         {
-            "src": "LoFo.webp",
+            "src": "logo2.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "LoFo.webp",
+            "src": "logo2.png",
             "type": "image/png",
             "sizes": "512x512"
         }
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#fff",
-    "background_color": "#01268f"
+    "theme_color": "#000",
+    "background_color": "#fff"
 }

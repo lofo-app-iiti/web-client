@@ -6,7 +6,6 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBasketballBall, faBook, faGamepad, faShoppingCart, faSplotch, faStore } from '@fortawesome/free-solid-svg-icons';
 import ItemCard from '../components/ItemCard';
-import EmptySvg from '../svgs/EmptySvg';
 import { connect } from 'react-redux';
 
 function Buy(props) {
@@ -116,7 +115,7 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
                                     <Button as={Link} to='/buy/Other' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "Other" ? "#287a68" : "#212529"
+                                            color: category === "Other" ? "#15b08f" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faShoppingCart} />
@@ -130,13 +129,13 @@ function Buy(props) {
 
                             <div className="row">
 
-                                <div className="col-12 py-3" style={{ height: '83vh', overflowY: 'scroll' }} >
+                                <div className="col-12 py-3" style={{ height: '80vh', overflowY: 'scroll' }} >
                                     {
                                         loading ? <Spinner /> :
                                             <div className="row px-md-3">
                                                 {items.length === 0 ?
-                                                    <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} ><EmptySvg />
-                                                    </div>  <h3 className='text-center' >No Items!</h3></> :
+                                                    <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} >
+                                                    </div>  <h6 className='text-center text-secondary' >No Items!</h6></> :
                                                     items.map((item, i) => (
                                                         <div key={i} className='col-6 col-md-4 col-lg-3 p-2'>
                                                             <ItemCard item={item} />

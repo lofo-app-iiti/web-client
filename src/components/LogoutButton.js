@@ -15,13 +15,12 @@ function LogoutButton(props) {
         window.location.reload()
     };
 
-
     return (
         <span className='text-center'>
             <GoogleLogout
                 clientId={clientID}
                 render={renderProps => (
-                    <Button size='sm' className="btn-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                    <Button size='sm' className="btn-danger py-1 px-4 mt-2" onClick={renderProps.onClick} disabled={renderProps.disabled}>
                         <FontAwesomeIcon icon={faPowerOff} />{' '} Logout
                     </Button>
                 )}

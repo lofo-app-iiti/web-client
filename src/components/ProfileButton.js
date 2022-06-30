@@ -3,11 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCertificate, faUser, faShoppingBag, faBell } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, Nav } from 'react-bootstrap';
-import { baseURL } from '../apis';
+import { updateNotifBell } from '../apis';
 
 function ProfileButton(props) {
 
@@ -41,7 +40,7 @@ function ProfileButton(props) {
                 ...props.user,
                 notifications: newNotifs
             }
-            axios.put(baseURL + `/api/user/notifbell`)
+            updateNotifBell()
                 .then(res => {
                     props.Update(newUser);
                 })
@@ -72,7 +71,7 @@ function ProfileButton(props) {
                 {props.user.name ? <div className='mt-auto mx-3' style={{ color: '#010101', margin: 'auto 0' }} >  Hi! {props.user.name.slice(0, props.user.name.indexOf(' '))}</div> : null}
                 <div className="dropdown dropstart" >
                     <button className="btn btn-transparent p-0 my-auto dropdown-toggle" style={{ borderRadius: '100%' }} type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={props.user.imageUrl} alt="User icon" className="d-inline-block align-text-top" id="profile-image" />
+                        <img src={props.user.imageUrl} alt="icon" className="d-inline-block align-text-top" id="profile-image" />
                     </button>
                     <ul className="dropdown-menu position-absolute" aria-labelledby="dropdownMenuButton2">
                         <Dropdown.Item className="m-1" eventKey='13' as={Link} to="/profile"><FontAwesomeIcon className='me-2' icon={faUser} />Profile</Dropdown.Item>

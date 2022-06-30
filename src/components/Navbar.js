@@ -19,13 +19,13 @@ function NavbarComponent(props) {
 
 
     return (<>
-        <Navbar collapseOnSelect expand="lg" sticky='top' className='py-0 py-md-1 px-0 px-md-3' style={{
+        <Navbar collapseOnSelect expand="lg" sticky='top' className='py-0 px-0 px-md-3' style={{
             borderBottom: "1px solid #cccccc",
             backgroundColor: "white"
         }}>
-            <Container fluid className='py-1' >
+            <Container fluid  >
                 <Link to="/" className="navbar-brand logo d-flex" >
-                    <img src='LoFo2.webp' alt='' className='my-auto' width={100} />
+                    <img src='logo.webp' alt='' className='my-auto' width={70} height={60} />
                 </Link>
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
@@ -33,7 +33,12 @@ function NavbarComponent(props) {
                         {auth && <><Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link>  <hr className='m-1 ' /></>}
 
                         <Dropdown id="collasible-nav-dropdown">
-                            {auth && <Dropdown.Toggle className='non-outlined-btn btn-warning w-100' >Buy</Dropdown.Toggle>}
+                            {auth && <Dropdown.Toggle size='sm'
+                                style={{
+                                    backgroundColor: "#15b08f",
+                                    border: "none",
+                                }}
+                                className='non-outlined-btn h-100 px-3 w-100' > Buy</Dropdown.Toggle>}
                             <Dropdown.Menu >
                                 <Dropdown.Item eventKey='6' as={Link} to="/buy/All">All</Dropdown.Item>
                                 <Dropdown.Item eventKey='7' as={Link} to="/buy/Sports">Sports</Dropdown.Item>

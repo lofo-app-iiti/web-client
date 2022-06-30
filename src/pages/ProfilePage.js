@@ -3,11 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './ProfilePage.css';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import LogoutButton from '../components/LogoutButton';
 import { Button } from 'react-bootstrap';
+import { setMobileNumber } from '../apis';
 
 function EditProfile(props) {
     const { name, email, imageUrl, mobile } = props.user
@@ -27,9 +27,7 @@ function EditProfile(props) {
     const handleSubmit = (e) => {
         setVisibility(!visibility)
         e.preventDefault();
-        axios.put(`/api/user`, {
-            mobile: mobileInput
-        })
+        setMobileNumber(mobileInput)
             .then(res => {
                 const newUser = {
                     ...props.user,

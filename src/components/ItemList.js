@@ -7,21 +7,17 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import DeleteBtn from './DeleteBtn';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import EmptySvg from '../svgs/EmptySvg';
 
 function ItemList(props) {
     const { user, items, auth } = props;
 
     if (items.length === 0) {
-        return <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} ><EmptySvg />
-        </div>  <h3 className='text-center' >No Items!</h3></>;
+        return <h6 className='text-secondary text-center'>No items!</h6>;
     } else {
         return (
             <div className="container">
                 <div className="row">
-                    {items.length === 0 ?
-                        <> <div style={{ width: '10%', margin: '50px auto 20px auto' }} ><EmptySvg />
-                        </div>  <h3 className='text-center' >No Items!</h3></> :
+                    {
                         items.map((item, i) => (
                             <div key={i} className='col-6 col-md-4 col-lg-2 p-2'>
                                 <Card style={{

@@ -1,24 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import { baseURL } from '../apis';
+import { buyItem } from '../apis';
 
 function BuyBtn(props) {
-    const { user, auth } = props;
+    const { user, auth, title } = props;
     const { id } = props;
     const handleBuy = () => {
         if (auth) {
-            axios.put(baseURL + `/api/items/buy/${id}`, {
-                notification: {
-                    message: "wants to buy",
-                    itemTitle: props.title,
-                    mobile: user.mobile,
-                    dp: user.imageUrl,
-                    itemId: id
-                }
-            })
+            buyItem(id, title, user.mobile, user.imageUrl)
                 .then(res => {
                     const newUser = {
                         ...user,

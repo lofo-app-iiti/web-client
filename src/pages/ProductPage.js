@@ -59,8 +59,8 @@ function ProductPage(props) {
 
     useEffect(() => {
         if (!productDetails.title) return
-        setSimilarItems(props.items.filter(i => i.categories.includes(productDetails.categories[0])))
-    }, [productDetails.categories, props.items, productDetails.title])
+        setSimilarItems(props.items.filter(i => i.categories.includes(productDetails.categories[0] && i._id !== id)))
+    }, [productDetails.categories, props.items, productDetails.title, id])
 
     if (loading) {
         return (
@@ -143,14 +143,14 @@ function ProductPage(props) {
                                                         : <BuyBtn id={id} title={productDetails.title} />
 
                                             }
-                                            <span className='ms-2' > <WishBtn item={productDetails} />Add to Favourites </span>
+                                            <span className='ms-2' > <WishBtn item={productDetails} />Add to wishlist </span>
                                         </> : <BuyBtn />
                                 }
-
                             </div>
                         </div>
-                        <div className="container">
-                            <h3 className="mb-3">Similar Items</h3>
+                        <br />
+                        <div className="container my-3">
+                            <h6 className="mb-3">Similar Items {'>>'}</h6>
                             <Deck items={similarItems} removeSold={true} removeFav={false} />
                         </div>
                         <br />

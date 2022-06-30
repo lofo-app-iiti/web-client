@@ -22,7 +22,12 @@ function ItemCard(props) {
                 <div style={{ fontSize: '13px' }}>  &#8377; {item.price}</div>
             </Card.Body>
             <Card.Footer>
-                <Button variant="warning" size='sm' as={Link} to={`/product/${item._id}`} ><FontAwesomeIcon icon={faCartPlus} /> View </Button>
+                <Button size='sm' as={Link} to={`/product/${item._id}`}
+                    style={{
+                        backgroundColor: "#15b08f",
+                        border: "none",
+                    }}
+                ><FontAwesomeIcon className='me-1' icon={faCartPlus} /> View </Button>
                 {
                     auth ? user.ads.filter(item1 => { return item1._id === item._id }).length > 0 ? <DeleteBtn update={props.update} removeSold={props.removeSold} id={item._id} /> :
                         <WishBtn item={item} /> : null

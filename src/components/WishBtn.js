@@ -1,10 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { Button } from 'react-bootstrap';
+import { addToWishlist, removeFromWishlist } from '../apis';
 
 
 const WishBtn = (props) => {
@@ -17,7 +17,7 @@ const WishBtn = (props) => {
             };
             newUser.favourites.push(item)
             props.Update(newUser);
-            axios.put(`/api/user/favourites/${item._id}`)
+            addToWishlist(item._id)
                 .catch(err => {
                     console.log(err);
                 })
@@ -29,7 +29,7 @@ const WishBtn = (props) => {
                 favourites: user.favourites.filter(item1 => item1._id !== item._id)
             };
             props.Update(newUser);
-            axios.delete(`/api/user/favourites/${item._id}`)
+            removeFromWishlist(item._id)
                 .catch(err => {
                     console.log(err)
                 })
