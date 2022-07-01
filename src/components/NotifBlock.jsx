@@ -31,7 +31,7 @@ function NotifBlock(props) {
         }
     }
     const handleApprove = (buyerEmail, itemTitle, itemId, buyerName) => {
-        console.log(_id)
+
         approve(user, buyerEmail, itemId, itemTitle, _id)
             .then(res => {
                 const newItem = items.filter(i => i._id === itemId)[0]

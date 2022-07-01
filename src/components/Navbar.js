@@ -20,7 +20,7 @@ function NavbarComponent(props) {
 
     return (<>
         <Navbar collapseOnSelect expand="lg" sticky='top' className='py-0 px-0 px-md-3' style={{
-            borderBottom: "1px solid #cccccc",
+            // borderBottom: "1px solid #cccccc",
             backgroundColor: "white"
         }}>
             <Container fluid  >
@@ -29,7 +29,7 @@ function NavbarComponent(props) {
                 </Link>
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
-                    <Nav className="ms-3">
+                    <Nav className="ms-2">
                         {auth && <><Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link>  <hr className='m-1 ' /></>}
 
                         <Dropdown id="collasible-nav-dropdown">

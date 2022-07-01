@@ -98,7 +98,7 @@ function Sell(props) {
                                     <img src="/sell.jpg" alt="" style={{ height: 'inherit' }} />
                                 </div>
 
-                                <div className="container px-1 ">
+                                <div className="container px-1 mt-5 ">
 
                                     {/* FORM */}
                                     <div className="d-flex flex-wrap justify-content-center">

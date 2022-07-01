@@ -55,8 +55,6 @@ function ProductPage(props) {
             })
     }, [id])
 
-    console.log(productDetails)
-
     useEffect(() => {
         if (!productDetails.title) return
         setSimilarItems(props.items.filter(i => i.categories.includes(productDetails.categories[0] && i._id !== id)))

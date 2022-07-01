@@ -70,7 +70,7 @@ function ProfileButton(props) {
                 </Nav.Link>
                 {props.user.name ? <div className='mt-auto mx-3' style={{ color: '#010101', margin: 'auto 0' }} >  Hi! {props.user.name.slice(0, props.user.name.indexOf(' '))}</div> : null}
                 <div className="dropdown dropstart" >
-                    <button className="btn btn-transparent p-0 my-auto dropdown-toggle" style={{ borderRadius: '100%' }} type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-transparent p-0 my-auto dropdown-toggle non-outlined-btn" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src={props.user.imageUrl} alt="icon" className="d-inline-block align-text-top" id="profile-image" />
                     </button>
                     <ul className="dropdown-menu position-absolute" aria-labelledby="dropdownMenuButton2">
@@ -83,7 +83,7 @@ function ProfileButton(props) {
                 </div>
 
             </div>
-            <div className="d-flex d-md-none justify-content-between">
+            <div className="d-flex px-2 d-md-none justify-content-between">
                 <Nav.Link as={Link} eventKey='12' to='/wishlist' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
                         <FontAwesomeIcon icon={faHeart} />

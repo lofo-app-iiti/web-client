@@ -26,8 +26,6 @@ function Orders(props) {
 
     }, [items, user.orders, props.loading])
 
-    console.log(orders)
-
     return (
         <>
             {

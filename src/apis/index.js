@@ -2,8 +2,6 @@ import axios from "axios";
 
 export const baseURL = process.env.REACT_APP_baseURL;
 
-console.log(baseURL)
-
 export const admin = ["technicals.tedx@iiti.ac.in"]
 
 

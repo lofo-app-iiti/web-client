@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Form, InputGroup, Modal, Tab, Tabs, } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify';
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createLofoItem } from '../apis'
 import LoFoCard from '../components/LoFoCard'
@@ -63,8 +63,6 @@ function LostFound(props) {
             })
     };
 
-    console.log(file)
-
     function Data(props) {
         return (
             <>
@@ -90,15 +88,18 @@ function LostFound(props) {
     return (
         <>
             <div className="my-3 container-lg px-3 px-md-4">
-                <div className="d-flex flex-column flex-md-row justify-content-between" >
+                <div className="d-flex flex-column flex-md-row mx-md-2 justify-content-between" >
                     <h3 className='text-center mb-3' >Lost/Found Portal - IIT Indore</h3>
-                    <div className='d-flex mb-2 p-0 justify-content-evenly'>
-                        <Form className='me-3' onSubmit={(e) => {
+                    <div className='d-flex mb-3 p-0 justify-content-between'>
+                        <Form onSubmit={(e) => {
                             e.preventDefault()
                         }} >
-                            <InputGroup>
+                            <InputGroup
+                                style={{
+                                    width: "90%",
+                                }}
+                            >
                                 <Form.Control
-                                    width={100}
                                     placeholder='Search...'
                                     className='non-outlined-btn'
                                     onChange={(e) => setSearch(e.target.value)} value={search}
@@ -119,14 +120,18 @@ function LostFound(props) {
 
                             </InputGroup>
                         </Form>
-                        <span className='bg-light p-2 rounded ' role={'button'} onClick={() => setOpen(true)}>
-                            Add
+                        <span className='bg-light p-2 py-auto rounded ' role={'button'} onClick={() => setOpen(true)}
+                            style={{
+                                fontSize: 13
+                            }}
+                        >
+                            Add <FontAwesomeIcon icon={faPlus} />
                         </span>
                     </div>
                 </div>
 
                 <Tabs
-                    className='d-flex'
+                    className='d-flex mx-md-2'
                     defaultActiveKey="lost"
                     transition={false}
                     id="noanim-tab-example"

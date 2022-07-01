@@ -33,92 +33,90 @@ function Buy(props) {
         setSearch(e.target.value)
     };
 
-    console.log(items)
-
     return (
         <>
             <section>
                 <div className="container-fluid px-4">
                     <div className="row">
-                        <div className="col-12 col-md-3">
+                        <div className="col-12 p-0 p-md-2 d-flex flex-column-reverse flex-md-column col-md-3">
 
-                            <Form onSubmit={handleSubmit} className='my-3' >
+                            <Form onSubmit={handleSubmit} className='my-3 px-md-2' >
                                 <InputGroup>
                                     <Form.Control placeholder="Search items..." className='non-outlined-btn' onChange={handleChange} />
                                     {/* <Button type='submit' ><FontAwesomeIcon icon={faSearch} /></Button> */}
                                 </InputGroup>
 
                             </Form>
-                            <div className="row px-2">
+                            <div className="row px-0 px-md-4">
 
-                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
+                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/All' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
                                             color: category === "All" ? "#287a68" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faStore} />
-                                        <span className='ms-2'
+                                        <span className='ms-2 d-none d-md-inline'
                                         >All</span>
                                     </Button>
                                 </div>
 
-                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
+                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Sports' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
                                             color: category === "Sports" ? "#287a68" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faBasketballBall} />
-                                        <span className='ms-2'
+                                        <span className='ms-2 d-none d-md-inline'
                                         >Sports</span>
                                     </Button>
                                 </div>
 
-                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
+                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Books' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
                                             color: category === "Books" ? "#287a68" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faBook} />
-                                        <span className='ms-2'
+                                        <span className='ms-2 d-none d-md-inline'
                                         >Books</span>
                                     </Button>
                                 </div>
 
-                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
+                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Games' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
                                             color: category === "Games" ? "#287a68" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faGamepad} />
-                                        <span className='ms-2'
+                                        <span className='ms-2 d-none d-md-inline'
                                         >Games</span>
                                     </Button>
                                 </div>
 
-                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
+                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Utilities' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
                                             color: category === "Utilities" ? "#287a68" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faSplotch} />
-                                        <span className='ms-2'
+                                        <span className='ms-2 d-none d-md-inline'
                                         >Utilities</span>
                                     </Button>
                                 </div>
 
-                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-4 col-md-12 px-1">
+                                <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Other' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
                                             color: category === "Other" ? "#15b08f" : "#212529"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faShoppingCart} />
-                                        <span className='ms-2'
+                                        <span className='ms-2 d-none d-md-inline'
                                         >Other</span>
                                     </Button>
                                 </div>
@@ -132,6 +130,7 @@ function Buy(props) {
                                     {
                                         loading ? <Spinner /> :
                                             <div className="row px-md-3">
+                                                <div className="text-center d-md-none">{category}</div>
                                                 {items.length === 0 ?
                                                     <h6 className='text-center text-secondary mt-5' >No Items!</h6> :
                                                     items.map((item, i) => (
