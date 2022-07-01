@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const baseURL = "https://lofo-server.herokuapp.com";
-// export const baseURL = "http://localhost:5000";
+export const baseURL = process.env.REACT_APP_baseURL;
+
+console.log(baseURL)
 
 export const admin = ["technicals.tedx@iiti.ac.in"]
 
@@ -44,7 +45,7 @@ export const setMobileNumber = (mobile) => axios.put(baseURL + `/api/user`, { mo
 export const notify = (id, notification) => axios.put(baseURL + `/api/lost-found/notify/${id}`, { notification })
 export const deleteNotif = (id) => axios.delete(baseURL + `/api/user/notif/${id}`)
 export const updateNotifBell = () => axios.put(baseURL + `/api/user/notifbell`)
-export const approve = (user, buyerEmail, itemId, itemTitle) => axios.put(baseURL + `/api/user/approve/${buyerEmail}`,
+export const approve = (user, buyerEmail, itemId, itemTitle, notifId) => axios.put(baseURL + `/api/user/approve/${buyerEmail}`,
     {
         _id: user._id,
         notification: {
@@ -52,6 +53,7 @@ export const approve = (user, buyerEmail, itemId, itemTitle) => axios.put(baseUR
             itemTitle: itemTitle,
             mobile: user.mobile,
             dp: user.imageUrl,
-            itemId: itemId
-        }
+            itemId: itemId,
+        },
+        notifId
     })

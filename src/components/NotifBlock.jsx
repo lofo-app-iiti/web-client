@@ -6,35 +6,43 @@ import { toast } from 'react-toastify';
 import { approve, deleteNotif } from '../apis';
 
 function NotifBlock(props) {
-    const { user, Update } = props
+    const { user, Update, items } = props
     const [deleting, setDeleting] = useState(false);
 
-    const { itemTitle, _id, message, userName, userEmail, mobile, dp, itemId, approved } = props.content
+    const { itemTitle, _id, message, userName, userEmail, mobile, dp, itemId } = props.content
 
     function ApproveButton(props) {
         if (props.message === "wants to buy") {
-            return <button
-                disabled={approved}
-                type="button"
-                style={{ fontSize: '12px' }}
-                className="btn p-0 non-outlined-btn btn-transparent"
-                onClick={() => handleApprove(props.buyerEmail, props.itemTitle, props.itemId, props.buyerName)}>
-                <FontAwesomeIcon icon={faArrowAltCircleRight} className='text-success me-2' />
-                {user.notifications.approved ? "Approved" : "Approve"}
-            </button>
-        } else {
-            return null
-        }
-    };
+            const item = items.filter(i => i._id === props.itemId)[0];
 
+            if (item) {
+                return <button
+                    disabled={item.sold}
+                    type="button"
+                    style={{ fontSize: '12px' }}
+                    className="btn p-0 non-outlined-btn btn-transparent"
+                    onClick={() => handleApprove(props.buyerEmail, props.itemTitle, props.itemId, props.buyerName)}>
+                    <FontAwesomeIcon icon={faArrowAltCircleRight} className='text-success me-2' />
+                    {item.sold ? "Approved" : "Approve"}
+                </button>
+            }
+            else return null;
+
+        }
+    }
     const handleApprove = (buyerEmail, itemTitle, itemId, buyerName) => {
-        approve(user, buyerEmail, itemId, itemTitle)
+        console.log(_id)
+        approve(user, buyerEmail, itemId, itemTitle, _id)
             .then(res => {
-                console.log(res.data.notifications)
+                const newItem = items.filter(i => i._id === itemId)[0]
+                newItem.sold = true;
                 Update({
                     ...user,
                     notifications: res.data.notifications
-                })
+                },
+                    itemId,
+                    newItem
+                )
                 toast.success(`${res.data.msg} ${buyerName}`)
             })
             .catch(err => {
@@ -110,7 +118,9 @@ function NotifBlock(props) {
                                 message={message}
                                 buyerEmail={userEmail}
                                 itemId={itemId}
-                                buyerName={userName} /> : null
+                                buyerName={userName}
+
+                            /> : null
                     }
                 </div>
             </div>
@@ -129,9 +139,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        Update: (user) => {
+        Update: (user, itemId, doc) => {
             dispatch({ type: 'UPDATE_USER', payload: user })
-        }
+            dispatch({ type: 'UPDATE_ITEM', payload: { id: itemId, doc } })
+        },
     }
 };
 

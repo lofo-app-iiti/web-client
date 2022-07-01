@@ -65,7 +65,7 @@ function ProfileButton(props) {
                                 {notifCount}
                             </sup>
                         </> :
-                        <FontAwesomeIcon size='lg' style={{ color: "#212529" }} icon={faBell} />
+                        <FontAwesomeIcon size='lg' className='me-3' style={{ color: "#212529" }} icon={faBell} />
                     }
                 </Nav.Link>
                 {props.user.name ? <div className='mt-auto mx-3' style={{ color: '#010101', margin: 'auto 0' }} >  Hi! {props.user.name.slice(0, props.user.name.indexOf(' '))}</div> : null}

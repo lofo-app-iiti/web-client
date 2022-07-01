@@ -143,14 +143,14 @@ function ProductPage(props) {
                                                     orderStatus.success ?
                                                         <Button size='sm' className="btn-success non-outlined-btn btn-md mr-1 mb-2" disabled  >Approved</Button>
                                                         : productDetails.sold ?
-                                                            <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
+                                                            <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold out!</Button>
                                                             : <Button size='sm' className="btn-warning non-outlined-btn btn-md mr-1 mb-2" disabled  >Notified</Button>
                                                     : productDetails.sold ?
-                                                        <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold!</Button>
+                                                        <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold out!</Button>
                                                         : <BuyBtn id={id} title={productDetails.title} />
 
                                             }
-                                            <span className='ms-2' > <WishBtn item={productDetails} />Add to wishlist </span>
+                                            {!productDetails.sold && <span className='ms-2' > <WishBtn item={productDetails} />Add to wishlist </span>}
                                         </> : <BuyBtn />
                                 }
                             </div>

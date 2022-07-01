@@ -71,7 +71,7 @@ const Reducers = (state = initialState, action) => {
         case 'UPDATE_ITEM':
             return {
                 ...state,
-                items: state.items[state.items.findIndex((o => o._id === action.payload._id))] = action.payload,
+                items: [...state.items, state.items[state.items.findIndex((o => o._id === action.payload._id))] = action.payload.doc],
             };
         case 'CREATE_ITEM':
             return {

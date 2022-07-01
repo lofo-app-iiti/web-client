@@ -20,6 +20,7 @@ function ItemList(props) {
                     {
                         items.map((item, i) => (
                             <div key={i} className='col-6 col-md-4 col-lg-2 p-2'>
+
                                 <Card style={{
                                     minwidth: '180px', maxWidth: 250,
                                     margin: "auto"
@@ -34,8 +35,9 @@ function ItemList(props) {
                                     <Card.Footer>
                                         <Button variant="warning" size='sm' as={Link} to={`/product/${item._id}`} ><FontAwesomeIcon icon={faCartPlus} /> View </Button>
                                         {
-                                            auth ? user.ads.filter(item1 => { return item1._id === item._id }).length > 0 ? <DeleteBtn update={props.update} removeSold={props.removeSold} id={item._id} /> :
-                                                <WishBtn item={item} /> : null
+                                            auth ? user.ads.filter(item1 => { return item1._id === item._id }).length > 0 ?
+                                                <DeleteBtn update={props.update} removeSold={props.removeSold} id={item._id} /> : !item.sold ?
+                                                    <WishBtn item={item} /> : null : null
                                         }
                                     </Card.Footer>
                                 </Card>
