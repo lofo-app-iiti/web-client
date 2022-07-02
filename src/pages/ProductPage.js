@@ -113,12 +113,19 @@ function ProductPage(props) {
                                         Seller: {productDetails.userName}
                                     </div>
                                     <div className='my-1'>
-                                        Email: {productDetails.userEmail}
+                                        Email:
+                                        <a className='ms-2' href={`mailto:${productDetails.userEmail}`}>
+                                            {productDetails.userEmail}
+                                        </a>
+
                                     </div>
                                     {
                                         productDetails.mobile &&
                                         <div className='my-1'>
-                                            Mobile: {productDetails.mobile}
+                                            Mobile:
+                                            <a className='ms-2' href={`tel:${productDetails.mobile}`}>
+                                                {productDetails.mobile}
+                                            </a>
                                         </div>
                                     }
 

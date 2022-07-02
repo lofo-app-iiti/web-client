@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { admin } from '../apis'
 import DeleteBtn from './DeleteBtn'
 import WishBtn from './WishBtn'
+import { themeColor } from '../styles'
 
 function ItemCard(props) {
     const { item, user, auth } = props
@@ -27,7 +28,7 @@ function ItemCard(props) {
                     item.sold ? <span className='text-danger'>Sold out!</span> :
                         <Button size='sm' as={Link} to={`/product/${item._id}`}
                             style={{
-                                backgroundColor: "#15b08f",
+                                backgroundColor: '#' + themeColor,
                                 border: "none",
                             }}
                         ><FontAwesomeIcon className='me-1' icon={faCartPlus} /> View </Button>

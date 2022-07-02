@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBasketballBall, faBook, faGamepad, faShoppingCart, faSplotch, faStore } from '@fortawesome/free-solid-svg-icons';
 import ItemCard from '../components/ItemCard';
 import { connect } from 'react-redux';
+import { themeColor } from '../styles';
 
 function Buy(props) {
     const [search, setSearch] = useState('')
@@ -52,7 +53,8 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/All' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "All" ? "#287a68" : "#212529"
+                                            color: category === "All" ? '#' + themeColor : "#212529",
+                                            fontWeight: category === "All" ? "bold" : "normal"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faStore} />
@@ -64,7 +66,8 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Sports' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "Sports" ? "#287a68" : "#212529"
+                                            color: category === "Sports" ? '#' + themeColor : "#212529",
+                                            fontWeight: category === "Sports" ? "bold" : "normal"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faBasketballBall} />
@@ -76,7 +79,8 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Books' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "Books" ? "#287a68" : "#212529"
+                                            color: category === "Books" ? '#' + themeColor : "#212529",
+                                            fontWeight: category === "Books" ? "bold" : "normal"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faBook} />
@@ -88,7 +92,8 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Games' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "Games" ? "#287a68" : "#212529"
+                                            color: category === "Games" ? '#' + themeColor : "#212529",
+                                            fontWeight: category === "Games" ? "bold" : "normal"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faGamepad} />
@@ -100,7 +105,8 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Utilities' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "Utilities" ? "#287a68" : "#212529"
+                                            color: category === "Utilities" ? '#' + themeColor : "#212529",
+                                            fontWeight: category === "Utilities" ? "bold" : "normal"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faSplotch} />
@@ -112,7 +118,8 @@ function Buy(props) {
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
                                     <Button as={Link} to='/buy/Other' className='non-outlined-btn category-btn' variant='transparent'
                                         style={{
-                                            color: category === "Other" ? "#15b08f" : "#212529"
+                                            color: category === "Other" ? '#' + themeColor : "#212529",
+                                            fontWeight: category === "Other" ? "bold" : "normal"
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faShoppingCart} />

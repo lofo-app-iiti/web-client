@@ -7,6 +7,7 @@ import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createLofoItem } from '../apis'
 import LoFoCard from '../components/LoFoCard'
+import { themeColor } from '../styles';
 
 function LostFound(props) {
 
@@ -120,13 +121,15 @@ function LostFound(props) {
 
                             </InputGroup>
                         </Form>
-                        <span className='bg-light p-2 py-auto rounded ' role={'button'} onClick={() => setOpen(true)}
+                        <div className='p-1 px-2 px-md-3 my-auto rounded ' role={'button'} onClick={() => setOpen(true)}
                             style={{
-                                fontSize: 13
+                                fontSize: 13,
+                                backgroundColor: '#' + themeColor,
+                                color: "#fff"
                             }}
                         >
                             Add <FontAwesomeIcon icon={faPlus} />
-                        </span>
+                        </div>
                     </div>
                 </div>
 

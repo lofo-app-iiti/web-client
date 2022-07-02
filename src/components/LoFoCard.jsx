@@ -1,4 +1,4 @@
-import { faCheckCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faEnvelope, faPhoneAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify'
 import { admin, deleteLofoItem, notify } from '../apis'
+import { themeColor } from '../styles'
 
 function LoFoCard(props) {
 
@@ -69,9 +70,9 @@ function LoFoCard(props) {
     }
 
     return (
-        <div className='p-3 rounded' disabled={item.claimed} style={{ border: "1px solid #ccc" }}>
+        <div className='p-3 rounded' style={{ border: "1px solid #ccc" }}>
 
-            <div className="d-flex" >
+            <div className="d-flex gap-2" >
                 <div className='mb-3'>
                     {
                         <img
@@ -82,7 +83,7 @@ function LoFoCard(props) {
                     }
                 </div>
 
-                <div className="ms-3 mb-3 w-75"
+                <div className="ms-3  w-100"
                     style={{
                         color: item.claimed && "gray"
                     }}
@@ -91,36 +92,37 @@ function LoFoCard(props) {
 
 
                         <div className="p fw-bold">{item.title} </div>
-                        <div>
+                        <div className='d-flex'>
+
+                            <span className="me-2">
+                                {item.claimed ?
+                                    <span disabled >
+                                        <FontAwesomeIcon size='sm' icon={faCheckCircle} className='ms-1' />
+                                    </span> :
+                                    item.userEmail !== user.email ?
+                                        <div className='rounded' size='sm' role={'button'} onClick={() => setOpen(true)}
+                                            style={{
+                                                fontSize: 13,
+                                                backgroundColor: '#' + themeColor,
+                                                color: "#fff",
+                                                padding: "3px 8px",
+
+                                            }}
+                                        >
+                                            {item.status === 'lost' ? 'I found' : "It's mine"}
+                                        </div> : null
+                                }
+                            </span>
                             {
                                 item.userEmail === user.email || admin.includes(user.email) ?
-                                    <div>
-                                        <span className="me-2">
-                                            {item.claimed &&
-                                                <span disabled >
-                                                    <FontAwesomeIcon size='sm' icon={faCheckCircle} className='ms-1' />
-                                                </span>
-                                            }
-                                        </span>
-                                        <span onClick={() => Delete(item._id, item.status)} className='text-danger ms-3' role={'button'} >
-                                            {
-                                                load ? <i>deleting...</i> :
-                                                    <FontAwesomeIcon size='sm' icon={faTrash} />
-                                            }
-                                        </span>
-                                    </div>
-
-
-
-                                    : item.claimed ?
-                                        <span className='ms-1' disabled >
-                                            <FontAwesomeIcon icon={faCheckCircle} className='ms-1' />
-                                        </span>
-                                        :
-                                        <Button size='sm' onClick={() => setOpen(true)} >
-                                            {item.status === 'lost' ? 'I found' : "It's mine"}
-                                        </Button>
+                                    <span onClick={() => Delete(item._id, item.status)} className='text-danger ms-3' role={'button'} >
+                                        {
+                                            load ? <i>deleting...</i> :
+                                                <FontAwesomeIcon size='sm' icon={faTrash} />
+                                        }
+                                    </span> : null
                             }
+
                         </div>
 
                     </div>
@@ -129,8 +131,23 @@ function LoFoCard(props) {
                     <div className="row">
                         <div className="col-12 col-md-9">
                             <div style={{ fontSize: '13px' }} > {item.userName}</div>
-                            <div style={{ fontSize: '13px' }}  >{item.userEmail}</div>
-                            <div style={{ fontSize: '13px' }}  >{item.mobile}</div>
+                            <div className="d-flex">
+                                <div style={{ fontSize: '13px' }} className='me-3' >
+                                    <a href={`mailto:${item.userEmail}`}>
+                                        <FontAwesomeIcon icon={faEnvelope} />
+                                    </a>
+                                </div>
+                                {
+                                    item.mobile ? <div style={{ fontSize: '13px' }}  >
+                                        <a href={`tel:${item.mobile}`}>
+                                            <FontAwesomeIcon size='sm' icon={faPhoneAlt} />
+                                        </a>
+
+                                    </div> : null
+                                }
+                            </div>
+
+
                         </div>
 
                         <div className='col-12 col-md-2 text-center'>

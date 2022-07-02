@@ -6,6 +6,7 @@ import { Container, Navbar, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import LoginButton from './LoginButton';
+import { themeColor } from '../styles';
 
 function NavbarComponent(props) {
 
@@ -32,13 +33,13 @@ function NavbarComponent(props) {
                     <Nav className="ms-2">
                         {auth && <><Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link>  <hr className='m-1 ' /></>}
 
-                        <Dropdown id="collasible-nav-dropdown">
+                        <Dropdown id="collasible-nav-dropdown" className='my-auto'>
                             {auth && <Dropdown.Toggle size='sm'
                                 style={{
-                                    backgroundColor: "#15b08f",
+                                    backgroundColor: '#' + themeColor,
                                     border: "none",
                                 }}
-                                className='non-outlined-btn h-100 px-3 w-100' > Buy</Dropdown.Toggle>}
+                                className='non-outlined-btn h-80 px-3 w-100' > Buy</Dropdown.Toggle>}
                             <Dropdown.Menu >
                                 <Dropdown.Item eventKey='6' as={Link} to="/buy/All">All</Dropdown.Item>
                                 <Dropdown.Item eventKey='7' as={Link} to="/buy/Sports">Sports</Dropdown.Item>
