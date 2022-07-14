@@ -1,22 +1,10 @@
-import React from 'react'
-import { Button } from 'react-bootstrap'
 import emailjs from '@emailjs/browser'
 
-export default function SendMail() {
+export const SendMail = async (data) => {
 
-    const sendMail = () => {
-        emailjs.send("service_5fm302u", "template_79hfmob", {
-            name: "Jaisurya",
-            object: "bag",
-            to_email: "sumanj631@gmail.com"
-        }, "bN50q8M2Knnn5yF1i")
-            .then(r => console.log(r.status))
-            .catch(e => console.log(e))
-    }
+    const { name, object, to_email, to_name, message, email } = data
 
-    return (
-        <div>
-            <Button onClick={sendMail}>Send</Button>
-        </div>
-    )
+    emailjs.send("service_5fm302u", "template_79hfmob", {
+        name, object, to_email, to_name, message, email
+    }, "bN50q8M2Knnn5yF1i")
 }

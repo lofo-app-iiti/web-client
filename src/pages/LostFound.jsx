@@ -204,7 +204,7 @@ function LostFound(props) {
                                     <button className="w-100 btn btn-danger btn-sm" type="reset">
                                         Reset
                                     </button>
-                                    <button className="w-100 btn btn-success btn-sm" type="submit">
+                                    <button disabled={posting} className="w-100 btn btn-success btn-sm" type="submit">
                                         {posting ? "Posting..." : "Post"}
                                     </button>
                                 </div>

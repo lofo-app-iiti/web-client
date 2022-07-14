@@ -16,7 +16,7 @@ const initialState = {
     lofoItems: [],
     items: [],
     authorised: false,
-    authLoading: localStorage.getItem('authLoading') === 'true' ? true : false,
+    authLoading: false,
     accessToken: null
 }
 
@@ -25,7 +25,6 @@ const Reducers = (state = initialState, action) => {
 
         // user Reducer ----------------------------------------------->
         case 'SET_USER':
-            localStorage.setItem('authLoading', true)
             return {
                 ...state,
                 user: action.payload.user,
@@ -35,7 +34,6 @@ const Reducers = (state = initialState, action) => {
             };
 
         case 'CLEAR_USER':
-            localStorage.setItem('authLoading', false)
             return {
                 ...state,
                 user: { ...initialState.user },

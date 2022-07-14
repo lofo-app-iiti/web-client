@@ -7,12 +7,14 @@ import { withRouter } from 'react-router'
 import { toast } from 'react-toastify'
 import { admin, deleteLofoItem, notify } from '../apis'
 import { themeColor } from '../styles'
+import { SendMail } from './SendMail'
 
 function LoFoCard(props) {
 
     const { user, item, setFound, setLost, auth } = props
     const [load, setLoad] = useState(false)
     const [open, setOpen] = useState(false)
+    const [sending, setSending] = useState(false)
 
     const Delete = (id, status) => {
         setLoad(true)
@@ -33,7 +35,8 @@ function LoFoCard(props) {
             })
     }
 
-    const handleClaim = (id, status, title) => {
+    const handleClaim = ({ _id, status, title, userEmail, userName }) => {
+        setSending(true)
         if (auth) {
             let notification = {
                 itemTitle: title,
@@ -45,17 +48,17 @@ function LoFoCard(props) {
             } else {
                 notification['message'] = `wants to claim`
             }
-            notify(id, notification)
+            notify(_id, notification)
                 .then(res => {
                     const updated = {
                         ...item,
                         claimed: true
                     }
                     if (status === 'lost') {
-                        setLost(prev => [...prev.filter(item => { return item._id !== id }), updated])
+                        setLost(prev => [...prev.filter(item => item._id !== _id), updated])
                     }
                     else {
-                        setFound(prev => [...prev.filter(item => { return item._id !== id }), updated])
+                        setFound(prev => [...prev.filter(item => item._id !== _id), updated])
                     }
                     toast.success(res.data.message);
                 })
@@ -63,9 +66,25 @@ function LoFoCard(props) {
                     console.log(err);
                     toast.error("Failed to notify");
                 })
+
+            const data = {
+                message: status === 'lost' ? "found your" : "wants to claim",
+                name: user.name,
+                email: user.email,
+                to_email: userEmail,
+                to_name: userName,
+                object: title,
+            }
+            SendMail(data)
+                .then(res => {
+                    setSending(false);
+                })
+                .catch(err => toast.error("couldn't send mail!"))
         }
         else {
+            setSending(false);
             toast.error("Please Login first");
+            return;
         }
     }
 
@@ -167,14 +186,14 @@ function LoFoCard(props) {
             <Modal show={open} onHide={() => setOpen(false)}>
                 <Modal.Header>Do you want to claim it?</Modal.Header>
                 <Modal.Body>
-                    Note: An official mail will be sent to the founder of this items that you own it.
+                    Note: An official mail will be sent to the {item.userName} that you {item.status === 'lost' ? "found" : "own"} it.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button size='sm' variant='danger' onClick={() => setOpen(false)} >
                         Cancel
                     </Button>
-                    <Button size='sm' onClick={() => handleClaim(item._id, item.status, item.title)} >
-                        Proceed
+                    <Button disabled={sending} size='sm' onClick={() => handleClaim(item)} >
+                        {sending ? <i>Sending...</i> : "Send"}
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -1,13 +1,17 @@
 import { faArrowAltCircleRight, faEnvelope, faPhone, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
+import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { approve, deleteNotif } from '../apis';
+import { SendMail } from './SendMail';
 
 function NotifBlock(props) {
     const { user, Update, items } = props
     const [deleting, setDeleting] = useState(false);
+    const [open, setOpen] = useState(false)
+    const [sending, setSending] = useState(false)
 
     const { itemTitle, _id, message, userName, userEmail, mobile, dp, itemId } = props.content
 
@@ -21,7 +25,7 @@ function NotifBlock(props) {
                     type="button"
                     style={{ fontSize: '12px' }}
                     className="btn p-0 non-outlined-btn btn-transparent"
-                    onClick={() => handleApprove(props.buyerEmail, props.itemTitle, props.itemId, props.buyerName)}>
+                    onClick={() => setOpen(true)}>
                     <FontAwesomeIcon icon={faArrowAltCircleRight} className='text-success me-2' />
                     {item.sold ? "Approved" : "Approve"}
                 </button>
@@ -31,7 +35,7 @@ function NotifBlock(props) {
         }
     }
     const handleApprove = (buyerEmail, itemTitle, itemId, buyerName) => {
-
+        setSending(true)
         approve(user, buyerEmail, itemId, itemTitle, _id)
             .then(res => {
                 const newItem = items.filter(i => i._id === itemId)[0]
@@ -47,6 +51,28 @@ function NotifBlock(props) {
             })
             .catch(err => {
                 toast.error("Couldn't notify")
+                console.log(err)
+
+            })
+
+        const data = {
+            message: "approved you buy request for",
+            name: user.name,
+            email: user.email,
+            to_email: buyerEmail,
+            to_name: buyerName,
+            object: itemTitle,
+        }
+        SendMail(data)
+            .then(res => {
+                setSending(false);
+                setOpen(false)
+            })
+            .catch(err => {
+                setSending(false)
+                setOpen(false)
+                toast.error("couldn't send mail!")
+                console.log(err)
             })
     }
 
@@ -124,6 +150,21 @@ function NotifBlock(props) {
                     }
                 </div>
             </div>
+            <Modal show={open} onHide={() => setOpen(false)}>
+                <Modal.Header>Do you want to claim it?</Modal.Header>
+                <Modal.Body>
+                    Note: An official mail will be sent to the {userName} that you approved his/her buy request for {itemTitle}.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button size='sm' variant='danger' onClick={() => setOpen(false)} >
+                        Cancel
+                    </Button>
+                    <Button disabled={sending} size='sm'
+                        onClick={() => handleApprove(userEmail, itemTitle, itemId, userName)} >
+                        {sending ? <i>Sending...</i> : "Send"}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
