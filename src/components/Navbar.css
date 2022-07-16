@@ -15,7 +15,6 @@
 }
 .nav-link{
     border: 2px solid rgb(255, 255, 255);
-    transition: all .5s;
 }
 .nav-link:hover{
     border-bottom: 2px solid #07886c;

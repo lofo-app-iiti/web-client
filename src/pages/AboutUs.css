@@ -2,12 +2,11 @@
     background-color: #eeeeee;
 }
 .box{
-    justify-content: center;
+    display: flex;
     align-items: center;
-    gap: 100px;
 }
 .box img{
-    width: 500px;
+    height: 90%;
     border-radius: 20px;
 }
 @media only screen and  (max-width: 1000px) {

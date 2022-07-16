@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const baseURL = process.env.REACT_APP_baseURL;
 
-export const admin = ["technicals.tedx@iiti.ac.in"]
+export const admin = ["lofo@iiti.ac.in"]
 
 
 // auth
