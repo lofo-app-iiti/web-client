@@ -5,7 +5,7 @@ import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCertificate, faUser, faShoppingBag, faBell } from '@fortawesome/free-solid-svg-icons';
-import { Dropdown, Nav } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { updateNotifBell } from '../apis';
 
 function ProfileButton(props) {
@@ -52,8 +52,8 @@ function ProfileButton(props) {
     }
     return (
         <>
-            <div className="profile d-none d-md-flex justify-content-between ">
-                <Nav.Link as={Link} onClick={handleBell} eventKey='12' to="/notifications" className='m-auto mx-2' id="notification-bell" >
+            <div className="profile d-none d-lg-flex justify-content-between ">
+                <Link onClick={handleBell} eventKey='12' to="/notifications" className='m-auto mx-2' id="notification-bell" >
                     {notifCount > 0 ?
                         <>
                             <FontAwesomeIcon size='lg' style={{ color: "#212529" }} icon={faBell} />
@@ -67,7 +67,7 @@ function ProfileButton(props) {
                         </> :
                         <FontAwesomeIcon size='lg' className='me-3' style={{ color: "#212529" }} icon={faBell} />
                     }
-                </Nav.Link>
+                </Link>
                 {props.user.name ? <div className='mt-auto mx-3' style={{ color: '#010101', margin: 'auto 0' }} >  Hi! {props.user.name.slice(0, props.user.name.indexOf(' '))}</div> : null}
                 <div className="dropdown dropstart" >
                     <button className="btn btn-transparent p-0 my-auto dropdown-toggle non-outlined-btn" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,20 +83,20 @@ function ProfileButton(props) {
                 </div>
 
             </div>
-            <div className="d-flex px-2 d-md-none justify-content-between">
-                <Nav.Link as={Link} eventKey='12' to='/wishlist' style={{ color: "#212529", textDecoration: "none" }}>
+            <div className="d-flex px-2 d-lg-none justify-content-between">
+                <Link eventKey='12' to='/wishlist' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
                         <FontAwesomeIcon icon={faHeart} />
                     </div>
                     <p>Wishlist</p>
-                </Nav.Link>
-                <Nav.Link as={Link} eventKey='13' to='/your-ads' style={{ color: "#212529", textDecoration: "none" }}>
+                </Link>
+                <Link eventKey='13' to='/your-ads' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
                         <FontAwesomeIcon icon={faCertificate} />
                     </div>
                     <p>Ads</p>
-                </Nav.Link>
-                <Nav.Link as={Link} onClick={handleBell} eventKey='14' to='/notifications' style={{ color: "#212529", textDecoration: "none" }}>
+                </Link>
+                <Link onClick={handleBell} eventKey='14' to='/notifications' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
                         {notifCount > 0 ?
                             <>
@@ -113,19 +113,19 @@ function ProfileButton(props) {
                         }
                     </div>
                     <p>Notifications</p>
-                </Nav.Link>
-                <Nav.Link as={Link} eventKey='15' to='/orders' style={{ color: "#212529", textDecoration: "none" }}>
+                </Link>
+                <Link eventKey='15' to='/orders' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
                         <FontAwesomeIcon icon={faShoppingBag} />
                     </div>
                     <p>Orders</p>
-                </Nav.Link>
-                <Nav.Link as={Link} eventKey='16' to='/profile' style={{ color: "#212529", textDecoration: "none" }}>
+                </Link>
+                <Link eventKey='16' to='/profile' style={{ color: "#212529", textDecoration: "none" }}>
                     <div className='text-center'>
                         <FontAwesomeIcon icon={faUser} />
                     </div>
                     <p>Profile</p>
-                </Nav.Link>
+                </Link>
             </div>
         </>
 

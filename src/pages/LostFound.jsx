@@ -90,7 +90,7 @@ function LostFound(props) {
         <>
             <div className="my-3 container-lg px-3 px-md-4">
                 <div className="d-flex flex-column flex-md-row mx-md-2 justify-content-between" >
-                    <h3 className='text-center mb-3' >Lost/Found Portal - IIT Indore</h3>
+                    <h3 className='text-center mb-3' >Lost and Found Portal - IIT Indore</h3>
                     <div className='d-flex mb-3 p-0 justify-content-between'>
                         <Form onSubmit={(e) => {
                             e.preventDefault()
@@ -150,7 +150,7 @@ function LostFound(props) {
 
                 <Modal className='p-0' onHide={() => setOpen(false)} show={open}>
                     <Modal.Header className='fw-bold d-flex justify-content-between'>
-                        <span>LOST / FOUND</span>
+                        <span>Lost and Found</span>
                         <span><FontAwesomeIcon size='lg' icon={faTimes} onClick={() => setOpen(false)} role='button' /></span>
                     </Modal.Header>
                     <Modal.Body>

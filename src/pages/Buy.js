@@ -39,7 +39,7 @@ function Buy(props) {
             <section>
                 <div className="container-fluid px-4">
                     <div className="row">
-                        <div className="col-12 p-0 p-md-2 d-flex flex-column-reverse flex-md-column col-md-3">
+                        <div className="col-12 p-0 p-md-2 d-flex flex-column-reverse flex-md-column col-md-3 col-lg-2">
 
                             <Form onSubmit={handleSubmit} className='my-3 px-md-2' >
                                 <InputGroup>
@@ -51,7 +51,7 @@ function Buy(props) {
                             <div className="row px-0 px-md-4">
 
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
-                                    <Button as={Link} to='/buy/All' className='non-outlined-btn category-btn' variant='transparent'
+                                    <Button as={Link} to='/buy/All' className='non-outlined-btn w-100 text-md-start category-btn' variant='transparent'
                                         style={{
                                             color: category === "All" ? '#' + themeColor : "#212529",
                                             fontWeight: category === "All" ? "bold" : "normal"
@@ -64,7 +64,7 @@ function Buy(props) {
                                 </div>
 
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
-                                    <Button as={Link} to='/buy/Sports' className='non-outlined-btn category-btn' variant='transparent'
+                                    <Button as={Link} to='/buy/Sports' className='non-outlined-btn w-100 text-md-start category-btn' variant='transparent'
                                         style={{
                                             color: category === "Sports" ? '#' + themeColor : "#212529",
                                             fontWeight: category === "Sports" ? "bold" : "normal"
@@ -77,7 +77,7 @@ function Buy(props) {
                                 </div>
 
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
-                                    <Button as={Link} to='/buy/Books' className='non-outlined-btn category-btn' variant='transparent'
+                                    <Button as={Link} to='/buy/Books' className='non-outlined-btn w-100 text-md-start category-btn' variant='transparent'
                                         style={{
                                             color: category === "Books" ? '#' + themeColor : "#212529",
                                             fontWeight: category === "Books" ? "bold" : "normal"
@@ -90,7 +90,7 @@ function Buy(props) {
                                 </div>
 
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
-                                    <Button as={Link} to='/buy/Games' className='non-outlined-btn category-btn' variant='transparent'
+                                    <Button as={Link} to='/buy/Games' className='non-outlined-btn w-100 text-md-start category-btn' variant='transparent'
                                         style={{
                                             color: category === "Games" ? '#' + themeColor : "#212529",
                                             fontWeight: category === "Games" ? "bold" : "normal"
@@ -103,7 +103,7 @@ function Buy(props) {
                                 </div>
 
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
-                                    <Button as={Link} to='/buy/Utilities' className='non-outlined-btn category-btn' variant='transparent'
+                                    <Button as={Link} to='/buy/Utilities' className='non-outlined-btn w-100 text-md-start category-btn' variant='transparent'
                                         style={{
                                             color: category === "Utilities" ? '#' + themeColor : "#212529",
                                             fontWeight: category === "Utilities" ? "bold" : "normal"
@@ -116,7 +116,7 @@ function Buy(props) {
                                 </div>
 
                                 <div style={{ borderBottom: '1px solid #cccccc' }} className="col-2 px-0 col-md-12 text-center text-md-start">
-                                    <Button as={Link} to='/buy/Other' className='non-outlined-btn category-btn' variant='transparent'
+                                    <Button as={Link} to='/buy/Other' className='non-outlined-btn w-100 text-md-start category-btn' variant='transparent'
                                         style={{
                                             color: category === "Other" ? '#' + themeColor : "#212529",
                                             fontWeight: category === "Other" ? "bold" : "normal"
@@ -129,7 +129,7 @@ function Buy(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-12 col-md-9" style={{ borderLeft: '1px solid #cccccc' }}>
+                        <div className="col-12 col-md-9 col-lg-10" style={{ borderLeft: '1px solid #cccccc' }}>
 
                             <div className="row">
 

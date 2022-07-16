@@ -12,10 +12,10 @@ function NavbarComponent(props) {
 
     const { auth } = props
     const textColor = {
-        color: '#212529',
+        color: '#444',
         textDecoration: 'none',
         margin: 'auto',
-        padding: '5px 10px'
+        padding: '5px',
     };
 
 
@@ -24,15 +24,14 @@ function NavbarComponent(props) {
             // borderBottom: "1px solid #cccccc",
             backgroundColor: "white"
         }}>
-            <Container fluid  >
+            <Container fluid className='gap-2' >
                 <Link to="/" className="navbar-brand logo d-flex" >
                     <img src='logo.webp' alt='' className='my-auto' width={70} height={60} />
                 </Link>
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
-                    <Nav className="ms-2">
-                        {auth && <><Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link>  <hr className='m-1 ' /></>}
-
+                    <Nav className="ms-2 gap-0 gap-md-2">
+                        <hr className='m-1 ' />
                         <Dropdown id="collasible-nav-dropdown" className='my-auto'>
                             {auth && <Dropdown.Toggle size='sm'
                                 style={{
@@ -51,9 +50,10 @@ function NavbarComponent(props) {
                             </Dropdown.Menu>
 
                         </Dropdown>
+                        {auth && <><hr className='m-1 ' /><Nav.Link eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link>  </>}
                         {auth && <>
                             <hr className='m-1 ' />
-                            <Nav.Link eventKey='3' as={Link} style={textColor} to="/">Lost/Found</Nav.Link><hr className='m-1 ' />
+                            <Nav.Link eventKey='3' as={Link} style={textColor} to="/">Lost and Found</Nav.Link><hr className='m-1 ' />
                         </>
                         }
 
