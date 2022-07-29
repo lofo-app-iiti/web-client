@@ -10,10 +10,12 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { baseURL, fetchItems, fetchLofoItems } from './apis';
 import Spinner from './components/Spinner';
-import Home from './pages/Home';
 import { Route, Switch } from 'react-router-dom';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import LoginWidget from './components/LoginWidget';
+import ProductPage from './pages/ProductPage';
+import Buy from './pages/Buy';
 
 function App(props) {
     const { user, Update, auth, authLoading, accessToken, setItems, setLofoItems } = props;
@@ -57,9 +59,6 @@ function App(props) {
 
     useEffect(() => {
         setPageLoading(authLoading);
-        if (!auth) {
-            return
-        }
         setPageLoading(true)
         fetchItems.then(res => setItems(res.data))
             .catch(e => console.log(e));
@@ -85,8 +84,10 @@ function App(props) {
                 <Switch>
                     <Route path='/about' exact component={AboutUs} />
                     <Route path='/contact' exact component={ContactUs} />
+                    <Route path='/product/:id' exact component={ProductPage} />
+                    <Route path='/buy/:category' exact component={Buy} />
                     {
-                        pageLoading ? <Spinner /> : auth ? <Body /> : <Home />
+                        pageLoading ? <Spinner /> : auth ? <Body /> : <LoginWidget />
                     }
                 </Switch>
             </div>

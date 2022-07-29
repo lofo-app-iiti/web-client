@@ -9,14 +9,13 @@ import { createLofoItem } from '../apis'
 import LoFoCard from '../components/LoFoCard'
 import { themeColor } from '../styles';
 
-function LostFound(props) {
+function LostPage(props) {
 
     const { lofoItems } = props;
     const [posting, setPosting] = useState(false)
     const [open, setOpen] = useState(false)
     // const [data, setData] = useState([]);
     const [lost, setLost] = useState([]);
-    const [found, setFound] = useState([]);
     const [search, setSearch] = useState('');
     const [file, setFile] = useState('');
 
@@ -24,17 +23,13 @@ function LostFound(props) {
         setLost(
             lofoItems.filter(item => item.status === 'lost' && item.title.toLowerCase().includes(search.toLowerCase()))
         );
-
-        setFound(
-            lofoItems.filter(item => item.status === 'found' && item.title.toLowerCase().includes(search.toLowerCase()))
-        );
-
     }, [search, lofoItems])
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const formData = e.target
         const newItem = new FormData(formData)
+        newItem.append('status', 'lost')
 
         if (file !== '') {
             if (!file.type.includes('image')) {
@@ -48,12 +43,7 @@ function LostFound(props) {
             .then(res => {
                 console.log(res)
                 toast.success(`Posted: ${res.data.title}`);
-                const { status } = res.data
-                if (status === 'lost') {
-                    setLost(prev => [res.data, ...prev])
-                } else {
-                    setFound(prev => [res.data, ...prev])
-                }
+                setLost(prev => [res.data, ...prev])
                 setPosting(false);
                 setOpen(false)
             })
@@ -74,7 +64,6 @@ function LostFound(props) {
                                 props.items.map((item, i) =>
                                     <div key={i} className="col-12 col-md-6 p-0 py-2 p-md-2">
                                         <LoFoCard
-                                            setFound={setFound}
                                             setLost={setLost}
                                             item={item} />
                                     </div>
@@ -89,49 +78,44 @@ function LostFound(props) {
     return (
         <>
             <div className="my-3 container-lg px-3 px-md-4">
-                <div className="d-flex flex-column flex-md-row mx-md-2 justify-content-between" >
-                    <h3 className='text-center mb-3' >Lost and Found Portal - IIT Indore</h3>
-                    <div className='d-flex mb-3 p-0 justify-content-between'>
-                        <Form onSubmit={(e) => {
-                            e.preventDefault()
-                        }} >
-                            <InputGroup
-                                style={{
-                                    width: "90%",
-                                }}
-                            >
-                                <Form.Control
-                                    placeholder='Search...'
-                                    className='non-outlined-btn'
-                                    onChange={(e) => setSearch(e.target.value)} value={search}
-                                    style={{
-                                        borderRight: 'none'
-                                    }} />
-                                <Button size='sm' onClick={() => setSearch('')}
-                                    variant='transparent' className='text-secondary'
-                                    style={{
-                                        border: '1px solid #ced4da',
-                                        borderLeft: 'none'
-                                    }}
-                                ><FontAwesomeIcon icon={faTimes}
-                                    style={{
-                                        opacity: search === '' ? '0' : '1'
-                                    }}
-                                    /></Button>
 
-                            </InputGroup>
-                        </Form>
-                        <div className='p-1 px-2 px-md-3 my-auto rounded ' role={'button'} onClick={() => setOpen(true)}
-                            style={{
-                                fontSize: 13,
-                                backgroundColor: '#' + themeColor,
-                                color: "#fff"
-                            }}
-                        >
-                            Add <FontAwesomeIcon icon={faPlus} />
-                        </div>
+                <div className='d-flex mb-3 ms-2 p-0 justify-content-between'>
+                    <Form onSubmit={(e) => {
+                        e.preventDefault()
+                    }} className='w-50' >
+                        <InputGroup >
+                            <Form.Control
+                                placeholder='Search...'
+                                className='non-outlined-btn'
+                                onChange={(e) => setSearch(e.target.value)} value={search}
+                                style={{
+                                    borderRight: 'none'
+                                }} />
+                            <Button size='sm' onClick={() => setSearch('')}
+                                variant='transparent' className='text-secondary'
+                                style={{
+                                    border: '1px solid #ced4da',
+                                    borderLeft: 'none'
+                                }}
+                            ><FontAwesomeIcon icon={faTimes}
+                                style={{
+                                    opacity: search === '' ? '0' : '1'
+                                }}
+                                /></Button>
+
+                        </InputGroup>
+                    </Form>
+                    <div className='p-1 px-2 my-auto rounded ' role={'button'} onClick={() => setOpen(true)}
+                        style={{
+                            fontSize: 13,
+                            backgroundColor: '#' + themeColor,
+                            color: "#fff"
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faPlus} /><span className='ms-2'>Add a Lost Item</span>
                     </div>
                 </div>
+
 
                 <Tabs
                     className='d-flex mx-md-2'
@@ -140,17 +124,14 @@ function LostFound(props) {
                     id="noanim-tab-example"
 
                 >
-                    <Tab eventKey="lost" title="Lost">
+                    <Tab eventKey="lost" title="Lost Items">
                         <Data items={lost} />
-                    </Tab>
-                    <Tab eventKey="found" title="Found">
-                        <Data items={found} />
                     </Tab>
                 </Tabs>
 
                 <Modal className='p-0' onHide={() => setOpen(false)} show={open}>
                     <Modal.Header className='fw-bold d-flex justify-content-between'>
-                        <span>Lost and Found</span>
+                        <span>Add a Lost Item</span>
                         <span><FontAwesomeIcon size='lg' icon={faTimes} onClick={() => setOpen(false)} role='button' /></span>
                     </Modal.Header>
                     <Modal.Body>
@@ -170,22 +151,6 @@ function LostFound(props) {
                                     </div>
 
                                     <div className="d-flex justify-content-center flex-column bd-highlight mb-3">
-
-                                        <div className="col-12  d-flex justify-content-center flex-column bd-highlight mb-4">
-
-                                            <label htmlFor='status' className="form-label">Status<span className='text-danger fw-bold'>*</span></label>
-
-                                            <div className="row ms-2">
-                                                <div className="me-3 d-flex col-auto">
-                                                    <input type="radio" id="lost" name="status" value={'lost'} />
-                                                    <label className='ms-2' htmlFor="lost">Lost</label>
-                                                </div>
-                                                <div className="me-3 d-flex  col">
-                                                    <input type="radio" id="found" name="status" value={'found'} />
-                                                    <label className='ms-2' htmlFor="found">Found</label>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div className="col-6 d-flex justify-content-center flex-column bd-highlight mb-4">
                                             <label htmlFor="date" className="form-label" required>Date of Lost/Found<span className='text-danger fw-bold'>*</span></label>
@@ -228,4 +193,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default withRouter(connect(mapStateToProps)(LostFound));
+export default withRouter(connect(mapStateToProps)(LostPage));

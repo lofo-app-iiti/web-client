@@ -18,7 +18,7 @@ export default function AboutUs() {
                             <br />
                         </div>
                         <div className='col-4 box'>
-                            <img className="w-100 h-auto" alt="" src="bg.jpg" />
+                            <img className=" ms-5 w-75" alt="" src="logo.webp" />
                         </div>
 
                         <div className='col-12'>
@@ -49,7 +49,7 @@ export default function AboutUs() {
                             <br />
                         </div>
                         <div className='col-4 box'>
-                            <img className="w-100 " alt="" src="about-us2.jpg" />
+                            <img className="w-100 " alt="" src="lofo.jpg" />
                         </div>
 
                         <div className='col-12'>
@@ -147,7 +147,7 @@ export default function AboutUs() {
                             <br />
                         </div>
                         <div className='col-4 box'>
-                            <img className="w-100 " alt="" src="about-us3.jpg" />
+                            <img className="w-100 " alt="" src="buy-sell.webp" />
                         </div>
 
                         <div className='col-12'>

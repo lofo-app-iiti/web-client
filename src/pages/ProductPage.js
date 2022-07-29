@@ -16,7 +16,7 @@ import { fetchItemById } from '../apis';
 
 //MAIN FUNCTION
 function ProductPage(props) {
-    const { user } = props;
+    const { user, auth } = props;
     const { id } = useParams()
     const [productDetails, setProductDetails] = useState({})
     const [images, setImages] = useState([{ url: null }])
@@ -152,11 +152,11 @@ function ProductPage(props) {
                                                             : <Button size='sm' className="btn-warning non-outlined-btn btn-md mr-1 mb-2" disabled  >Notified</Button>
                                                     : productDetails.sold ?
                                                         <Button size='sm' className="btn-danger non-outlined-btn btn-md mr-1 mb-2" disabled  >Sold out!</Button>
-                                                        : <BuyBtn id={id} product={productDetails} />
+                                                        : auth ? <BuyBtn id={id} product={productDetails} /> : <div className="text-danger">Login to buy</div>
 
                                             }
                                             {!productDetails.sold && <span className='ms-2' > <WishBtn item={productDetails} />Add to wishlist </span>}
-                                        </> : <BuyBtn />
+                                        </> : auth ? <BuyBtn id={id} product={productDetails} /> : <div className="text-danger">Login to buy</div>
                                 }
                             </div>
                         </div>

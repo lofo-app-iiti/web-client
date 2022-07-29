@@ -1,34 +1,44 @@
 import React from 'react'
-import LoginButton from '../components/LoginButton'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
     return (
-        <div>
-            <div className="row m-0">
-                <div className="col-12 col-lg-8 d-flex align-items-center p-0">
-                    <img src="bg.jpg" className='my-auto' style={{ width: "100%" }} alt="" />
+        <div className="container-lg py-5">
+            <div className="row">
+                <div className="col-6  p-3">
+                    <div className="card p-4">
+                        <h2>Lost Items</h2>
+                        <p>'Lost Items' page contains all lost items of IITI community. People can add a lost Item there with required details.</p>
+                        <Link className='non-outlined-btn text-decoration-none' to={'/lost'}>
+                            View &#8594;
+                        </Link>
+                    </div>
                 </div>
-                <div className="col-12 col-lg-4" style={{
-                    padding: "50px 30px 50px 30px"
-                }}>
-                    <div className="d-flex px-2 gap-3 h-100 flex-column bg-light justify-content-center align-items-center"
-                        style={{
-                            // backgroundColor: "#01268f",
-                            borderRadius: 20
-
-                        }}>
-                        <img src="logo2.png" alt="" width={140} height={120} />
-                        <div className='text-center'>
-                            <div className='h5 text-center'>Welcome to Lost / Found Portal</div>
-                            <div className='text-secondary h5'>IIT Indore</div>
-                        </div>
-                        <div className='text-center'>
-                            <div className="login">
-                                <LoginButton text={'Login with Institude Id'} />
-                            </div>
-                            <p className='text-secondary my-2'>(iiti.ac.in)</p>
-                        </div>
-
+                <div className="col-6  p-3">
+                    <div className="card p-4">
+                        <h2>Found Items</h2>
+                        <p>'Found Items' page contains all found items of IITI community. People can add a found Item there with required details.</p>
+                        <Link className='non-outlined-btn text-decoration-none' to={'/found'}>
+                            View &#8594;
+                        </Link>
+                    </div>
+                </div>
+                <div className="col-6  p-3">
+                    <div className="card p-4">
+                        <h2>Buy Items</h2>
+                        <p>'Buy' page contains various items with categories, so that people can buy items with ease.</p>
+                        <Link className='non-outlined-btn text-decoration-none' to={'/buy/All'}>
+                            View &#8594;
+                        </Link>
+                    </div>
+                </div>
+                <div className="col-6  p-3">
+                    <div className="card p-4">
+                        <h2>Sell Items</h2>
+                        <p>One can sell their stuff to others if it’s not useful to them further or they are passing out of college.</p>
+                        <Link className='non-outlined-btn text-decoration-none' to={'/sell'}>
+                            View &#8594;
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -116,7 +116,7 @@ function LoFoCard(props) {
                             <span className="me-2">
                                 {item.claimed ?
                                     <span disabled >
-                                        <FontAwesomeIcon size='sm' icon={faCheckCircle} className='ms-1' />
+                                        <FontAwesomeIcon size='lg' icon={faCheckCircle} className='ms-1' />
                                     </span> :
                                     item.userEmail !== user.email ?
                                         <div className='rounded' size='sm' role={'button'} onClick={() => setOpen(true)}
