@@ -18,6 +18,7 @@ import ProductPage from './pages/ProductPage';
 import Buy from './pages/Buy';
 
 function App(props) {
+    const history = useHistory()
     const { user, Update, auth, authLoading, accessToken, setItems, setLofoItems } = props;
     const { notifications } = props.user
     const [pageLoading, setPageLoading] = useState(null)
@@ -31,6 +32,18 @@ function App(props) {
             err => {
                 return Promise.reject(err);
             });
+
+        axios.interceptors.response.use((response) => {
+            return response
+            }, async function (error) {
+            if (error.response.status === 403) {
+                localStorage.setItem('accessToken',null)
+                props.Logout();
+                history.push('/')
+                window.location.reload()
+            }
+            return Promise.reject(error);
+        });
     }
 
     const socket = useRef(null);
@@ -126,6 +139,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setLofoItems: (lofoItems) => {
             dispatch({ type: "SET_LOFOITEMS", payload: lofoItems })
+        },
+        Logout: () => {
+            dispatch({ type: 'CLEAR_USER' })
         }
     }
 }
