@@ -46,6 +46,7 @@ function LoginButton(props) {
                 user.orders = orders
                 user.ads = ads;
                 user.favourites = favourites;
+                localStorage.setItem('accessToken', accessToken)
                 props.login({ user: user, accessToken: accessToken });
                 history.push('/')
             })

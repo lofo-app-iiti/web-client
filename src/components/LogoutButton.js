@@ -10,6 +10,7 @@ import clientID from '../googleClient';
 function LogoutButton(props) {
     const history = useHistory()
     const Logout = () => {
+        localStorage.setItem('accessToken',null)
         props.Logout();
         history.push('/')
         window.location.reload()

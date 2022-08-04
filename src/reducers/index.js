@@ -15,9 +15,9 @@ const initialState = {
     },
     lofoItems: [],
     items: [],
-    authorised: false,
+    authorised: localStorage.getItem('accessToken') ? true : false,
     authLoading: false,
-    accessToken: null
+    accessToken: localStorage.getItem('accessToken')
 }
 
 const Reducers = (state = initialState, action) => {
