@@ -64,7 +64,11 @@ function NavbarComponent(props) {
 
                         </Dropdown> */}
                         <hr className='m-1 ' />
-                        <Nav.Link className='page-links' id='buy' eventKey='2' as={Link} style={textColor} to="/buy/All"  >Buy</Nav.Link>
+                        {auth && <>
+                            <hr className='m-1 ' />
+                            <Nav.Link className='page-links' id='buy' eventKey='2' as={Link} style={textColor} to="/buy/All"  >Buy</Nav.Link>
+                            </>
+                        }
                         {auth && <>
                             <hr className='m-1 ' />
                             <Nav.Link className='page-links' id='sell' eventKey='2' as={Link} style={textColor} to="/sell"  >Sell</Nav.Link></>

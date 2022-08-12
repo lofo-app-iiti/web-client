@@ -4,11 +4,8 @@ import GoogleLogin from 'react-google-login';
 import clientID from '../googleClient';
 import { toast } from 'react-toastify';
 import { googleLogin } from '../apis';
-import { useHistory } from 'react-router';
 
 function LoginButton(props) {
-
-    const history = useHistory();
 
     const LoginSuccess = (res) => {
 
@@ -21,6 +18,7 @@ function LoginButton(props) {
             notifications: [],
             orders: []
         }
+        console.log("profile image" , basicProfile.imageUrl)
         googleLogin(res.tokenId)
             .then(res => {
                 const {
@@ -36,8 +34,9 @@ function LoginButton(props) {
                 } = res.data.user;
 
                 const { accessToken } = res.data;
-
+                localStorage.setItem('imageUrl',basicProfile.imageUrl)
                 user._id = _id;
+                user.imageUrl = basicProfile.imageUrl
                 user.mobile = mobile
                 user.program = program
                 user.department = department
@@ -47,8 +46,8 @@ function LoginButton(props) {
                 user.ads = ads;
                 user.favourites = favourites;
                 localStorage.setItem('accessToken', accessToken)
+                console.log("setting user during login as ",user)
                 props.login({ user: user, accessToken: accessToken });
-                history.push('/')
             })
     };
 
@@ -79,7 +78,7 @@ function LoginButton(props) {
                 clientId={clientID}
                 hostedDomain={"iiti.ac.in"}
                 onSuccess={LoginSuccess}
-                isSignedIn={true}
+                isSignedIn={false}
                 onFailure={LoginFail}
                 cookiePolicy={'single_host_origin'}
             />
@@ -96,7 +95,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         login: (data) => {
-            dispatch({ type: 'SET_USER', payload: data })
+            dispatch({ type: 'LOGIN_USER', payload: data })
         }
     }
 };

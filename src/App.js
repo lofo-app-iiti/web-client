@@ -10,41 +10,33 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { baseURL, fetchItems, fetchLofoItems } from './apis';
 import Spinner from './components/Spinner';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import LoginWidget from './components/LoginWidget';
-import ProductPage from './pages/ProductPage';
-import Buy from './pages/Buy';
 
 function App(props) {
     const history = useHistory()
+
     const { user, Update, auth, authLoading, accessToken, setItems, setLofoItems } = props;
     const { notifications } = props.user
     const [pageLoading, setPageLoading] = useState(null)
 
-    if (accessToken) {
-        axios.interceptors.request.use(
-            config => {
-                config.headers.authorization = `Bearer ${accessToken}`;
-                return config;
-            },
-            err => {
-                return Promise.reject(err);
-            });
+    console.log("In app")
+    console.log("app.js ",auth,accessToken)
 
-        axios.interceptors.response.use((response) => {
-            return response
-            }, async function (error) {
-            if (error.response.status === 403) {
-                localStorage.setItem('accessToken',null)
-                props.Logout();
-                history.push('/')
-                window.location.reload()
-            }
-            return Promise.reject(error);
-        });
-    }
+    axios.interceptors.response.use((response) => {
+        return response
+        }, async function (error) {
+        if (error.response.status === 403) {
+            console.log("Interceptor")
+            localStorage.setItem('accessToken',null)
+            props.Logout();
+            history.push('/')
+        }
+        return Promise.reject(error);
+    });
+    
 
     const socket = useRef(null);
     const notifs = useRef(notifications);
@@ -97,8 +89,6 @@ function App(props) {
                 <Switch>
                     <Route path='/about' exact component={AboutUs} />
                     <Route path='/contact' exact component={ContactUs} />
-                    <Route path='/product/:id' exact component={ProductPage} />
-                    <Route path='/buy/:category' exact component={Buy} />
                     {
                         pageLoading ? <Spinner /> : auth ? <Body /> : <LoginWidget />
                     }
@@ -117,10 +107,9 @@ function App(props) {
             />
         </>
     );
-
 }
 
-const mapStateToProps = (state) => {
+let mapStateToProps = (state) => {
     return {
         user: state.user,
         auth: state.authorised,

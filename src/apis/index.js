@@ -8,6 +8,8 @@ export const admin = ["lofo@iiti.ac.in"]
 // auth
 export const googleLogin = (googleToken) => axios.post(baseURL + '/api/googlelogin', { googleToken })
 
+export const getUser = () => axios.get(baseURL + "/api/user/getUser", { headers: { authorization: localStorage.getItem('accessToken') } })
+
 // items
 export const fetchItems = axios.get(baseURL + "/api/items");
 export const fetchItemById = (id) => axios.get(baseURL + "/api/items/" + id);

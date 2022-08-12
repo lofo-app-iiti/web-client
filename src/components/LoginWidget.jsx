@@ -11,6 +11,8 @@ function LoginWidget(props) {
         auth && history.push('/')
     })
 
+    console.log("In login widget",auth)
+
     return (
         <div className="row h-100 m-0">
             <div className="col-9 d-flex align-items-center m-auto p-0 hero">

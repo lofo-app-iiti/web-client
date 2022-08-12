@@ -20,17 +20,43 @@ const initialState = {
     accessToken: localStorage.getItem('accessToken')
 }
 
-const Reducers = (state = initialState, action) => {
+const Reducers = (state =  {
+        user: {
+            _id: '',
+            name: '',
+            imageUrl: '',
+            email: '',
+            mobile: 0,
+            program: '',
+            department: '',
+            graduationYear: 0,
+            notifications: [],
+            orders: [],
+            ads: [],
+            wishlist: [],
+        },
+        lofoItems: [],
+        items: [],
+        authorised: localStorage.getItem('accessToken') ? true : false,
+        authLoading: false,
+        accessToken: localStorage.getItem('accessToken')
+    }, action) => {
     switch (action.type) {
 
         // user Reducer ----------------------------------------------->
-        case 'SET_USER':
+        case 'LOGIN_USER':
             return {
                 ...state,
                 user: action.payload.user,
                 authorised: true,
                 authLoading: false,
                 accessToken: action.payload.accessToken
+            };
+        
+        case 'SET_USER':
+            return{
+                ...state,
+                user : action.payload.user
             };
 
         case 'CLEAR_USER':

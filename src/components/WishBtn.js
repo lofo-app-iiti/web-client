@@ -10,6 +10,7 @@ import { addToWishlist, removeFromWishlist } from '../apis';
 const WishBtn = (props) => {
     const { Auth } = props;
     const { user } = props;
+    console.log("in wish btn ",Auth,user)
     if (Auth) {
         const favourite = (item) => {
             const newUser = {
