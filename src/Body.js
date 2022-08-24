@@ -41,7 +41,7 @@ function Body(props) {
                     console.log("User found")
                     const {
                         _id,
-                        imageUrl,
+                        // imageUrl,
                         mobile,
                         program,
                         department,

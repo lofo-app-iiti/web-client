@@ -12,7 +12,7 @@ function NavbarComponent(props) {
 
     useEffect(() => {
         setPath(window.location.pathname)
-    })
+    },[setPath])
 
     useEffect(() => {
         if (!path) return
