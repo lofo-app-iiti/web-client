@@ -6,7 +6,7 @@ export const admin = ["lofo@iiti.ac.in"]
 
 
 // auth
-export const googleLogin = (googleToken) => axios.post(baseURL + '/api/googlelogin', { googleToken })
+export const googleLogin = (name,email) => axios.post(baseURL + '/api/googlelogin', { name , email })
 
 export const getUser = () => axios.get(baseURL + "/api/user/getUser", { headers: { authorization: localStorage.getItem('accessToken') } })
 
