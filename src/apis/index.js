@@ -15,7 +15,7 @@ export const fetchItems = axios.get(baseURL + "/api/items");
 export const fetchItemById = (id) => axios.get(baseURL + "/api/items/" + id);
 export const deleteItem = (id) => axios.delete(baseURL + "/api/items/" + id , { headers: { authorization: localStorage.getItem('accessToken') } });
 export const createItem = (doc) => axios.post(baseURL + "/api/items/", doc , { headers: { authorization: localStorage.getItem('accessToken') } });
-export const buyItem = (id, title, mobile, imageUrl) => axios.put(baseURL + `/api/items/buy/${id}`, { headers: { authorization: localStorage.getItem('accessToken') } },
+export const buyItem = (id, title, mobile, imageUrl) => axios.put(baseURL + `/api/items/buy/${id}`,
 {
     notification: {
         message: "wants to buy",
@@ -24,7 +24,7 @@ export const buyItem = (id, title, mobile, imageUrl) => axios.put(baseURL + `/ap
         dp: imageUrl,
         itemId: id
     },
-})
+}, { headers: { authorization: localStorage.getItem('accessToken') }})
 
 export const addToWishlist = (id) => axios.put(baseURL + `/api/user/favourites/${id}`,{ headers: { authorization: localStorage.getItem('accessToken') } })
 export const removeFromWishlist = (id) => axios.delete(baseURL + `/api/user/favourites/${id}`,{ headers: { authorization: localStorage.getItem('accessToken') } })
@@ -47,7 +47,7 @@ export const setMobileNumber = (mobile) => axios.put(baseURL + `/api/user`, { mo
 export const notify = (id, notification) => axios.put(baseURL + `/api/lost-found/notify/${id}`, { notification } , { headers: { authorization: localStorage.getItem('accessToken') } })
 export const deleteNotif = (id) => axios.delete(baseURL + `/api/user/notif/${id}` , { headers: { authorization: localStorage.getItem('accessToken') } })
 export const updateNotifBell = () => axios.put(baseURL + `/api/user/notifbell` , { headers: { authorization: localStorage.getItem('accessToken') } })
-export const approve = (user, buyerEmail, itemId, itemTitle, notifId) => axios.put(baseURL + `/api/user/approve/${buyerEmail}`,{ headers: { authorization: localStorage.getItem('accessToken') } },
+export const approve = (user, buyerEmail, itemId, itemTitle, notifId) => axios.put(baseURL + `/api/user/approve/${buyerEmail}`,
     {
         _id: user._id,
         notification: {
@@ -58,4 +58,4 @@ export const approve = (user, buyerEmail, itemId, itemTitle, notifId) => axios.p
             itemId: itemId,
         },
         notifId
-    })
+    } , { headers: { authorization: localStorage.getItem('accessToken') }})
