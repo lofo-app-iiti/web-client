@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sell from './pages/Sell';
 import Profile from './pages/ProfilePage';
 import { Route, useHistory} from 'react-router-dom';
@@ -20,8 +20,11 @@ function Body(props) {
     const history = useHistory();
 
     const {Logout,setUser,auth,user} = props;
+    const [pageLoading, setPageLoading] = useState(null)
 
     useEffect(() => {
+
+        setPageLoading(true);
 
         const getUserHelper = async () => {
             
@@ -74,6 +77,8 @@ function Body(props) {
                 Logout();
                 history.push('/')
             }
+
+            setPageLoading(false);
         };
 
         getUserHelper(); 
@@ -87,7 +92,7 @@ function Body(props) {
     return (
         <>
         {
-            (auth && user._id!=='')?
+            (auth && user._id!=='' && !pageLoading)?
             <>
             <Route key={0} path='/notifications' exact component={Notifications} />
             <Route key={1} path='/profile' exact component={Profile} />
