@@ -6,6 +6,7 @@ import { Container, Navbar, Nav } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { themeColor } from '../styles';
+import logo from '../svgs/logo.webp'
 
 function NavbarComponent(props) {
     const [path, setPath] = useState(null);
@@ -41,7 +42,7 @@ function NavbarComponent(props) {
         }}>
             <Container fluid className='gap-2' >
                 <Link to="/" className="navbar-brand logo d-flex" >
-                    <img src='logo.webp' alt='' className='my-auto' width={70} height={60} />
+                    <img src={logo} alt='' className='my-auto' width={70} height={60} />
                 </Link>
                 <Navbar.Toggle className='non-outlined-btn' />
                 <Navbar.Collapse >
